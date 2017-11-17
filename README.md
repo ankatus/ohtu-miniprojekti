@@ -1,8 +1,8 @@
 # ohtu-miniprojekti
 
 Definition of Done (alustava luonnos)
--Toimii
--Testattu
+-Testikattavuus vähintään 80 %
+-Ohjelma käynnistyy
 -Koodi käyty läpi
 -Hyväksymiskriteerit täyttyvät
 -Asiakas hyväksyy
