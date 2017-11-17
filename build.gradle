@@ -11,8 +11,6 @@ apply plugin: 'application'
 // Support for jacoco
 apply plugin: 'jacoco'
 
-// Yritetään Netbeans -pluginin lisäystä arvaamalla että se tehdään näin:
-apply plugin: 'netbeans'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
