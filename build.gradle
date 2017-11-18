@@ -31,11 +31,11 @@ dependencies {
 }
 
 // Define the main class for the application
-mainClassName = 'lukuvinkki.main.App'
+mainClassName = 'lukuvinkki.App'
 
 jar {
     manifest {
-        attributes 'Main-Class': 'lukuvinkki.main.App'
+        attributes 'Main-Class': 'lukuvinkki.App'
     }
 }
 
