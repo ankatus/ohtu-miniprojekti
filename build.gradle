@@ -31,11 +31,11 @@ dependencies {
 
 // Define the main class for the application
 
-mainClassName = 'lukuvinkki.App'
+mainClassName = 'Main'
 
 jar {
     manifest {
-        attributes 'Main-Class': 'lukuvinkki.App'
+        attributes 'Main-Class': 'Main'
     }
 }
 
@@ -47,4 +47,8 @@ jacocoTestReport {
 }
 
 check.dependsOn jacocoTestReport
+
+run {
+	standardInput = System.in;
+}
 
