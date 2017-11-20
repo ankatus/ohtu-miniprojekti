@@ -1,5 +1,8 @@
+import UserInterface.TextUI;
+
 public class Main {
 	public static void main(String[] args) {
-		System.out.println("hello!");
+		TextUI ui = new TextUI();
+		ui.run();
 	}
 }
