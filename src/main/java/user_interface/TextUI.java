@@ -1,14 +1,15 @@
 package user_interface;
 
+import data_access.DAO;
 import data_access.KirjaDAO;
 import domain.Lukuvinkki;
 
 public class TextUI {
 
 	private IO io;
-	private KirjaDAO dao;
+	private DAO dao;
 
-	public TextUI(IO io, KirjaDAO dao) {
+	public TextUI(IO io, DAO dao) {
 		this.io = io;
 		this.dao = dao;
 	}
@@ -26,8 +27,7 @@ public class TextUI {
 			switch (input) {
 
 				case "1":
-					//tänne kirjan lisääminen
-					io.println("toimintoa ei ole vielä toteutettu");
+					addBook();
 					break;
 
 				case "2":
@@ -51,4 +51,8 @@ public class TextUI {
 		}
 		io.println("Kiitos ja näkemiin!");
 	}
+
+    private void addBook() {
+        dao.save();
+    }
 }

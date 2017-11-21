@@ -1,12 +1,11 @@
-import data_access.StubKirjaDAO;
-import domain.StubKirja;
+import data_access.Database;
+import data_access.KirjaDAO;
 import user_interface.TerminalIO;
 import user_interface.TextUI;
-import java.util.Scanner;
 
 public class Main {
-	public static void main(String[] args) {
-		TextUI ui = new TextUI(new TerminalIO(), new StubKirjaDAO());
+	public static void main(String[] args) throws ClassNotFoundException {
+                TextUI ui = new TextUI(new TerminalIO(), new KirjaDAO(new Database("/src/sql/Database.db")));
 		ui.run();
 	}
 }

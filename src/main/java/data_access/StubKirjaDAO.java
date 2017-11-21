@@ -5,7 +5,7 @@ import domain.StubKirja;
 
 import java.util.ArrayList;
 
-public class StubKirjaDAO implements KirjaDAO {
+public class StubKirjaDAO implements DAO {
 
     @Override
     public ArrayList<Lukuvinkki> getAll() {
@@ -18,4 +18,8 @@ public class StubKirjaDAO implements KirjaDAO {
         list.add(new StubKirja());
         return list;
     }
+
+    
+
+    
 }

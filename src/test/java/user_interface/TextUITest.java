@@ -1,5 +1,6 @@
 package user_interface;
 
+import data_access.DAO;
 import data_access.KirjaDAO;
 import data_access.StubKirjaDAO;
 import domain.StubKirja;
@@ -16,7 +17,7 @@ public class TextUITest {
     @Before
     public void setUp() throws Exception {
         testIO = new StubIO("1","2","a","x");
-        KirjaDAO testDAO = new StubKirjaDAO();
+        DAO testDAO = new StubKirjaDAO();
         ui = new TextUI(testIO, testDAO);
     }
 
