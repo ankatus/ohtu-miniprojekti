@@ -1,0 +1,6 @@
+CREATE TABLE Kirja(
+id integer PRIMARY KEY,
+otsikko varchar(100) NOT NULL,
+kirjoittaja varchar(50) NOT NULL,
+isbn varchar(50)
+);
