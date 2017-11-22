@@ -79,7 +79,7 @@ public class TextUI {
         io.println("Kiitos ja näkemiin!");
     }
 
-    public void addBook() throws SQLException {
+    private void addBook() throws SQLException {
         io.println("Kirjan nimi: ");
         String otsikko = io.nextLine();
         io.println("Tekijän nimi muodossa \"Etunimi, Sukunimi\": ");
