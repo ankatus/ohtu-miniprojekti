@@ -1,12 +1,13 @@
 package user_interface;
 
-import data_access.KirjaDAO;
+import data_access.DbKirjaDAO;
 import data_access.StubKirjaDAO;
 import domain.StubKirja;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+import data_access.KirjaDAO;
 
 public class TextUITest {
 
@@ -17,8 +18,8 @@ public class TextUITest {
 
     @Before
     public void setUp() throws Exception {
-        testIO = new StubIO("2","a","x");
-        tyyppiIO = new StubIO("1","1","5","x","x");
+        testIO = new StubIO("2", "a", "x");
+        tyyppiIO = new StubIO("1","5","x","x");
         KirjaDAO testDAO = new StubKirjaDAO();
         runUI = new TextUI(testIO, testDAO);
         tyyppiUI = new TextUI(tyyppiIO, testDAO);
@@ -48,22 +49,17 @@ public class TextUITest {
         assertEquals("Komento (1=lisää, 2=listaa, x=lopeta):", testIO.outputs.get(17));
         assertEquals("Kiitos ja näkemiin!", testIO.outputs.get(18));
     }
-    
+
     @Test
-    public void tyypinValinta() throws Exception{
+    public void tyypinValinta() throws Exception {
         tyyppiUI.run();
         assertEquals("Hello!", tyyppiIO.outputs.get(0));
         assertEquals("Komento (1=lisää, 2=listaa, x=lopeta):", tyyppiIO.outputs.get(1));
         assertEquals("Valitse lisättävä tyyppi", tyyppiIO.outputs.get(2));
         assertEquals("Komento (1=kirja, x=palaa)", tyyppiIO.outputs.get(3));
-        assertEquals("Tässä lisättäisiin kirja", tyyppiIO.outputs.get(4));
+        assertEquals("Tuntematon komento.", tyyppiIO.outputs.get(4));
         assertEquals("Valitse lisättävä tyyppi", tyyppiIO.outputs.get(5));
         assertEquals("Komento (1=kirja, x=palaa)", tyyppiIO.outputs.get(6));
-        assertEquals("Tuntematon komento.", tyyppiIO.outputs.get(7));
-        assertEquals("Valitse lisättävä tyyppi", tyyppiIO.outputs.get(8));
-        assertEquals("Komento (1=kirja, x=palaa)", tyyppiIO.outputs.get(9));
-        assertEquals("Komento (1=lisää, 2=listaa, x=lopeta):", tyyppiIO.outputs.get(10));
-        assertEquals("Kiitos ja näkemiin!", tyyppiIO.outputs.get(11));
     }
 
 }

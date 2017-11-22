@@ -1,12 +1,14 @@
-import data_access.StubKirjaDAO;
-import domain.StubKirja;
+import data_access.Database;
+import data_access.DbKirjaDAO;
+import java.sql.SQLException;
 import user_interface.TerminalIO;
 import user_interface.TextUI;
-import java.util.Scanner;
 
 public class Main {
-	public static void main(String[] args) {
-		TextUI ui = new TextUI(new TerminalIO(), new StubKirjaDAO());
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+            Database database = new Database("lukuvinkkikirjasto.db");
+            DbKirjaDAO kirjaDAO = new DbKirjaDAO(database);
+            TextUI ui = new TextUI(new TerminalIO(), kirjaDAO);
 		ui.run();
 	}
 }
