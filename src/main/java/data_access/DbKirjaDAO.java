@@ -4,8 +4,11 @@ import domain.Kirja;
 import domain.Lukuvinkki;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DbKirjaDAO implements KirjaDAO {
 
@@ -15,7 +18,6 @@ public class DbKirjaDAO implements KirjaDAO {
         this.database = database;
     }
 
-    
     @Override
     public void save(Kirja kirja) {
 
@@ -32,7 +34,7 @@ public class DbKirjaDAO implements KirjaDAO {
             stmt.close();
             connection.commit();
             connection.close();
-            
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -41,7 +43,25 @@ public class DbKirjaDAO implements KirjaDAO {
 
     @Override
     public ArrayList<Lukuvinkki> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Lukuvinkki> kirja_lukuvinkit = new ArrayList();
+        
+        try {
+            Connection connection = database.connect();
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Kirja");
+
+            ResultSet rS = stmt.executeQuery();
+
+            while(rS.next()) {
+                Lukuvinkki kirja = new Kirja(rS.getString("otsikko"), rS.getString("kirjoittaja"), rS.getString("isbn"));
+                
+                kirja_lukuvinkit.add(kirja);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+        return kirja_lukuvinkit;
     }
 
 }
