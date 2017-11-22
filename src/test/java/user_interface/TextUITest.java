@@ -57,6 +57,13 @@ public class TextUITest {
         assertEquals("Valitse lisättävä tyyppi", tyyppiIO.outputs.get(2));
         assertEquals("Komento (1=kirja, x=palaa)", tyyppiIO.outputs.get(3));
         assertEquals("Tässä lisättäisiin kirja", tyyppiIO.outputs.get(4));
+        assertEquals("Valitse lisättävä tyyppi", tyyppiIO.outputs.get(5));
+        assertEquals("Komento (1=kirja, x=palaa)", tyyppiIO.outputs.get(6));
+        assertEquals("Tuntematon komento.", tyyppiIO.outputs.get(7));
+        assertEquals("Valitse lisättävä tyyppi", tyyppiIO.outputs.get(8));
+        assertEquals("Komento (1=kirja, x=palaa)", tyyppiIO.outputs.get(9));
+        assertEquals("Komento (1=lisää, 2=listaa, x=lopeta):", tyyppiIO.outputs.get(10));
+        assertEquals("Kiitos ja näkemiin!", tyyppiIO.outputs.get(11));
     }
 
 }
