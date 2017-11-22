@@ -1,5 +1,10 @@
 
 
+plugins {
+	// Mahdollistaa riippuvuudet sisältävän jar tiedston luomisen
+	id 'com.github.johnrengelman.shadow' version '2.0.1'
+}
+
 // Apply the java plugin to add support for Java
 apply plugin: 'java'
 
@@ -9,10 +14,8 @@ apply plugin: 'application'
 // Support for jacoco
 apply plugin: 'jacoco'
 
-
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-
 
 // In this section you declare where to find the dependencies of your project
 repositories {
