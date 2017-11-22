@@ -19,7 +19,7 @@ public class TextUITest {
     @Before
     public void setUp() throws Exception {
         testIO = new StubIO("2", "a", "x");
-        tyyppiIO = new StubIO("1","5","x","x");
+        tyyppiIO = new StubIO("1","5","1","Kirja","tekija","222","x","x");
         KirjaDAO testDAO = new StubKirjaDAO();
         runUI = new TextUI(testIO, testDAO);
         tyyppiUI = new TextUI(tyyppiIO, testDAO);
@@ -60,6 +60,7 @@ public class TextUITest {
         assertEquals("Tuntematon komento.", tyyppiIO.outputs.get(4));
         assertEquals("Valitse lisättävä tyyppi", tyyppiIO.outputs.get(5));
         assertEquals("Komento (1=kirja, x=palaa)", tyyppiIO.outputs.get(6));
+        assertEquals("Kirjan nimi: ", tyyppiIO.outputs.get(7));
     }
 
 }

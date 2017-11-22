@@ -22,7 +22,7 @@ public class StubKirjaDAO implements KirjaDAO {
 
     @Override
     public void save(Kirja kirja) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //Not yet done(täytyi vaihtaa kommentiksi, jotta testit toimivat)
     }
 
     
