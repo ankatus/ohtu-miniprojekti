@@ -17,16 +17,8 @@ public class Database {
             connection = DriverManager.getConnection("jdbc:sqlite:" + databaseAddress);
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
-        }
+            System.out.println( e.getMessage());
+        } 
         return connection;
     }
 }

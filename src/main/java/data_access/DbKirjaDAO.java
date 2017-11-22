@@ -31,6 +31,8 @@ public class DbKirjaDAO implements KirjaDAO {
             stmt.executeUpdate();
             stmt.close();
             connection.commit();
+            connection.close();
+            
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
