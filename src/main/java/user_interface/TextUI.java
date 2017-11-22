@@ -12,6 +12,27 @@ public class TextUI {
 		this.io = io;
 		this.dao = dao;
 	}
+        
+        public void addRun(){
+            addloop:
+		while (true) {
+                    
+                    io.println("Valitse lisättävä tyyppi");
+                    io.println("Komento (1=kirja, x=palaa)");
+                    String input = io.nextLine();
+                    
+                    switch (input){
+                        
+                        case "x":
+                            break addloop;
+                            
+                        default:
+                            io.println("Tuntematon komento.");
+                            break;
+                    }
+                }
+            
+        }
 
 	public void run() {
 
@@ -27,7 +48,7 @@ public class TextUI {
 
 				case "1":
 					//tänne kirjan lisääminen
-					io.println("toimintoa ei ole vielä toteutettu");
+                                        addRun();
 					break;
 
 				case "2":
