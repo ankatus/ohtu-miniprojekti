@@ -16,6 +16,31 @@ public class TextUI {
         this.dao = dao;
     }
 
+          public void addRun(){
+            addloop:
+		            while (true) {
+                    
+                    io.println("Valitse lisättävä tyyppi");
+                    io.println("Komento (1=kirja, x=palaa)");
+                    String input = io.nextLine();
+                    
+                    switch (input){
+                        
+                        case "1":
+                            // Tänne kirjan lisääminen
+                            addBook();
+                            break;
+                        //Tähän väliin muut tyypit
+                        case "x":
+                            break addloop;
+                            
+                        default:
+                            io.println("Tuntematon komento.");
+                            break;
+                    }
+                }
+        }
+  
     public void run() throws SQLException {
 
         io.println("Hello!");
@@ -29,7 +54,7 @@ public class TextUI {
             switch (input) {
 
                 case "1":
-                    addBook();
+                    addRun();
                     break;
 
                 case "2":
@@ -44,6 +69,7 @@ public class TextUI {
 
                 case "x":
                     break loop;
+
 
                 default:
                     io.println("Tuntematon komento.");
