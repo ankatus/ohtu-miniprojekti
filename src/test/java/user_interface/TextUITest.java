@@ -1,12 +1,13 @@
 package user_interface;
 
-import data_access.KirjaDAO;
+import data_access.DbKirjaDAO;
 import data_access.StubKirjaDAO;
 import domain.StubKirja;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+import data_access.KirjaDAO;
 
 public class TextUITest {
 

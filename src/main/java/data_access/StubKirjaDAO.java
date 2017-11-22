@@ -1,5 +1,6 @@
 package data_access;
 
+import domain.Kirja;
 import domain.Lukuvinkki;
 import domain.StubKirja;
 
@@ -18,4 +19,13 @@ public class StubKirjaDAO implements KirjaDAO {
         list.add(new StubKirja());
         return list;
     }
+
+    @Override
+    public void save(Kirja kirja) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+
+    
 }
