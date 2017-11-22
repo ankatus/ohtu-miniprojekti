@@ -23,6 +23,11 @@ public class TextUI {
                     
                     switch (input){
                         
+                        case "1":
+                            // Tänne kirjan lisääminen
+                            io.println("Tässä lisättäisiin kirja");
+                            break;
+                        //Tähän väliin muut tyypit
                         case "x":
                             break addloop;
                             
@@ -47,7 +52,7 @@ public class TextUI {
 			switch (input) {
 
 				case "1":
-					//tänne kirjan lisääminen
+					//tänne tyypin valinta
                                         addRun();
 					break;
 
