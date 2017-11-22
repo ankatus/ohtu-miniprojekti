@@ -6,9 +6,9 @@ public class Kirja implements Lukuvinkki {
     
     private String otsikko;
     private String kirjoittaja;
-    private int isbn;
+    private String isbn;
 
-    public Kirja(String otsikko, String kirjoittaja, int isbn) {
+    public Kirja(String otsikko, String kirjoittaja, String isbn) {
         this.otsikko = otsikko;
         this.kirjoittaja = kirjoittaja;
         this.isbn = isbn;
@@ -22,7 +22,7 @@ public class Kirja implements Lukuvinkki {
         return kirjoittaja;
     }
 
-    public int getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
@@ -34,7 +34,7 @@ public class Kirja implements Lukuvinkki {
         this.kirjoittaja = kirjoittaja;
     }
 
-    public void setIsbn(int isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 

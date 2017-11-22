@@ -1,11 +1,14 @@
 import data_access.Database;
-import data_access.KirjaDAO;
+import data_access.DbKirjaDAO;
+import java.sql.SQLException;
 import user_interface.TerminalIO;
 import user_interface.TextUI;
 
 public class Main {
-	public static void main(String[] args) throws ClassNotFoundException {
-                TextUI ui = new TextUI(new TerminalIO(), new KirjaDAO(new Database("/src/sql/Database.db")));
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+            Database database = new Database("lukuvinkkikirjasto.db");
+            DbKirjaDAO kirjaDAO = new DbKirjaDAO(database);
+            TextUI ui = new TextUI(new TerminalIO(), kirjaDAO);
 		ui.run();
 	}
 }

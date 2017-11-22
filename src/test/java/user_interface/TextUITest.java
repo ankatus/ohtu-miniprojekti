@@ -1,13 +1,13 @@
 package user_interface;
 
-import data_access.DAO;
-import data_access.KirjaDAO;
+import data_access.DbKirjaDAO;
 import data_access.StubKirjaDAO;
 import domain.StubKirja;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+import data_access.KirjaDAO;
 
 public class TextUITest {
 
@@ -17,7 +17,7 @@ public class TextUITest {
     @Before
     public void setUp() throws Exception {
         testIO = new StubIO("1","2","a","x");
-        DAO testDAO = new StubKirjaDAO();
+        KirjaDAO testDAO = new StubKirjaDAO();
         ui = new TextUI(testIO, testDAO);
     }
 
