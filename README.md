@@ -7,3 +7,4 @@
 - Koodi käyty läpi  
 - Hyväksymiskriteerit täyttyvät  
 - Asiakas hyväksyy  
+- Test
