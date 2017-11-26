@@ -79,9 +79,9 @@ public class TextUI {
     //ottaa parametrinaan HashMapin, joka sisältää listan indeksit ja niitä vastaavat lukuvinkit
     private void chooseLukuvinkki(HashMap<Integer, Lukuvinkki> indexMap) {
         while (true) {
-            System.out.println();
-            System.out.println("Haluatko tarkastella lukuvinkkiä?");
-            System.out.println("Anna kohteen indeksi, listaa uudestaan (\"l\") tai palaa (\"x\")");
+            io.println();
+            io.println("Haluatko tarkastella lukuvinkkiä?");
+            io.println("Anna kohteen indeksi, listaa uudestaan (\"l\") tai palaa (\"x\")");
             String input = io.nextLine();
 
             if (input.toLowerCase().equals("x")) {
@@ -95,14 +95,14 @@ public class TextUI {
             try {
                 wantedIndex = Integer.parseInt(input);
             } catch (NumberFormatException e) {
-                System.out.println("Epäkelpo komento");
+                io.println("Tuntematon komento");
                 continue;
             }
 
             if (indexMap.containsKey(wantedIndex)) {
                 viewLukuvinkki(indexMap.get(wantedIndex));
             } else {
-                System.out.println("Ei lukuvinkkiä tällä indeksillä");
+                io.println("Ei lukuvinkkiä tällä indeksillä");
                 continue;
             }
         }
@@ -135,15 +135,15 @@ public class TextUI {
     }
 
     private void viewLukuvinkki(Lukuvinkki l) {
-        System.out.println(l);
+        io.println(l.toString());
         while (true) {
-            System.out.println();
-            System.out.println("Komento (x=palaa):");
+            io.println();
+            io.println("Komento (x=palaa):");
             String input = io.nextLine();
             if (input.toLowerCase().equals("x")) {
                 return;
             } else {
-                System.out.println("Epäkelpo komento");
+                io.println("Tuntematon komento");
             }
         }
     }
