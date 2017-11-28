@@ -2,6 +2,8 @@
 package domain;
 
 
+import tools.TextTools;
+
 public class Kirja implements Lukuvinkki {
     
     private String otsikko;
@@ -39,8 +41,17 @@ public class Kirja implements Lukuvinkki {
     }
 
     @Override
+    public String getID() {
+        return null;
+    }
+
+    @Override
     public String toString() {
-        return kirjoittaja + ": " + otsikko + " (" + isbn + ')';
+        int maxLength = 20;
+        String columnRepresentation = TextTools.fit(kirjoittaja, 20) + " | ";
+        columnRepresentation += TextTools.fit(otsikko, 20) + " | ";
+        columnRepresentation += TextTools.fit(isbn, 20) + " | ";
+        return columnRepresentation;
     }
     
     
