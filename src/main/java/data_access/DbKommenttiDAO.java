@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DbKommenttiDAO implements KommenttiDAO {
 
@@ -38,29 +40,26 @@ public class DbKommenttiDAO implements KommenttiDAO {
     }
 
     @Override
-    public Kommentti getKommentti(int lukuvinkki_id) throws SQLException {
+    public ArrayList<Kommentti> getAllForID(String lukuvinkki_id) throws SQLException {
 
         Connection connection = database.connect();
         PreparedStatement stmt = connection.prepareStatement("SELECT * "
                 + "FROM Kommentti WHERE lukuvinkki= ?");
         stmt.setObject(1, lukuvinkki_id);
-        ResultSet rS = stmt.executeQuery();
-
         ResultSet rs = stmt.executeQuery();
-        boolean hasOne = rs.next();
-        if (!hasOne) {
-            return null;
-        }
-        
-        String kommentoija = rs.getString("kommentoija");
-        String teksti = rs.getString("kommentti");        
-        Kommentti kommentti = new Kommentti(kommentoija, teksti);
 
+        ArrayList<Kommentti> kommentit = new ArrayList<>();
+        while (rs.next()) {
+            String kommentoija = rs.getString("kommentoija");
+            String teksti = rs.getString("kommentti");
+            Kommentti kommentti = new Kommentti(kommentoija, teksti);
+            kommentit.add(new Kommentti(kommentoija, teksti));
+        }
         rs.close();
         stmt.close();
         connection.close();
 
-        return kommentti;
+        return kommentit;
     }
 
 }

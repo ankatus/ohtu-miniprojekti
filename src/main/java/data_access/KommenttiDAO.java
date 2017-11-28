@@ -1,12 +1,12 @@
 package data_access;
 
 import domain.Kommentti;
-import domain.Lukuvinkki;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 
 public interface KommenttiDAO {
     void save(int lukuvinkki_id, Kommentti kommentti);
-    Kommentti getKommentti(int lukuvinkki_id) throws SQLException;
+    ArrayList<Kommentti> getAllForID(String lukuvinkki_id) throws SQLException;
     
 }
