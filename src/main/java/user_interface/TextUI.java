@@ -128,7 +128,7 @@ public class TextUI {
         kirjaDAO.save(kirja);
     }
 
-    //listaa lukuvinkit (vain kirjat atm) ja palauttaa HashMapin, jossa avaimina listan indeksit ja arvoina lukuvinkit
+    //listaa lukuvinkit ja palauttaa HashMapin, jossa avaimina listan indeksit ja arvoina lukuvinkit
     private HashMap<Integer, Lukuvinkki> list() {
         HashMap<Integer, Lukuvinkki> indexMap = new HashMap<>();
         int index = 1;
@@ -139,7 +139,8 @@ public class TextUI {
             indexMap.put(index, l);
             index++;
         }
-        io.println("blogit");
+        io.println();
+        io.println("blogit:");
         io.println("   " + TextTools.createHeaders(20, "headeri"));
         for (Lukuvinkki l : blogiDAO.getAll()) {
             io.println(index + ". " + l);
