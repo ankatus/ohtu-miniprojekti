@@ -1,21 +1,28 @@
 package user_interface;
 
-import data_access.DbKirjaDAO;
+import data_access.BlogiDAO;
+import domain.Kommentti;
+import data_access.KommenttiDAO;
 import domain.Kirja;
 import domain.Lukuvinkki;
 import java.sql.SQLException;
 import java.util.HashMap;
 
 import data_access.KirjaDAO;
+import tools.TextTools;
 
 public class TextUI {
 
     private IO io;
-    private KirjaDAO dao;
+    private KirjaDAO kirjaDAO;
+    private KommenttiDAO kommenttiDAO;
+    private BlogiDAO blogiDAO;
 
-    public TextUI(IO io, KirjaDAO dao) {
+    public TextUI(IO io, KirjaDAO kirjaDao, BlogiDAO blogiDAO, KommenttiDAO kommenttiDAO) {
         this.io = io;
-        this.dao = dao;
+        this.kirjaDAO = kirjaDao;
+        this.kommenttiDAO = kommenttiDAO;
+        this.blogiDAO = blogiDAO;
     }
 
     private void addRun() throws SQLException {
@@ -118,17 +125,26 @@ public class TextUI {
         io.println("ISBN-tunnus: ");
         String isbn = io.nextLine();
         Kirja kirja = new Kirja(otsikko, kirjoittaja, isbn);
-        dao.save(kirja);
+        kirjaDAO.save(kirja);
     }
 
-    //listaa lukuvinkit ja palauttaa HashMapin, jossa avaimina listan indeksit ja arvoina lukuvinkit
+    //listaa lukuvinkit (vain kirjat atm) ja palauttaa HashMapin, jossa avaimina listan indeksit ja arvoina lukuvinkit
     private HashMap<Integer, Lukuvinkki> list() {
         HashMap<Integer, Lukuvinkki> indexMap = new HashMap<>();
         int index = 1;
-        for (Lukuvinkki l : dao.getAll()) {
+        io.println("kirjat:");
+        io.println("   " + TextTools.createHeaders(20, "kirjoittaja", "otsikko", "ISBN"));
+        for (Lukuvinkki l : kirjaDAO.getAll()) {
             io.println(index + ". " + l);
             indexMap.put(index, l);
             index++;
+        }
+        io.println("blogit");
+        io.println("   " + TextTools.createHeaders(20, "headeri"));
+        for (Lukuvinkki l : blogiDAO.getAll()) {
+            io.println(index + ". " + l);
+            index++;
+            indexMap.put(index, l);
         }
         io.println();
         return indexMap;
@@ -136,6 +152,12 @@ public class TextUI {
 
     private void viewLukuvinkki(Lukuvinkki l) {
         io.println(l.toString());
+        io.println();
+        io.println("Kommentit:");
+        for (Kommentti k : kommenttiDAO.getAllForID(l.getID())) {
+            io.println(k.toString());
+            io.println();
+        }
         while (true) {
             io.println();
             io.println("Komento (x=palaa):");
