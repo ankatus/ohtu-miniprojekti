@@ -160,12 +160,16 @@ public class TextUI {
         }
         while (true) {
             io.println();
-            io.println("Komento (x=palaa):");
+            io.println("Komento (x=palaa, m=merkitse luetuksi):");
             String input = io.nextLine();
-            if (input.toLowerCase().equals("x")) {
-                return;
-            } else {
-                io.println("Tuntematon komento");
+            switch (input.toLowerCase()) {
+                case "x":
+                    return;
+                case "m":
+                    l.setLuettu(true);
+                    break;
+                default:
+                    io.println("tuntematon komento");
             }
         }
     }
