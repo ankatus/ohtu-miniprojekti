@@ -21,10 +21,11 @@ public class DbKommenttiDAO implements KommenttiDAO {
             Connection connection = database.connect();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement("INSERT INTO Kommentti "
-                    + "(lukuvinkki, kommentti)"
+                    + "(lukuvinkki, kommentoija, kommentti)"
                     + " VALUES (?, ?, ?)");
             stmt.setObject(1, lukuvinkki_id);
-            stmt.setObject(2, kommentti.getKommentti());
+            stmt.setObject(2, kommentti.getKommentoija());
+            stmt.setObject(3, kommentti.getKommentti());
             stmt.executeUpdate();
             stmt.close();
             connection.commit();
@@ -50,9 +51,10 @@ public class DbKommenttiDAO implements KommenttiDAO {
         if (!hasOne) {
             return null;
         }
-
-        String teksti = rs.getString("kommentti");
-        Kommentti kommentti = new Kommentti(teksti);
+        
+        String kommentoija = rs.getString("kommentoija");
+        String teksti = rs.getString("kommentti");        
+        Kommentti kommentti = new Kommentti(kommentoija, teksti);
 
         rs.close();
         stmt.close();

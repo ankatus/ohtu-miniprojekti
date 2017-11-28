@@ -10,7 +10,7 @@ public class StubKommenttiDAO implements KommenttiDAO {
 
     @Override
     public Kommentti getKommentti(int lukuvinkki_id) {
-        return new Kommentti("Mauris sed libero. Suspendisse facilisis nulla in"
+        return new Kommentti("Kani, Kalle", "Mauris sed libero. Suspendisse facilisis nulla in"
                 + " lacinia laoreet, lorem velit accumsan velit vel mattis libero"
                 + "nisl et sem. Proin interdum maecenas massa turpis sagittis in,"
                 + " interdum non lobortis vitae massa. Quisque purus lectus, posuere"
