@@ -21,7 +21,7 @@ public class TextUI {
         while (true) {
 
             io.println("Valitse lisättävä tyyppi");
-            io.println("Komento (1=kirja, x=palaa)");
+            io.println("Komento (1=kirja, 2=blogi, x=palaa)");
             String input = io.nextLine();
 
             switch (input) {
@@ -30,6 +30,8 @@ public class TextUI {
                     // Tänne kirjan lisääminen
                     addBook();
                     break;
+                case "2":
+                    //Tänne blogin lisäys
                 //Tähän väliin muut tyypit
                 case "x":
                     break addloop;
