@@ -17,7 +17,7 @@ public class TextUITest {
     @Before
     public void setUp() throws Exception {
         testIO = new StubIO("2", "a", "x", "x");
-        tyyppiIO = new StubIO("1","5","1","Kirja","tekija","222","x","x");
+        tyyppiIO = new StubIO("1","5","1","Kirja","tekija","222", "1", "2", "asd", "asd", "asd.com","x");
         KirjaDAO testDAO = new StubKirjaDAO();
         runUI = new TextUI(testIO, testDAO, new StubBlogiDAO(), new StubKommenttiDAO());
         tyyppiUI = new TextUI(tyyppiIO, testDAO, new StubBlogiDAO(), new StubKommenttiDAO());
@@ -48,16 +48,32 @@ public class TextUITest {
     }
 
     @Test
-    public void tyypinValinta() throws Exception {
+    public void kirjanValinta() throws Exception {
         tyyppiUI.run();
         assertEquals("Hello!", tyyppiIO.outputs.get(0));
         assertEquals("Komento (1=lisää, 2=listaa, x=lopeta):", tyyppiIO.outputs.get(1));
         assertEquals("Valitse lisättävä tyyppi", tyyppiIO.outputs.get(2));
-        assertEquals("Komento (1=kirja, x=palaa):", tyyppiIO.outputs.get(3));
+        assertEquals("Komento (1=kirja, 2=blogi, x=palaa):", tyyppiIO.outputs.get(3));
         assertEquals("Tuntematon komento.", tyyppiIO.outputs.get(4));
         assertEquals("Valitse lisättävä tyyppi", tyyppiIO.outputs.get(5));
-        assertEquals("Komento (1=kirja, x=palaa):", tyyppiIO.outputs.get(6));
+        assertEquals("Komento (1=kirja, 2=blogi, x=palaa):", tyyppiIO.outputs.get(6));
         assertEquals("Kirjan nimi: ", tyyppiIO.outputs.get(7));
+        assertEquals("Tekijän nimi muodossa \"Sukunimi, Etunimi\": ", tyyppiIO.outputs.get(8));
+        assertEquals("ISBN-tunnus: ", tyyppiIO.outputs.get(9));
+        assertEquals("Komento (1=lisää, 2=listaa, x=lopeta):", tyyppiIO.outputs.get(10));
+    }
+    
+    @Test
+    public void bloginValinta() throws Exception{
+        tyyppiUI.run();
+        assertEquals("Hello!", tyyppiIO.outputs.get(0));
+        assertEquals("Komento (1=lisää, 2=listaa, x=lopeta):", tyyppiIO.outputs.get(1));
+        assertEquals("Valitse lisättävä tyyppi", tyyppiIO.outputs.get(2));
+        assertEquals("Komento (1=kirja, 2=blogi, x=palaa):", tyyppiIO.outputs.get(3));
+        assertEquals("Blogin Otsikko: ", tyyppiIO.outputs.get(13));
+        assertEquals("Tekijän nimi muodossa \"Sukunimi, Etunimi\": ", tyyppiIO.outputs.get(14));
+        assertEquals("URL: ", tyyppiIO.outputs.get(15));
+        assertEquals("Komento (1=lisää, 2=listaa, x=lopeta):", tyyppiIO.outputs.get(16));
     }
 
 }

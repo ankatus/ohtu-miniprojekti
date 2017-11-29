@@ -20,7 +20,7 @@ public class StubBlogiDAO implements BlogiDAO {
 
     @Override
     public void save(Blogi blogi) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //not yet supported
     }
 
 }

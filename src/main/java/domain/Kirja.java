@@ -6,11 +6,19 @@ import tools.TextTools;
 
 public class Kirja implements Lukuvinkki {
     
+    private int id;
     private String otsikko;
     private String kirjoittaja;
     private String isbn;
 
     public Kirja(String otsikko, String kirjoittaja, String isbn) {
+        this.otsikko = otsikko;
+        this.kirjoittaja = kirjoittaja;
+        this.isbn = isbn;
+    }
+    
+    public Kirja(int id, String otsikko, String kirjoittaja, String isbn) {
+        this.id = id;
         this.otsikko = otsikko;
         this.kirjoittaja = kirjoittaja;
         this.isbn = isbn;
@@ -47,7 +55,7 @@ public class Kirja implements Lukuvinkki {
 
     @Override
     public String getID() {
-        return null;
+        return "K"+this.id;
     }
 
     @Override

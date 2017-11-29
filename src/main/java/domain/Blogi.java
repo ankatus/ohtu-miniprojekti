@@ -69,7 +69,7 @@ public class Blogi implements Lukuvinkki{
 
     @Override
     public String getID() {
-        return ""+this.id;
+        return "B"+this.id;
     }
     
     
