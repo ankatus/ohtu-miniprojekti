@@ -1,0 +1,8 @@
+CREATE TABLE Kirja(otsikko, kirjoittaja, isbn, luettu);
+
+CREATE TABLE Kommentti(
+lukuvinkki int, 
+kommentoija TEXT,
+kommentti TEXT
+);
+
