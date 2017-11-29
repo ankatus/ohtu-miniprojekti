@@ -13,10 +13,6 @@ public class StubKirjaDAO implements KirjaDAO {
         ArrayList<Lukuvinkki> list = new ArrayList<>();
         list.add(new StubKirja());
         list.add(new StubKirja());
-        list.add(new StubKirja());
-        list.add(new StubKirja());
-        list.add(new StubKirja());
-        list.add(new StubKirja());
         return list;
     }
 

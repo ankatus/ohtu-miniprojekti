@@ -1,4 +1,5 @@
 import data_access.Database;
+import data_access.DbBlogiDAO;
 import data_access.DbKirjaDAO;
 import java.sql.SQLException;
 import user_interface.TerminalIO;
@@ -8,7 +9,8 @@ public class Main {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
             Database database = new Database("lukuvinkkikirjasto.db");
             DbKirjaDAO kirjaDAO = new DbKirjaDAO(database);
-            TextUI ui = new TextUI(new TerminalIO(), kirjaDAO);
-		ui.run();
+            DbBlogiDAO blogiDAO = new DbBlogiDAO(database);
+            TextUI ui = new TextUI(new TerminalIO(), kirjaDAO, blogiDAO);
+            ui.run();
 	}
 }

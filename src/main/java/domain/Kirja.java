@@ -4,11 +4,19 @@ package domain;
 
 public class Kirja implements Lukuvinkki {
     
+    private int id;
     private String otsikko;
     private String kirjoittaja;
     private String isbn;
 
     public Kirja(String otsikko, String kirjoittaja, String isbn) {
+        this.otsikko = otsikko;
+        this.kirjoittaja = kirjoittaja;
+        this.isbn = isbn;
+    }
+    
+    public Kirja(int id, String otsikko, String kirjoittaja, String isbn) {
+        this.id = id;
         this.otsikko = otsikko;
         this.kirjoittaja = kirjoittaja;
         this.isbn = isbn;
@@ -26,6 +34,11 @@ public class Kirja implements Lukuvinkki {
         return isbn;
     }
 
+    public int getId() {
+        return id;
+    }
+    
+
     public void setOtsikko(String otsikko) {
         this.otsikko = otsikko;
     }
@@ -38,9 +51,14 @@ public class Kirja implements Lukuvinkki {
         this.isbn = isbn;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+
     @Override
     public String toString() {
-        return kirjoittaja + ": " + otsikko + " (" + isbn + ')';
+        return "K" + id + ". " +kirjoittaja + ": " + otsikko + " (" + isbn + ')';
     }
     
     

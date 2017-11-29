@@ -1,19 +1,24 @@
 package user_interface;
 
 import data_access.DbKirjaDAO;
+import data_access.DbBlogiDAO;
 import domain.Kirja;
+import domain.Blogi;
 import domain.Lukuvinkki;
 import java.sql.SQLException;
 import data_access.KirjaDAO;
+import data_access.BlogiDAO;
 
 public class TextUI {
 
     private IO io;
-    private KirjaDAO dao;
+    private KirjaDAO kirjaDao;
+    private BlogiDAO blogiDao;
 
-    public TextUI(IO io, KirjaDAO dao) {
+    public TextUI(IO io, KirjaDAO KirjaDao, BlogiDAO BlogiDao) {
         this.io = io;
-        this.dao = dao;
+        this.kirjaDao = KirjaDao;
+        this.blogiDao = BlogiDao;
     }
 
     public void addRun() throws SQLException {
@@ -29,9 +34,10 @@ public class TextUI {
                 case "1":
                     // Tänne kirjan lisääminen
                     addBook();
-                    break;
+                    break addloop;
                 case "2":
-                    //Tänne blogin lisäys
+                    addBlogi();
+                    break addloop;
                 //Tähän väliin muut tyypit
                 case "x":
                     break addloop;
@@ -60,11 +66,18 @@ public class TextUI {
                     break;
 
                 case "2":
-                    int index = 1;
-                    for (Lukuvinkki l : dao.getAll()) {
-                        io.println(index + ". " + l);
-                        io.println();
-                        index++;
+                    //Kirjojen tulostus
+                    io.println("Kirjat:");
+                    io.println();
+                    for (Lukuvinkki l : kirjaDao.getAll()) {
+                        io.println(l.toString());
+                    }
+                    io.println();
+                    //Blogien tulostus
+                    io.println("Blogit:");
+                    io.println();
+                    for (Lukuvinkki l : blogiDao.getAll()) {
+                        io.println(l.toString());
                     }
                     io.println();
                     break;
@@ -89,7 +102,19 @@ public class TextUI {
         io.println("ISBN-tunnus: ");
         String isbn = io.nextLine();
         Kirja kirja = new Kirja(otsikko, kirjoittaja, isbn);
-        dao.save(kirja);
+        kirjaDao.save(kirja);
+
+    }
+
+    private void addBlogi() throws SQLException {
+        io.println("Blogin Otsikko: ");
+        String otsikko = io.nextLine();
+        io.println("Tekijän nimi muodossa \"Sukunimi, Etunimi\": ");
+        String kirjoittaja = io.nextLine();
+        io.println("URL: ");
+        String url = io.nextLine();
+        Blogi blogi = new Blogi(otsikko, kirjoittaja, url);
+        blogiDao.save(blogi);
 
     }
 }

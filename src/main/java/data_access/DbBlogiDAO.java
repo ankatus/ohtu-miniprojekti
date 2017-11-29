@@ -1,6 +1,6 @@
 package data_access;
 
-import domain.Kirja;
+import domain.Blogi;
 import domain.Lukuvinkki;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,26 +10,26 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class DbKirjaDAO implements KirjaDAO {
+public class DbBlogiDAO implements BlogiDAO {
 
     private Database database;
 
-    public DbKirjaDAO(Database database) {
+    public DbBlogiDAO(Database database) {
         this.database = database;
     }
 
     @Override
-    public void save(Kirja kirja) {
+    public void save(Blogi blogi) {
 
         try {
             Connection connection = database.connect();
             connection.setAutoCommit(false);
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO Kirja "
-                    + "(otsikko, kirjoittaja, isbn)"
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO Blogi "
+                    + "(otsikko, kirjoittaja, url)"
                     + " VALUES (?, ?, ?)");
-            stmt.setObject(1, kirja.getOtsikko());
-            stmt.setObject(2, kirja.getKirjoittaja());
-            stmt.setObject(3, kirja.getIsbn());
+            stmt.setObject(1, blogi.getOtsikko());
+            stmt.setObject(2, blogi.getKirjoittaja());
+            stmt.setObject(3, blogi.getUrl());
             stmt.executeUpdate();
             stmt.close();
             connection.commit();
@@ -43,25 +43,24 @@ public class DbKirjaDAO implements KirjaDAO {
 
     @Override
     public ArrayList<Lukuvinkki> getAll() {
-        ArrayList<Lukuvinkki> kirja_lukuvinkit = new ArrayList();
+        ArrayList<Lukuvinkki> blogi_lukuvinkit = new ArrayList();
 
         try {
             Connection connection = database.connect();
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Kirja");
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Blogi");
 
             ResultSet rS = stmt.executeQuery();
 
             while (rS.next()) {
-                Lukuvinkki kirja = new Kirja(rS.getInt("id"), rS.getString("otsikko"), rS.getString("kirjoittaja"), rS.getString("isbn"));
+                Lukuvinkki blogi = new Blogi(rS.getInt("id"), rS.getString("otsikko"), rS.getString("kirjoittaja"), rS.getString("url"));
 
-                kirja_lukuvinkit.add(kirja);
+                blogi_lukuvinkit.add(blogi);
             }
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
 
-        return kirja_lukuvinkit;
+        return blogi_lukuvinkit;
     }
-
 }

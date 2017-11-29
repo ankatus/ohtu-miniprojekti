@@ -1,13 +1,11 @@
 package data_access;
 
-import domain.Kirja;
+import domain.Blogi;
 import domain.Lukuvinkki;
 import java.util.ArrayList;
 
-public interface KirjaDAO {
 
+public interface BlogiDAO {
     ArrayList<Lukuvinkki> getAll();
-
-    void save(Kirja kirja);
-
+    void save(Blogi blogi);
 }
