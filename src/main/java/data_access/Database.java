@@ -1,14 +1,14 @@
 package data_access;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Database {
 
     private final String databaseAddress;
+    private Connection connection;
+    private PreparedStatement stmt;
+    private ResultSet rS;
 
     public Database(String databaseAddress) throws ClassNotFoundException {
         this.databaseAddress = databaseAddress;
@@ -16,43 +16,60 @@ public class Database {
     }
 
     public Connection connect() {
-        Connection connection = null;
-        
+        connection = null;
+
         try {
             connection = DriverManager.getConnection("jdbc:sqlite:" + databaseAddress);
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-        } 
-        
+        }
+
         return connection;
     }
-    
+
+    public void closeConnection() {
+        try {
+            if (rS != null) {
+                rS.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
     public ResultSet executeQuerySelect(String query) {
         try {
-            Connection connection = this.connect();
-            
-            PreparedStatement stmt = connection.prepareStatement(query);
-            
-            ResultSet rS = stmt.executeQuery();
+            connection = this.connect();
+
+            stmt = connection.prepareStatement(query);
+
+            rS = stmt.executeQuery();
 
             return rS;
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        
+
         return null;
     }
-    
-    public void executeQueryInsert(String query, List values) {
+
+    public void executeQueryUpdate(String query, List values) {
         try {
-            Connection connection = this.connect();
+            connection = this.connect();
+
+            stmt = connection.prepareStatement(query);
             
-            PreparedStatement stmt = connection.prepareStatement(query);
-            
-            stmt.setObject(1, values.get(0));
-            stmt.setObject(2, values.get(1));
-            stmt.setObject(3, values.get(2));
+            int i = values.size();
+            for (int j = 0; j<i; j++) {
+                stmt.setObject(j+1, values.get(j));
+            }
             
             stmt.executeUpdate();
         } catch (SQLException ex) {

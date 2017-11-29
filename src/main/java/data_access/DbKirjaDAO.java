@@ -2,13 +2,9 @@ package data_access;
 
 import domain.Kirja;
 import domain.Lukuvinkki;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DbKirjaDAO implements KirjaDAO {
 
@@ -26,9 +22,10 @@ public class DbKirjaDAO implements KirjaDAO {
         values.add(kirja.getKirjoittaja());
         values.add(kirja.getIsbn());
 
-        database.executeQueryInsert("INSERT INTO Kirja "
+        database.executeQueryUpdate("INSERT INTO Kirja "
                 + "(otsikko, kirjoittaja, isbn)"
                 + " VALUES (?, ?, ?)", values);
+        database.closeConnection();
     }
 
     @Override
@@ -36,6 +33,7 @@ public class DbKirjaDAO implements KirjaDAO {
         ArrayList<Lukuvinkki> kirja_lukuvinkit = new ArrayList();
 
         ResultSet rS = database.executeQuerySelect("SELECT * FROM Kirja");
+
 
         try {
             while (rS.next()) {
@@ -46,7 +44,9 @@ public class DbKirjaDAO implements KirjaDAO {
         } catch (SQLException ex) {
             System.out.println(ex);
         }
-
+        
+        database.closeConnection();
+        
         return kirja_lukuvinkit;
     }
 

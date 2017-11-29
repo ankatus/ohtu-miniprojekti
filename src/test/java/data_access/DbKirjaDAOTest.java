@@ -1,9 +1,7 @@
 package data_access;
 
 import org.junit.*;
-import data_access.*;
 import domain.*;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,11 +20,10 @@ public class DbKirjaDAOTest {
         kirjaDAO = new DbKirjaDAO(mockDb);
 
         testRs = mock(ResultSet.class);
-        when(testRs.next()).thenReturn(true).thenReturn(true).thenReturn(false);
-        when(testRs.getString("otsikko")).thenReturn("Testikirja").thenReturn("Testikirja2");
-        when(testRs.getString("kirjoittaja")).thenReturn("Testi, Testaaja").thenReturn("Test, Test");
-        when(testRs.getString("isbn")).thenReturn("123456").thenReturn("654321");
-
+        when(testRs.next()).thenReturn(true).thenReturn(true).thenReturn(true).thenReturn(false);
+        when(testRs.getString("otsikko")).thenReturn("Testikirja").thenReturn("Testikirja2").thenReturn("Testikirja3");
+        when(testRs.getString("kirjoittaja")).thenReturn("Testi, Testaaja").thenReturn("Test, Test").thenReturn("Asdf, Asdf");
+        when(testRs.getString("isbn")).thenReturn("123456").thenReturn("654321").thenReturn("987654");
     }
 
     @Test
@@ -40,9 +37,10 @@ public class DbKirjaDAOTest {
         values.add("Testi, Testaaja");
         values.add("123456"); 
         
-        verify(mockDb).executeQueryInsert("INSERT INTO Kirja "
+        verify(mockDb).executeQueryUpdate("INSERT INTO Kirja "
                 + "(otsikko, kirjoittaja, isbn)"
                 + " VALUES (?, ?, ?)", values);
+        verify(mockDb).closeConnection();
     }
 
     @Test
@@ -51,8 +49,10 @@ public class DbKirjaDAOTest {
 
         ArrayList<Lukuvinkki> list = kirjaDAO.getAll();
 
-        assertEquals(2, list.size());
+        assertEquals(3, list.size());
         assertEquals(new Kirja("Testikirja", "Testi, Testaaja", "123456").toString(), list.get(0).toString());
         assertEquals(new Kirja("Testikirja2", "Test, Test", "654321").toString(), list.get(1).toString());
+        assertEquals(new Kirja("Testikirja3", "Asdf, Asdf", "987654").toString(), list.get(2).toString()); 
+        verify(mockDb).closeConnection();
     }
 }
