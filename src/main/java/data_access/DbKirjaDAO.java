@@ -21,7 +21,7 @@ public class DbKirjaDAO implements KirjaDAO {
         values.add(kirja.getOtsikko());
         values.add(kirja.getKirjoittaja());
         values.add(kirja.getIsbn());
-
+        
         database.executeQueryUpdate("INSERT INTO Kirja "
                 + "(otsikko, kirjoittaja, isbn)"
                 + " VALUES (?, ?, ?)", values);

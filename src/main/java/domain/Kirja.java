@@ -47,6 +47,10 @@ public class Kirja implements Lukuvinkki {
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
+    
+    public void setId(int id) {
+        this.id = id;
+    }
 
     @Override
     public void setLuettu(boolean luettu) {

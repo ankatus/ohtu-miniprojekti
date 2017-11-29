@@ -42,4 +42,21 @@ public class KirjaTest {
     public void id(){
         assertEquals("K1", kirja.getID());
     }
+    
+    @Test
+    public void getterit(){
+        assertEquals("testi", kirja.getOtsikko());
+        assertEquals("testaaja", kirja.getKirjoittaja());
+        assertEquals("12345678", kirja.getIsbn());
+    }
+    
+    @Test
+    public void setterit(){
+        kirja.setId(2);
+        kirja.setOtsikko("teste");
+        kirja.setKirjoittaja("testaaje");
+        kirja.setIsbn("12345677");
+        assertEquals("testaaje             | teste                | 12345677             | ", kirja.toString());
+        assertEquals("K2", kirja.getID());
+    }
 }

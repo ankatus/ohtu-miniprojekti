@@ -40,4 +40,22 @@ public class BlogiTest {
     public void id(){
         assertEquals("B1", blogi.getID());
     }
+    
+    @Test
+    public void getterit(){
+        assertEquals("testi", blogi.getOtsikko());
+        assertEquals("testaaja", blogi.getKirjoittaja());
+        assertEquals("testi.fi", blogi.getUrl());
+    }
+    
+    @Test
+    public void setterit(){
+        blogi.setId(2);
+        blogi.setOtsikko("teste");
+        blogi.setKirjoittaja("testaaje");
+        blogi.setUrl("testi.fe");
+        assertEquals("testaaje             | teste                | testi.fe             | ", blogi.toString());
+        assertEquals("B2", blogi.getID());
+    }
+    
 }

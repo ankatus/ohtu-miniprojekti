@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 
 public class DbBlogiDAO implements BlogiDAO {
 
-    private Database database;
+    private final Database database;
 
     public DbBlogiDAO(Database database) {
         this.database = database;
@@ -20,47 +20,39 @@ public class DbBlogiDAO implements BlogiDAO {
 
     @Override
     public void save(Blogi blogi) {
+        ArrayList values = new ArrayList();
 
-        try {
-            Connection connection = database.connect();
-            connection.setAutoCommit(false);
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO Blogi "
+        values.add(blogi.getOtsikko());
+        values.add(blogi.getKirjoittaja());
+        values.add(blogi.getUrl());
+
+        database.executeQueryUpdate("INSERT INTO Blogi "
                     + "(otsikko, kirjoittaja, url)"
-                    + " VALUES (?, ?, ?)");
-            stmt.setObject(1, blogi.getOtsikko());
-            stmt.setObject(2, blogi.getKirjoittaja());
-            stmt.setObject(3, blogi.getUrl());
-            stmt.executeUpdate();
-            stmt.close();
-            connection.commit();
-            connection.close();
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-
+                    + " VALUES (?, ?, ?)", values);
+        database.closeConnection();
     }
+    
 
     @Override
     public ArrayList<Lukuvinkki> getAll() {
         ArrayList<Lukuvinkki> blogi_lukuvinkit = new ArrayList();
 
+        ResultSet rS = database.executeQuerySelect("SELECT * FROM Blogi");
+
+
         try {
-            Connection connection = database.connect();
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Blogi");
-
-            ResultSet rS = stmt.executeQuery();
-
             while (rS.next()) {
                 Lukuvinkki blogi = new Blogi(rS.getInt("id"), rS.getString("otsikko"), rS.getString("kirjoittaja"), rS.getString("url"));
-
+                
                 blogi_lukuvinkit.add(blogi);
             }
-
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            System.out.println(ex);
         }
-
+        
+        database.closeConnection();
+        
         return blogi_lukuvinkit;
     }
+    
 }
