@@ -54,5 +54,25 @@ public class DbBlogiDAO implements BlogiDAO {
         
         return blogi_lukuvinkit;
     }
+
+    public void markAsLuettu(String id) {
+        String table = parseIdToTable(id);
+        String idNumber = id.substring(1,id.length());
+        ArrayList values = new ArrayList<>();
+        values.add(table);
+        values.add(idNumber);
+        database.executeQueryUpdate("UPDATE TABLE ? SET luettu=true WHERE id=?", values);
+        database.closeConnection();
+    }
+
+    private String parseIdToTable(String id) {
+        char letter = id.toCharArray()[0];
+        if (letter == 'K') {
+            return "kirja";
+        } else if (letter == 'B') {
+            return "blogi";
+        }
+        return null;
+    }
     
 }

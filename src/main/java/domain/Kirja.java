@@ -10,11 +10,13 @@ public class Kirja implements Lukuvinkki {
     private String otsikko;
     private String kirjoittaja;
     private String isbn;
+    private boolean luettu;
 
     public Kirja(String otsikko, String kirjoittaja, String isbn) {
         this.otsikko = otsikko;
         this.kirjoittaja = kirjoittaja;
         this.isbn = isbn;
+        luettu = false;
     }
     
     public Kirja(int id, String otsikko, String kirjoittaja, String isbn) {
@@ -22,6 +24,7 @@ public class Kirja implements Lukuvinkki {
         this.otsikko = otsikko;
         this.kirjoittaja = kirjoittaja;
         this.isbn = isbn;
+        luettu = false;
     }
 
     public String getOtsikko() {
@@ -53,11 +56,6 @@ public class Kirja implements Lukuvinkki {
     }
 
     @Override
-    public void setLuettu(boolean luettu) {
-
-    }
-
-    @Override
     public String getID() {
         return "K"+this.id;
     }
@@ -68,6 +66,11 @@ public class Kirja implements Lukuvinkki {
         String columnRepresentation = TextTools.fit(kirjoittaja, 20) + " | ";
         columnRepresentation += TextTools.fit(otsikko, 20) + " | ";
         columnRepresentation += TextTools.fit(isbn, 20) + " | ";
+        if (luettu) {
+            columnRepresentation += TextTools.fit("kyllä", 20);
+        } else {
+            columnRepresentation += TextTools.fit("ei", 20);
+        }
         return columnRepresentation;
     }
     

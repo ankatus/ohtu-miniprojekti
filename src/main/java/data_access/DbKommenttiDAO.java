@@ -2,6 +2,7 @@ package data_access;
 
 import domain.Kommentti;
 import domain.Lukuvinkki;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,14 +19,14 @@ public class DbKommenttiDAO implements KommenttiDAO {
     }
 
     @Override
-    public void save(int lukuvinkki_id, Kommentti kommentti) {
+    public void save(String lukuvinkki_id, Kommentti kommentti) {
         try {
             Connection connection = database.connect();
             connection.setAutoCommit(false);
             PreparedStatement stmt = connection.prepareStatement("INSERT INTO Kommentti "
                     + "(lukuvinkki, kommentoija, kommentti)"
                     + " VALUES (?, ?, ?)");
-            stmt.setObject(1, lukuvinkki_id);
+            stmt.setObject(1, parseIdToTable(lukuvinkki_id));
             stmt.setObject(2, kommentti.getKommentoija());
             stmt.setObject(3, kommentti.getKommentti());
             stmt.executeUpdate();
@@ -60,6 +61,16 @@ public class DbKommenttiDAO implements KommenttiDAO {
         connection.close();
 
         return kommentit;
+    }
+
+    private String parseIdToTable(String id) {
+        char letter = id.toCharArray()[0];
+        if (letter == 'K') {
+            return "kirja";
+        } else if (letter == 'B') {
+            return "blogi";
+        }
+        return null;
     }
 
 }

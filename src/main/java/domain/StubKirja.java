@@ -3,11 +3,6 @@ package domain;
 public class StubKirja implements Lukuvinkki {
 
     @Override
-    public void setLuettu(boolean luettu) {
-
-    }
-
-    @Override
     public String getID() {
         return null;
     }
