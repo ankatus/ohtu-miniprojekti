@@ -132,7 +132,10 @@ public class TextUI {
         HashMap<Integer, Lukuvinkki> indexMap = new HashMap<>();
         int index = 1;
         io.println("kirjat:");
-        io.println("   " + TextTools.createHeaders(20, "kirjoittaja", "otsikko", "ISBN"));
+        io.println(TextTools.createCharacters(' ', Integer.toString(index).length())
+                + "  "
+                + TextTools.createHeaders(20, "kirjoittaja", "otsikko", "ISBN")
+        );
         for (Lukuvinkki l : kirjaDAO.getAll()) {
             io.println(index + ". " + l);
             indexMap.put(index, l);
@@ -140,11 +143,14 @@ public class TextUI {
         }
         io.println();
         io.println("blogit:");
-        io.println("   " + TextTools.createHeaders(20, "headeri"));
+        io.println(TextTools.createCharacters(' ', Integer.toString(index).length())
+                + "  "
+                + TextTools.createHeaders(20, "headeri")//korvaa blogin tietokenttien nimillä
+        );
         for (Lukuvinkki l : blogiDAO.getAll()) {
             io.println(index + ". " + l);
-            index++;
             indexMap.put(index, l);
+            index++;
         }
         io.println();
         return indexMap;
@@ -160,7 +166,7 @@ public class TextUI {
         }
         while (true) {
             io.println();
-            io.println("Komento (x=palaa, m=merkitse luetuksi):");
+            io.println("Komento (x=palaa, m=merkitse luetuksi, u=uusi kommentti):");
             String input = io.nextLine();
             switch (input.toLowerCase()) {
                 case "x":
@@ -168,9 +174,20 @@ public class TextUI {
                 case "m":
                     l.setLuettu(true);
                     break;
+                case "u":
+                    addKommentti(l);
+                    break;
                 default:
                     io.println("tuntematon komento");
             }
         }
+    }
+
+    private void addKommentti(Lukuvinkki l) {
+        io.println("kommentoijan nimi:");
+        String kommentoija = io.nextLine();
+        io.println("kommentti:");
+        String kommentti = io.nextLine();
+        kommenttiDAO.save(Integer.parseInt(l.getID()), new Kommentti(kommentoija, kommentti));
     }
 }

@@ -16,6 +16,14 @@ public class TextTools {
         return s;
     }
 
+    public static String createCharacters(char c, int amount) {
+        String s = "";
+        for (int i = 0; i < amount; i++) {
+            s += c;
+        }
+        return s;
+    }
+
     public static String createHeaders(int length, String... headers) {
         String headersRow = "";
         for (String s : headers) {

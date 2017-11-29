@@ -13,6 +13,9 @@ public class StubKommenttiDAO implements KommenttiDAO {
     @Override
     public ArrayList<Kommentti> getAllForID(String id) {
         ArrayList<Kommentti> asdf = new ArrayList<>();
+        asdf.add(new Kommentti("testaaja1", "testitesti"));
+        asdf.add(new Kommentti("testaaja2", "testitestitestitestitestitestitestitestitestitestitestitestitestitestitestitestitestitestitestitestitestitestitestitesti"));
+        asdf.add(new Kommentti("testaaja3", "testitestitestitestitestitestitestitestitestitestitestitestitestitestitestitesti"));
         return asdf;
     }
 }

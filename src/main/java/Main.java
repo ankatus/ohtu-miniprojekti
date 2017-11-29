@@ -11,6 +11,8 @@ public class Main {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Database database = new Database("lukuvinkkikirjasto.db");
         DbKirjaDAO kirjaDAO = new DbKirjaDAO(database);
+        StubKommenttiDAO kommenttiDAO = new StubKommenttiDAO();
+
         TextUI ui = new TextUI(new TerminalIO(), kirjaDAO, new StubBlogiDAO(), new StubKommenttiDAO());
 		ui.run();
 	}
