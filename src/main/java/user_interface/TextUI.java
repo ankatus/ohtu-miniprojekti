@@ -161,7 +161,7 @@ public class TextUI {
         io.println("blogit:");
         io.println(TextTools.createCharacters(' ', Integer.toString(index).length())
                 + "  "
-                + TextTools.createHeaders(20, "headeri")//korvaa blogin tietokenttien nimillä
+                + TextTools.createHeaders(20, "kirjoittaja", "otsikko", "url")//korvaa blogin tietokenttien nimillä
         );
         for (Lukuvinkki l : blogiDAO.getAll()) {
             io.println(index + ". " + l);

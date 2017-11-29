@@ -33,11 +33,6 @@ public class Blogi implements Lukuvinkki{
         return url;
     }
 
-    public int getId() {
-        return id;
-    }
-    
-
     public void setOtsikko(String otsikko) {
         this.otsikko = otsikko;
     }
@@ -68,7 +63,7 @@ public class Blogi implements Lukuvinkki{
 
     @Override
     public String getID() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return ""+this.id;
     }
     
     
