@@ -84,7 +84,7 @@ public class TextUI {
     }
 
     //ottaa parametrinaan HashMapin, joka sisältää listan indeksit ja niitä vastaavat lukuvinkit
-    private void chooseLukuvinkki(HashMap<Integer, Lukuvinkki> indexMap) {
+    private void chooseLukuvinkki(HashMap<Integer, Lukuvinkki> indexMap) throws SQLException {
         while (true) {
             io.println();
             io.println("Haluatko tarkastella lukuvinkkiä?");
@@ -105,7 +105,6 @@ public class TextUI {
                 io.println("Tuntematon komento");
                 continue;
             }
-
             if (indexMap.containsKey(wantedIndex)) {
                 viewLukuvinkki(indexMap.get(wantedIndex));
             } else {
@@ -151,7 +150,7 @@ public class TextUI {
         return indexMap;
     }
 
-    private void viewLukuvinkki(Lukuvinkki l) {
+    private void viewLukuvinkki(Lukuvinkki l) throws SQLException {
         io.println(l.toString());
         io.println();
         io.println("Kommentit:");
