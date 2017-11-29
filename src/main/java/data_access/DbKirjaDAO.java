@@ -21,10 +21,11 @@ public class DbKirjaDAO implements KirjaDAO {
         values.add(kirja.getOtsikko());
         values.add(kirja.getKirjoittaja());
         values.add(kirja.getIsbn());
+        values.add(false);
         
         database.executeQueryUpdate("INSERT INTO Kirja "
-                + "(otsikko, kirjoittaja, isbn)"
-                + " VALUES (?, ?, ?)", values);
+                + "(otsikko, kirjoittaja, isbn, luettu)"
+                + " VALUES (?, ?, ?, ?)", values);
         database.closeConnection();
     }
 
@@ -37,7 +38,7 @@ public class DbKirjaDAO implements KirjaDAO {
 
         try {
             while (rS.next()) {
-                Lukuvinkki kirja = new Kirja(rS.getString("otsikko"), rS.getString("kirjoittaja"), rS.getString("isbn"));
+                Lukuvinkki kirja = new Kirja(rS.getInt("id"), rS.getString("otsikko"), rS.getString("kirjoittaja"), rS.getString("isbn"), rS.getString("luettu").equals("true"));
                 
                 kirja_lukuvinkit.add(kirja);
             }

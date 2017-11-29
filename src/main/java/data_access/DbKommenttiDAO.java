@@ -26,7 +26,7 @@ public class DbKommenttiDAO implements KommenttiDAO {
             PreparedStatement stmt = connection.prepareStatement("INSERT INTO Kommentti "
                     + "(lukuvinkki, kommentoija, kommentti)"
                     + " VALUES (?, ?, ?)");
-            stmt.setObject(1, parseIdToTable(lukuvinkki_id));
+            stmt.setObject(1, lukuvinkki_id);
             stmt.setObject(2, kommentti.getKommentoija());
             stmt.setObject(3, kommentti.getKommentti());
             stmt.executeUpdate();
@@ -45,7 +45,7 @@ public class DbKommenttiDAO implements KommenttiDAO {
 
         Connection connection = database.connect();
         PreparedStatement stmt = connection.prepareStatement("SELECT * "
-                + "FROM Kommentti WHERE lukuvinkki= ?");
+                + "FROM Kommentti WHERE lukuvinkki=?");
         stmt.setObject(1, lukuvinkki_id);
         ResultSet rs = stmt.executeQuery();
 

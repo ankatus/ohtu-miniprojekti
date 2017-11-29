@@ -125,7 +125,7 @@ public class TextUI {
         String kirjoittaja = io.nextLine();
         io.println("ISBN-tunnus: ");
         String isbn = io.nextLine();
-        Kirja kirja = new Kirja(otsikko, kirjoittaja, isbn);
+        Kirja kirja = new Kirja(otsikko, kirjoittaja, isbn, false);
         kirjaDAO.save(kirja);
     }
 
@@ -136,7 +136,7 @@ public class TextUI {
         String kirjoittaja = io.nextLine();
         io.println("URL: ");
         String url = io.nextLine();
-        Blogi blogi = new Blogi(otsikko, kirjoittaja, url);
+        Blogi blogi = new Blogi(otsikko, kirjoittaja, url, false);
         blogiDAO.save(blogi);
 
     }
@@ -148,7 +148,7 @@ public class TextUI {
         io.println("kirjat:");
         io.println(TextTools.createCharacters(' ', Integer.toString(index).length())
                 + "  "
-                + TextTools.createHeaders(20, "kirjoittaja", "otsikko", "ISBN")
+                + TextTools.createHeaders(20, "kirjoittaja", "otsikko", "ISBN", "luettu")
         );
         for (Lukuvinkki l : kirjaDAO.getAll()) {
             io.println(index + ". " + l);
@@ -159,7 +159,7 @@ public class TextUI {
         io.println("blogit:");
         io.println(TextTools.createCharacters(' ', Integer.toString(index).length())
                 + "  "
-                + TextTools.createHeaders(20, "kirjoittaja", "otsikko", "url")//korvaa blogin tietokenttien nimillä
+                + TextTools.createHeaders(20, "kirjoittaja", "otsikko", "url", "luettu")//korvaa blogin tietokenttien nimillä
         );
         for (Lukuvinkki l : blogiDAO.getAll()) {
             io.println(index + ". " + l);

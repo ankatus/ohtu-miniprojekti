@@ -25,10 +25,11 @@ public class DbBlogiDAO implements BlogiDAO {
         values.add(blogi.getOtsikko());
         values.add(blogi.getKirjoittaja());
         values.add(blogi.getUrl());
+        values.add(false);
 
         database.executeQueryUpdate("INSERT INTO Blogi "
-                    + "(otsikko, kirjoittaja, url)"
-                    + " VALUES (?, ?, ?)", values);
+                    + "(otsikko, kirjoittaja, url, luettu)"
+                    + " VALUES (?, ?, ?, ?)", values);
         database.closeConnection();
     }
     
@@ -42,7 +43,7 @@ public class DbBlogiDAO implements BlogiDAO {
 
         try {
             while (rS.next()) {
-                Lukuvinkki blogi = new Blogi(rS.getInt("id"), rS.getString("otsikko"), rS.getString("kirjoittaja"), rS.getString("url"));
+                Lukuvinkki blogi = new Blogi(rS.getInt("id"), rS.getString("otsikko"), rS.getString("kirjoittaja"), rS.getString("url"), rS.getString("luettu").equals("true"));
                 
                 blogi_lukuvinkit.add(blogi);
             }
@@ -57,11 +58,10 @@ public class DbBlogiDAO implements BlogiDAO {
 
     public void markAsLuettu(String id) {
         String table = parseIdToTable(id);
-        String idNumber = id.substring(1,id.length());
+        int idNumber = Integer.parseInt(id.substring(1,id.length()));
         ArrayList values = new ArrayList<>();
-        values.add(table);
         values.add(idNumber);
-        database.executeQueryUpdate("UPDATE TABLE ? SET luettu=true WHERE id=?", values);
+        database.executeQueryUpdate("UPDATE " + table + " SET luettu='true' WHERE id=?", values);
         database.closeConnection();
     }
 
