@@ -1,6 +1,7 @@
 package user_interface;
 
 import data_access.*;
+import domain.StubBlogi;
 import domain.StubKirja;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,28 +18,33 @@ public class TextUITest {
     @Before
     public void setUp() throws Exception {
         testIO = new StubIO("2", "a", "x", "x");
-        tyyppiIO = new StubIO("1","5","1","Kirja","tekija","222", "1", "2", "asd", "asd", "asd.com","x");
-        KirjaDAO testDAO = new StubKirjaDAO();
-        runUI = new TextUI(testIO, testDAO, new StubBlogiDAO(), new StubKommenttiDAO());
-        tyyppiUI = new TextUI(tyyppiIO, testDAO, new StubBlogiDAO(), new StubKommenttiDAO());
+        tyyppiIO = new StubIO("1","5","1","Kirja","tekija","222", "1", "2", "asd", "asd", "asd.com", "x", "1", "x");
+        KirjaDAO testkDAO = new StubKirjaDAO();
+        BlogiDAO testbDAO = new StubBlogiDAO();
+        runUI = new TextUI(testIO, testkDAO, testbDAO, new StubKommenttiDAO());
+        tyyppiUI = new TextUI(tyyppiIO, testkDAO, testbDAO, new StubKommenttiDAO());
     }
 
     @Test
     public void runTest() throws Exception {
-//        StubKirja apu = new StubKirja();
-//        runUI.run();
-//        assertEquals("Hello!", testIO.outputs.get(0));
-//        assertEquals("Komento (1=lisää, 2=listaa, x=lopeta):", testIO.outputs.get(1));
-//        assertEquals("1. " + apu.toString(), testIO.outputs.get(2));
-//        assertEquals("2. " + apu.toString(), testIO.outputs.get(3));
-//        assertEquals("3. " + apu.toString(), testIO.outputs.get(4));
-//        assertEquals("4. " + apu.toString(), testIO.outputs.get(5));
-//        assertEquals("5. " + apu.toString(), testIO.outputs.get(6));
-//        assertEquals("6. " + apu.toString(), testIO.outputs.get(7));
-//        assertEquals("", testIO.outputs.get(8));
-//        assertEquals("", testIO.outputs.get(9));
-//        assertEquals("Haluatko tarkastella lukuvinkkiä?", testIO.outputs.get(10));
-//        assertEquals("Anna kohteen indeksi, listaa uudestaan (\"l\") tai palaa (\"x\")", testIO.outputs.get(11));
+       StubKirja apuk = new StubKirja();
+       StubBlogi apub = new StubBlogi();
+       runUI.run();
+       assertEquals("Hello!", testIO.outputs.get(0));
+       assertEquals("Komento (1=lisää, 2=listaa, x=lopeta):", testIO.outputs.get(1));
+       assertEquals("kirjat:", testIO.outputs.get(2));
+       assertEquals("   kirjoittaja            otsikko                ISBN                   ", testIO.outputs.get(3));
+       assertEquals("1. " + apuk.toString(), testIO.outputs.get(4));
+       assertEquals("2. " + apuk.toString(), testIO.outputs.get(5));
+       assertEquals("", testIO.outputs.get(6));
+       assertEquals("blogit:", testIO.outputs.get(7));
+       assertEquals("   kirjoittaja            otsikko                url                    ", testIO.outputs.get(8));
+       assertEquals("3. " + apub.toString(), testIO.outputs.get(9));
+       assertEquals("4. " + apub.toString(), testIO.outputs.get(10));
+       assertEquals("", testIO.outputs.get(11));
+       assertEquals("", testIO.outputs.get(12));
+       assertEquals("Haluatko tarkastella lukuvinkkiä?", testIO.outputs.get(13));
+       assertEquals("Anna kohteen indeksi, listaa uudestaan (\"l\") tai palaa (\"x\")", testIO.outputs.get(14));
 //        assertEquals("Tuntematon komento", testIO.outputs.get(12));
 //        assertEquals("", testIO.outputs.get(13));
 //        assertEquals("Haluatko tarkastella lukuvinkkiä?", testIO.outputs.get(14));

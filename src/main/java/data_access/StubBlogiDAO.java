@@ -12,9 +12,6 @@ public class StubBlogiDAO implements BlogiDAO {
         ArrayList<Lukuvinkki> asdf = new ArrayList<>();
         asdf.add(new StubBlogi());
         asdf.add(new StubBlogi());
-        asdf.add(new StubBlogi());
-        asdf.add(new StubBlogi());
-        asdf.add(new StubBlogi());
         return asdf;
     }
 
