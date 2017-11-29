@@ -2,6 +2,7 @@
 .gradle
 /build/
 gradle.properties
+/nbproject/
 
 /.nb-gradle/
 # Ignore Gradle GUI config
