@@ -1,4 +1,6 @@
+import data_access.BlogiDAO;
 import data_access.Database;
+import data_access.DbBlogiDAO;
 import data_access.DbKirjaDAO;
 import java.sql.SQLException;
 
@@ -12,8 +14,9 @@ public class Main {
         Database database = new Database("lukuvinkkikirjasto.db");
         DbKirjaDAO kirjaDAO = new DbKirjaDAO(database);
         StubKommenttiDAO kommenttiDAO = new StubKommenttiDAO();
+        DbBlogiDAO blogiDAO = new DbBlogiDAO(database);
 
-        TextUI ui = new TextUI(new TerminalIO(), kirjaDAO, new StubBlogiDAO(), new StubKommenttiDAO());
+        TextUI ui = new TextUI(new TerminalIO(), kirjaDAO, blogiDAO, new StubKommenttiDAO());
 		ui.run();
 	}
 }
