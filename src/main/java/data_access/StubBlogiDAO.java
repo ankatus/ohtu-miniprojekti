@@ -1,5 +1,6 @@
 package data_access;
 
+import domain.Blogi;
 import domain.Lukuvinkki;
 import domain.StubBlogi;
 
@@ -15,6 +16,11 @@ public class StubBlogiDAO implements BlogiDAO {
         asdf.add(new StubBlogi());
         asdf.add(new StubBlogi());
         return asdf;
+    }
+
+    @Override
+    public void save(Blogi blogi) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

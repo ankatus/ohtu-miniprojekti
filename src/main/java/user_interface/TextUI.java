@@ -7,8 +7,8 @@ import domain.Kirja;
 import domain.Lukuvinkki;
 import java.sql.SQLException;
 import java.util.HashMap;
-
 import data_access.KirjaDAO;
+import domain.Blogi;
 import tools.TextTools;
 
 public class TextUI {
@@ -18,11 +18,11 @@ public class TextUI {
     private KommenttiDAO kommenttiDAO;
     private BlogiDAO blogiDAO;
 
-    public TextUI(IO io, KirjaDAO kirjaDao, BlogiDAO blogiDAO, KommenttiDAO kommenttiDAO) {
+    public TextUI(IO io, KirjaDAO kirjaDao, BlogiDAO blogiDao, KommenttiDAO kommenttiDAO) {
         this.io = io;
         this.kirjaDAO = kirjaDao;
         this.kommenttiDAO = kommenttiDAO;
-        this.blogiDAO = blogiDAO;
+        this.blogiDAO = blogiDao;
     }
 
     private void addRun() throws SQLException {
@@ -30,7 +30,7 @@ public class TextUI {
         while (true) {
 
             io.println("Valitse lisättävä tyyppi");
-            io.println("Komento (1=kirja, x=palaa):");
+            io.println("Komento (1=kirja, 2=blogi, x=palaa):");
             String input = io.nextLine();
 
             switch (input) {
@@ -38,7 +38,11 @@ public class TextUI {
                 case "1":
                     // Tänne kirjan lisääminen
                     addBook();
-                    break;
+                    break addloop;
+                
+                case "2":
+                    addBlogi();
+                    break addloop;
                 //Tähän väliin muut tyypit
                 case "x":
                     break addloop;
@@ -125,6 +129,18 @@ public class TextUI {
         String isbn = io.nextLine();
         Kirja kirja = new Kirja(otsikko, kirjoittaja, isbn);
         kirjaDAO.save(kirja);
+    }
+    
+    private void addBlogi() throws SQLException {
+        io.println("Blogin Otsikko: ");
+        String otsikko = io.nextLine();
+        io.println("Tekijän nimi muodossa \"Sukunimi, Etunimi\": ");
+        String kirjoittaja = io.nextLine();
+        io.println("URL: ");
+        String url = io.nextLine();
+        Blogi blogi = new Blogi(otsikko, kirjoittaja, url);
+        blogiDAO.save(blogi);
+
     }
 
     //listaa lukuvinkit ja palauttaa HashMapin, jossa avaimina listan indeksit ja arvoina lukuvinkit
