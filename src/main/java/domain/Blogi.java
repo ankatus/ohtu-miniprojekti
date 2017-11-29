@@ -1,5 +1,7 @@
 package domain;
 
+import tools.TextTools;
+
 
 public class Blogi implements Lukuvinkki{
     
@@ -53,7 +55,11 @@ public class Blogi implements Lukuvinkki{
 
     @Override
     public String toString() {
-        return "B" + id + ". " + kirjoittaja + ": " + otsikko + " (" + url + ")";
+        int maxLength = 20;
+        String columnRepresentation = TextTools.fit(kirjoittaja, 20) + " | ";
+        columnRepresentation += TextTools.fit(otsikko, 20) + " | ";
+        columnRepresentation += TextTools.fit(url, 20) + " | ";
+        return columnRepresentation;
     }
 
     @Override
