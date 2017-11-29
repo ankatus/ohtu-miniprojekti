@@ -16,6 +16,10 @@ public class StubBlogiDAO implements BlogiDAO {
     }
 
     @Override
+    public void markAsLuettu(String id) {
+    }
+
+    @Override
     public void save(Blogi blogi) {
         //not yet supported
     }

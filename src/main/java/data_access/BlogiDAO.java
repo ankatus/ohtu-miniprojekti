@@ -7,5 +7,6 @@ import java.util.ArrayList;
 
 public interface BlogiDAO {
     ArrayList<Lukuvinkki> getAll();
+    void markAsLuettu(String id);
     void save(Blogi blogi);
 }

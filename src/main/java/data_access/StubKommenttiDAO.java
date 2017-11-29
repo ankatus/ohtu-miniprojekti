@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class StubKommenttiDAO implements KommenttiDAO {
     @Override
-    public void save(int lukuvinkki_id, Kommentti kommentti) {
+    public void save(String lukuvinkki_id, Kommentti kommentti) {
 
     }
 

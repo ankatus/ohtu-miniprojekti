@@ -5,8 +5,10 @@ import domain.Kommentti;
 import data_access.KommenttiDAO;
 import domain.Kirja;
 import domain.Lukuvinkki;
+
 import java.sql.SQLException;
 import java.util.HashMap;
+
 import data_access.KirjaDAO;
 import domain.Blogi;
 import tools.TextTools;
@@ -39,7 +41,7 @@ public class TextUI {
                     // Tänne kirjan lisääminen
                     addBook();
                     break addloop;
-                
+
                 case "2":
                     addBlogi();
                     break addloop;
@@ -71,8 +73,7 @@ public class TextUI {
                     break;
 
                 case "2":
-                    HashMap indexMap = list();
-                    chooseLukuvinkki(indexMap);
+                    chooseLukuvinkki();
                     break;
 
                 case "x":
@@ -88,19 +89,16 @@ public class TextUI {
     }
 
     //ottaa parametrinaan HashMapin, joka sisältää listan indeksit ja niitä vastaavat lukuvinkit
-    private void chooseLukuvinkki(HashMap<Integer, Lukuvinkki> indexMap) throws SQLException {
+    private void chooseLukuvinkki() throws SQLException {
         while (true) {
+            HashMap<Integer, Lukuvinkki> indexMap = list();
             io.println();
             io.println("Haluatko tarkastella lukuvinkkiä?");
-            io.println("Anna kohteen indeksi, listaa uudestaan (\"l\") tai palaa (\"x\")");
+            io.println("Anna kohteen indeksi tai palaa (\"x\")");
             String input = io.nextLine();
 
             if (input.toLowerCase().equals("x")) {
                 return;
-            }
-            if (input.toLowerCase().equals("l")) {
-                list();
-                continue;
             }
             int wantedIndex;
             try {
@@ -117,7 +115,7 @@ public class TextUI {
             }
         }
 
-        
+
     }
 
     private void addBook() throws SQLException {
@@ -130,7 +128,7 @@ public class TextUI {
         Kirja kirja = new Kirja(otsikko, kirjoittaja, isbn);
         kirjaDAO.save(kirja);
     }
-    
+
     private void addBlogi() throws SQLException {
         io.println("Blogin Otsikko: ");
         String otsikko = io.nextLine();
@@ -173,14 +171,14 @@ public class TextUI {
     }
 
     private void viewLukuvinkki(Lukuvinkki l) throws SQLException {
-        io.println(l.toString());
-        io.println();
-        io.println("Kommentit:");
-        for (Kommentti k : kommenttiDAO.getAllForID(l.getID())) {
-            io.println(k.toString());
-            io.println();
-        }
         while (true) {
+            io.println(l.toString());
+            io.println();
+            io.println("Kommentit:");
+            for (Kommentti k : kommenttiDAO.getAllForID(l.getID())) {
+                io.println(k.toString());
+                io.println();
+            }
             io.println();
             io.println("Komento (x=palaa, m=merkitse luetuksi, u=uusi kommentti):");
             String input = io.nextLine();
@@ -188,7 +186,9 @@ public class TextUI {
                 case "x":
                     return;
                 case "m":
-                    l.setLuettu(true);
+                    //blogiDAO tekee tämän nyt sekä kirjalle että blogille,
+                    //pitää ulkoistaa omaan luokkaan joskus varmaan
+                    blogiDAO.markAsLuettu(l.getID());
                     break;
                 case "u":
                     addKommentti(l);
@@ -204,6 +204,6 @@ public class TextUI {
         String kommentoija = io.nextLine();
         io.println("kommentti:");
         String kommentti = io.nextLine();
-        kommenttiDAO.save(Integer.parseInt(l.getID()), new Kommentti(kommentoija, kommentti));
+        kommenttiDAO.save(l.getID(), new Kommentti(kommentoija, kommentti));
     }
 }

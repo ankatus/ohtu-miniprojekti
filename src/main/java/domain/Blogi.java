@@ -9,11 +9,13 @@ public class Blogi implements Lukuvinkki{
     private String otsikko;
     private String kirjoittaja;
     private String url;
+    private boolean luettu;
 
     public Blogi(String otsikko, String kirjoittaja, String url) {
         this.otsikko = otsikko;
         this.kirjoittaja = kirjoittaja;
         this.url = url;
+        luettu = false;
     }
     
     public Blogi(int id, String otsikko, String kirjoittaja, String url) {
@@ -21,6 +23,7 @@ public class Blogi implements Lukuvinkki{
         this.otsikko = otsikko;
         this.kirjoittaja = kirjoittaja;
         this.url = url;
+        luettu = false;
     }
 
     public String getOtsikko() {
@@ -59,13 +62,14 @@ public class Blogi implements Lukuvinkki{
         String columnRepresentation = TextTools.fit(kirjoittaja, 20) + " | ";
         columnRepresentation += TextTools.fit(otsikko, 20) + " | ";
         columnRepresentation += TextTools.fit(url, 20) + " | ";
+        if (luettu) {
+            columnRepresentation += TextTools.fit("kyllä", 20);
+        } else {
+            columnRepresentation += TextTools.fit("ei", 20);
+        }
         return columnRepresentation;
     }
 
-    @Override
-    public void setLuettu(boolean luettu) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public String getID() {
