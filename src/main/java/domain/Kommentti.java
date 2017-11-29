@@ -23,16 +23,11 @@ public class Kommentti {
     }
 
     public void setKommentoija(String kommentoija) {
-        this.kommentoija = kommentoija;  }
+        this.kommentoija = kommentoija;
+    }
     
-     
-    
-
     @Override
     public String toString() {
         return kommentoija + ":\n" + kommentti;
     }
-    
-    
-
 }

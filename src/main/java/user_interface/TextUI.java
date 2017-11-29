@@ -1,27 +1,36 @@
 package user_interface;
 
-import data_access.DbKirjaDAO;
+import data_access.BlogiDAO;
+import domain.Kommentti;
+import data_access.KommenttiDAO;
 import domain.Kirja;
 import domain.Lukuvinkki;
 import java.sql.SQLException;
+import java.util.HashMap;
+
 import data_access.KirjaDAO;
+import tools.TextTools;
 
 public class TextUI {
 
     private IO io;
-    private KirjaDAO dao;
+    private KirjaDAO kirjaDAO;
+    private KommenttiDAO kommenttiDAO;
+    private BlogiDAO blogiDAO;
 
-    public TextUI(IO io, KirjaDAO dao) {
+    public TextUI(IO io, KirjaDAO kirjaDao, BlogiDAO blogiDAO, KommenttiDAO kommenttiDAO) {
         this.io = io;
-        this.dao = dao;
+        this.kirjaDAO = kirjaDao;
+        this.kommenttiDAO = kommenttiDAO;
+        this.blogiDAO = blogiDAO;
     }
 
-    public void addRun() throws SQLException {
+    private void addRun() throws SQLException {
         addloop:
         while (true) {
 
             io.println("Valitse lisättävä tyyppi");
-            io.println("Komento (1=kirja, x=palaa)");
+            io.println("Komento (1=kirja, x=palaa):");
             String input = io.nextLine();
 
             switch (input) {
@@ -58,13 +67,8 @@ public class TextUI {
                     break;
 
                 case "2":
-                    int index = 1;
-                    for (Lukuvinkki l : dao.getAll()) {
-                        io.println(index + ". " + l);
-                        io.println();
-                        index++;
-                    }
-                    io.println();
+                    HashMap indexMap = list();
+                    chooseLukuvinkki(indexMap);
                     break;
 
                 case "x":
@@ -79,6 +83,40 @@ public class TextUI {
         io.println("Kiitos ja näkemiin!");
     }
 
+    //ottaa parametrinaan HashMapin, joka sisältää listan indeksit ja niitä vastaavat lukuvinkit
+    private void chooseLukuvinkki(HashMap<Integer, Lukuvinkki> indexMap) {
+        while (true) {
+            io.println();
+            io.println("Haluatko tarkastella lukuvinkkiä?");
+            io.println("Anna kohteen indeksi, listaa uudestaan (\"l\") tai palaa (\"x\")");
+            String input = io.nextLine();
+
+            if (input.toLowerCase().equals("x")) {
+                return;
+            }
+            if (input.toLowerCase().equals("l")) {
+                list();
+                continue;
+            }
+            int wantedIndex;
+            try {
+                wantedIndex = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                io.println("Tuntematon komento");
+                continue;
+            }
+
+            if (indexMap.containsKey(wantedIndex)) {
+                viewLukuvinkki(indexMap.get(wantedIndex));
+            } else {
+                io.println("Ei lukuvinkkiä tällä indeksillä");
+                continue;
+            }
+        }
+
+        
+    }
+
     private void addBook() throws SQLException {
         io.println("Kirjan nimi: ");
         String otsikko = io.nextLine();
@@ -87,7 +125,53 @@ public class TextUI {
         io.println("ISBN-tunnus: ");
         String isbn = io.nextLine();
         Kirja kirja = new Kirja(otsikko, kirjoittaja, isbn);
-        dao.save(kirja);
+        kirjaDAO.save(kirja);
+    }
 
+    //listaa lukuvinkit ja palauttaa HashMapin, jossa avaimina listan indeksit ja arvoina lukuvinkit
+    private HashMap<Integer, Lukuvinkki> list() {
+        HashMap<Integer, Lukuvinkki> indexMap = new HashMap<>();
+        int index = 1;
+        io.println("kirjat:");
+        io.println("   " + TextTools.createHeaders(20, "kirjoittaja", "otsikko", "ISBN"));
+        for (Lukuvinkki l : kirjaDAO.getAll()) {
+            io.println(index + ". " + l);
+            indexMap.put(index, l);
+            index++;
+        }
+        io.println();
+        io.println("blogit:");
+        io.println("   " + TextTools.createHeaders(20, "headeri"));
+        for (Lukuvinkki l : blogiDAO.getAll()) {
+            io.println(index + ". " + l);
+            index++;
+            indexMap.put(index, l);
+        }
+        io.println();
+        return indexMap;
+    }
+
+    private void viewLukuvinkki(Lukuvinkki l) {
+        io.println(l.toString());
+        io.println();
+        io.println("Kommentit:");
+        for (Kommentti k : kommenttiDAO.getAllForID(l.getID())) {
+            io.println(k.toString());
+            io.println();
+        }
+        while (true) {
+            io.println();
+            io.println("Komento (x=palaa, m=merkitse luetuksi):");
+            String input = io.nextLine();
+            switch (input.toLowerCase()) {
+                case "x":
+                    return;
+                case "m":
+                    l.setLuettu(true);
+                    break;
+                default:
+                    io.println("tuntematon komento");
+            }
+        }
     }
 }
