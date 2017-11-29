@@ -53,10 +53,10 @@ public class TextUITest {
         assertEquals("Hello!", tyyppiIO.outputs.get(0));
         assertEquals("Komento (1=lisää, 2=listaa, x=lopeta):", tyyppiIO.outputs.get(1));
         assertEquals("Valitse lisättävä tyyppi", tyyppiIO.outputs.get(2));
-        assertEquals("Komento (1=kirja, x=palaa):", tyyppiIO.outputs.get(3));
+        assertEquals("Komento (1=kirja, 2=blogi, x=palaa):", tyyppiIO.outputs.get(3));
         assertEquals("Tuntematon komento.", tyyppiIO.outputs.get(4));
         assertEquals("Valitse lisättävä tyyppi", tyyppiIO.outputs.get(5));
-        assertEquals("Komento (1=kirja, x=palaa):", tyyppiIO.outputs.get(6));
+        assertEquals("Komento (1=kirja, 2=blogi, x=palaa):", tyyppiIO.outputs.get(6));
         assertEquals("Kirjan nimi: ", tyyppiIO.outputs.get(7));
     }
 
