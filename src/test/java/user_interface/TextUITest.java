@@ -45,12 +45,12 @@ public class TextUITest {
        assertEquals("", testIO.outputs.get(12));
        assertEquals("Haluatko tarkastella lukuvinkkiä?", testIO.outputs.get(13));
        assertEquals("Anna kohteen indeksi, listaa uudestaan (\"l\") tai palaa (\"x\")", testIO.outputs.get(14));
-//        assertEquals("Tuntematon komento", testIO.outputs.get(12));
-//        assertEquals("", testIO.outputs.get(13));
-//        assertEquals("Haluatko tarkastella lukuvinkkiä?", testIO.outputs.get(14));
-//        assertEquals("Anna kohteen indeksi, listaa uudestaan (\"l\") tai palaa (\"x\")", testIO.outputs.get(15));
-//        assertEquals("Komento (1=lisää, 2=listaa, x=lopeta):", testIO.outputs.get(16));
-//        assertEquals("Kiitos ja näkemiin!", testIO.outputs.get(17));
+        assertEquals("Tuntematon komento", testIO.outputs.get(15));
+        assertEquals("", testIO.outputs.get(16));
+        assertEquals("Haluatko tarkastella lukuvinkkiä?", testIO.outputs.get(17));
+        assertEquals("Anna kohteen indeksi, listaa uudestaan (\"l\") tai palaa (\"x\")", testIO.outputs.get(18));
+        assertEquals("Komento (1=lisää, 2=listaa, x=lopeta):", testIO.outputs.get(19));
+        assertEquals("Kiitos ja näkemiin!", testIO.outputs.get(20));
     }
 
     @Test
