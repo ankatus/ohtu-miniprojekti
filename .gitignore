@@ -2,6 +2,9 @@
 .gradle
 /build/
 gradle.properties
+lukuvinkkikirjasto.db
+sqlite3.exe
+/nbproject/
 
 /.nb-gradle/
 # Ignore Gradle GUI config
