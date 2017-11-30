@@ -23,11 +23,10 @@ public class DbBlogiDAO implements BlogiDAO {
         values.add(blogi.getOtsikko());
         values.add(blogi.getKirjoittaja());
         values.add(blogi.getUrl());
-        values.add(false);
 
         database.executeQueryUpdate("INSERT INTO Blogi "
-                    + "(otsikko, kirjoittaja, url, luettu)"
-                    + " VALUES (?, ?, ?, ?)", values);
+                    + "(otsikko, kirjoittaja, url)"
+                    + " VALUES (?, ?, ?)", values);
         database.closeConnection();
     }
     

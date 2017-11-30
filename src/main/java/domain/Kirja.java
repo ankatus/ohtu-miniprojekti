@@ -12,11 +12,10 @@ public class Kirja implements Lukuvinkki {
     private String isbn;
     private boolean luettu;
 
-    public Kirja(String otsikko, String kirjoittaja, String isbn, boolean luettu) {
+    public Kirja(String otsikko, String kirjoittaja, String isbn) {
         this.otsikko = otsikko;
         this.kirjoittaja = kirjoittaja;
         this.isbn = isbn;
-        this.luettu = luettu;
     }
     
     public Kirja(int id, String otsikko, String kirjoittaja, String isbn, boolean luettu) {

@@ -11,11 +11,10 @@ public class Blogi implements Lukuvinkki{
     private String url;
     private boolean luettu;
 
-    public Blogi(String otsikko, String kirjoittaja, String url, boolean luettu) {
+    public Blogi(String otsikko, String kirjoittaja, String url) {
         this.otsikko = otsikko;
         this.kirjoittaja = kirjoittaja;
         this.url = url;
-        this.luettu = luettu;
     }
     
     public Blogi(int id, String otsikko, String kirjoittaja, String url, boolean luettu) {
