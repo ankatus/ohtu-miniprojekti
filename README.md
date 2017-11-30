@@ -7,7 +7,8 @@
 [![codecov](https://codecov.io/gh/ankatus/ohtu-miniprojekti/branch/master/graph/badge.svg)](https://codecov.io/gh/ankatus/ohtu-miniprojekti)
 
 ## Definition of Done (alustava luonnos)
-- Testikattavuus vähintään 80 %  
+- Testikattavuus vähintään 80 %
+- Uusilla ominaisuuksilla Cucmber-testit
 - Ohjelma käynnistyy  
 - Ohjelma ei kaadu  
 - Koodi käyty läpi  
