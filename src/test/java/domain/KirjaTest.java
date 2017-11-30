@@ -26,7 +26,7 @@ public class KirjaTest {
     
     @Before
     public void setUp() {
-        kirja = new Kirja(1, "testi", "testaaja", "12345678");
+        kirja = new Kirja(1, "testi", "testaaja", "12345678", false);
     }
     
     @After
@@ -35,7 +35,7 @@ public class KirjaTest {
 
     @Test
     public void kirjaToString(){
-        assertEquals("testaaja             | testi                | 12345678             | ", kirja.toString());
+        assertEquals("testaaja             | testi                | 12345678             | ei                  ", kirja.toString());
     }
     
     @Test
@@ -56,7 +56,7 @@ public class KirjaTest {
         kirja.setOtsikko("teste");
         kirja.setKirjoittaja("testaaje");
         kirja.setIsbn("12345677");
-        assertEquals("testaaje             | teste                | 12345677             | ", kirja.toString());
+        assertEquals("testaaje             | teste                | 12345677             | ei                  ", kirja.toString());
         assertEquals("K2", kirja.getID());
     }
 }
