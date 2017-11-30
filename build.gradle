@@ -63,6 +63,10 @@ run {
 	standardInput = System.in;
 }
 
+test {
+    exclude 'Main.java'
+    exclude 'user_interface/**'
+}
 
 
 
