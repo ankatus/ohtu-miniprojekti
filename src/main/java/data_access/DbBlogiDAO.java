@@ -31,7 +31,6 @@ public class DbBlogiDAO implements BlogiDAO {
                     + " VALUES (?, ?, ?)", values);
         database.closeConnection();
     }
-    
 
     @Override
     public ArrayList<Lukuvinkki> getAll() {
@@ -42,7 +41,7 @@ public class DbBlogiDAO implements BlogiDAO {
 
         try {
             while (rS.next()) {
-                Lukuvinkki blogi = new Blogi(rS.getInt("id"), rS.getString("otsikko"), rS.getString("kirjoittaja"), rS.getString("url"), rS.getString("luettu").equals("true"));
+                Lukuvinkki blogi = new Blogi(rS.getInt("id"), rS.getString("otsikko"), rS.getString("kirjoittaja"), rS.getString("url"), rS.getBoolean("luettu"));
                 
                 blogi_lukuvinkit.add(blogi);
             }

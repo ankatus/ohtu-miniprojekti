@@ -35,15 +35,13 @@ public class DbKirjaDAOTest {
         kirjaDAO.save(kirja);
         
         ArrayList values = new ArrayList();
-        values.add(1);
         values.add("Testikirja");
         values.add("Testi, Testaaja");
         values.add("123456"); 
-        values.add(false);
         
         verify(mockDb).executeQueryUpdate("INSERT INTO Kirja "
-                + "(id, otsikko, kirjoittaja, isbn, luettu)"
-                + " VALUES (?, ?, ?, ?, ?)", values);
+                + "(otsikko, kirjoittaja, isbn)"
+                + " VALUES (?, ?, ?)", values);
         verify(mockDb).closeConnection();
     }
 

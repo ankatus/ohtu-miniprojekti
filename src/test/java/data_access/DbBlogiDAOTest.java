@@ -6,10 +6,7 @@ import domain.Lukuvinkki;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -23,17 +20,6 @@ public class DbBlogiDAOTest {
     private Database mockDb;
     private DbBlogiDAO blogiDAO;
     
-    public DbBlogiDAOTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
     @Before
     public void setUp() throws SQLException {
         mockDb = mock(Database.class);
@@ -46,10 +32,6 @@ public class DbBlogiDAOTest {
         when(testRs.getString("url")).thenReturn("testi.fi").thenReturn("test.com").thenReturn("asd.net");
     }
     
-    @After
-    public void tearDown() {
-    }
-
     @Test
     public void saveTest() {
         Blogi blogi = new Blogi("Testiblogi", "Testi, Testaaja", "testi.fi");
