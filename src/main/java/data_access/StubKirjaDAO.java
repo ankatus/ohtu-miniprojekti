@@ -21,7 +21,10 @@ public class StubKirjaDAO implements KirjaDAO {
         //Not yet done(täytyi vaihtaa kommentiksi, jotta testit toimivat)
     }
 
-    
+    @Override
+    public void markAsLuettu(String id) {
 
-    
+    }
+
+
 }
