@@ -19,6 +19,11 @@ apply plugin: 'jacoco'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+project.ext {
+    cucumberVersion = '1.2.5'
+}
+
+
 // In this section you declare where to find the dependencies of your project
 repositories {
     // Use jcenter for resolving your dependencies.
@@ -29,6 +34,11 @@ repositories {
 dependencies {
     // This dependency is found on compile classpath of this component and consumers.
     compile 'com.google.guava:guava:23.0'
+
+    // Cucumberia varten
+    testCompile 'info.cukes:cucumber-java:' + cucumberVersion
+    testCompile 'info.cukes:cucumber-junit:' + cucumberVersion
+
 
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'
@@ -64,6 +74,8 @@ run {
 }
 
 test {
+    testLogging.showStandardStreams = true
+    systemProperties System.getProperties()
     exclude 'Main.java'
     exclude 'user_interface/**'
 }
