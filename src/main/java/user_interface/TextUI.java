@@ -125,7 +125,7 @@ public class TextUI {
         String kirjoittaja = io.nextLine();
         io.println("ISBN-tunnus: ");
         String isbn = io.nextLine();
-        Kirja kirja = new Kirja(otsikko, kirjoittaja, isbn, false);
+        Kirja kirja = new Kirja(otsikko, kirjoittaja, isbn);
         kirjaDAO.save(kirja);
     }
 
@@ -136,7 +136,7 @@ public class TextUI {
         String kirjoittaja = io.nextLine();
         io.println("URL: ");
         String url = io.nextLine();
-        Blogi blogi = new Blogi(otsikko, kirjoittaja, url, false);
+        Blogi blogi = new Blogi(otsikko, kirjoittaja, url);
         blogiDAO.save(blogi);
 
     }
