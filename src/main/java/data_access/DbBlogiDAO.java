@@ -2,13 +2,11 @@ package data_access;
 
 import domain.Blogi;
 import domain.Lukuvinkki;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+import tools.DBTools;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DbBlogiDAO implements BlogiDAO {
 
@@ -57,22 +55,10 @@ public class DbBlogiDAO implements BlogiDAO {
     }
 
     public void markAsLuettu(String id) {
-        String table = parseIdToTable(id);
-        int idNumber = Integer.parseInt(id.substring(1,id.length()));
+        int idNumber = Integer.parseInt(id.substring(1, id.length()));
         ArrayList values = new ArrayList<>();
         values.add(idNumber);
-        database.executeQueryUpdate("UPDATE " + table + " SET luettu='true' WHERE id=?", values);
+        database.executeQueryUpdate("UPDATE blogi SET luettu='true' WHERE id=?", values);
         database.closeConnection();
     }
-
-    private String parseIdToTable(String id) {
-        char letter = id.toCharArray()[0];
-        if (letter == 'K') {
-            return "kirja";
-        } else if (letter == 'B') {
-            return "blogi";
-        }
-        return null;
-    }
-    
 }

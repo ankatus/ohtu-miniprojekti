@@ -1,16 +1,14 @@
 package user_interface;
 
 import data_access.BlogiDAO;
-import domain.Kommentti;
+import domain.*;
 import data_access.KommenttiDAO;
-import domain.Kirja;
-import domain.Lukuvinkki;
 
 import java.sql.SQLException;
 import java.util.HashMap;
 
 import data_access.KirjaDAO;
-import domain.Blogi;
+import tools.DomainTools;
 import tools.TextTools;
 
 public class TextUI {
@@ -188,7 +186,12 @@ public class TextUI {
                 case "m":
                     //blogiDAO tekee tämän nyt sekä kirjalle että blogille,
                     //pitää ulkoistaa omaan luokkaan joskus varmaan
-                    blogiDAO.markAsLuettu(l.getID());
+                    Type type = l.getType();
+                    if (type == Type.KIRJA) {
+                        kirjaDAO.markAsLuettu(l.getID());
+                    } else if (type == Type.BLOGI) {
+                        blogiDAO.markAsLuettu(l.getID());
+                    }
                     break;
                 case "u":
                     addKommentti(l);

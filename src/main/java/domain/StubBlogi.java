@@ -10,6 +10,11 @@ public class StubBlogi implements Lukuvinkki {
     }
 
     @Override
+    public Type getType() {
+        return null;
+    }
+
+    @Override
     public String toString() {
         int maxLength = 20;
         String columnRepresentation = TextTools.fit("jotain", 20) + " | ";
