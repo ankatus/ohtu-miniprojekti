@@ -33,24 +33,30 @@ public class TextUITest {
        assertEquals("Hello!", testIO.outputs.get(0));
        assertEquals("Komento (1=lisää, 2=listaa, x=lopeta):", testIO.outputs.get(1));
        assertEquals("kirjat:", testIO.outputs.get(2));
-       assertEquals("   kirjoittaja            otsikko                ISBN                   ", testIO.outputs.get(3));
+       assertEquals("   kirjoittaja            otsikko                ISBN                   luettu                 ", testIO.outputs.get(3));
        assertEquals("1. " + apuk.toString(), testIO.outputs.get(4));
        assertEquals("2. " + apuk.toString(), testIO.outputs.get(5));
        assertEquals("", testIO.outputs.get(6));
        assertEquals("blogit:", testIO.outputs.get(7));
-       assertEquals("   kirjoittaja            otsikko                url                    ", testIO.outputs.get(8));
+       assertEquals("   kirjoittaja            otsikko                url                    luettu                 ", testIO.outputs.get(8));
        assertEquals("3. " + apub.toString(), testIO.outputs.get(9));
        assertEquals("4. " + apub.toString(), testIO.outputs.get(10));
        assertEquals("", testIO.outputs.get(11));
        assertEquals("", testIO.outputs.get(12));
        assertEquals("Haluatko tarkastella lukuvinkkiä?", testIO.outputs.get(13));
-       assertEquals("Anna kohteen indeksi, listaa uudestaan (\"l\") tai palaa (\"x\")", testIO.outputs.get(14));
+       assertEquals("Anna kohteen indeksi tai palaa (\"x\")", testIO.outputs.get(14));
        assertEquals("Tuntematon komento", testIO.outputs.get(15));
-       assertEquals("", testIO.outputs.get(16));
-       assertEquals("Haluatko tarkastella lukuvinkkiä?", testIO.outputs.get(17));
-       assertEquals("Anna kohteen indeksi, listaa uudestaan (\"l\") tai palaa (\"x\")", testIO.outputs.get(18));
-       assertEquals("Komento (1=lisää, 2=listaa, x=lopeta):", testIO.outputs.get(19));
-       assertEquals("Kiitos ja näkemiin!", testIO.outputs.get(20));
+       assertEquals("kirjat:", testIO.outputs.get(16));
+       assertEquals("   kirjoittaja            otsikko                ISBN                   luettu                 ", testIO.outputs.get(17));
+       assertEquals("1. " + apuk.toString(), testIO.outputs.get(18));
+       assertEquals("2. " + apuk.toString(), testIO.outputs.get(19));
+       assertEquals("", testIO.outputs.get(20));
+       assertEquals("blogit:", testIO.outputs.get(21));
+       assertEquals("   kirjoittaja            otsikko                url                    luettu                 ", testIO.outputs.get(22));
+       assertEquals("3. " + apub.toString(), testIO.outputs.get(23));
+       assertEquals("4. " + apub.toString(), testIO.outputs.get(24));
+       assertEquals("", testIO.outputs.get(25));
+       assertEquals("", testIO.outputs.get(26));
     }
 
     @Test

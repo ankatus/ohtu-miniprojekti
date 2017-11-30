@@ -2,7 +2,7 @@
 .gradle
 /build/
 gradle.properties
-lukuvinkkikirjasto.db
+*.db
 sqlite3.exe
 /nbproject/
 
