@@ -8,6 +8,9 @@ import java.sql.SQLException;
 import java.util.HashMap;
 
 import data_access.KirjaDAO;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import tools.DomainTools;
 import tools.TextTools;
 
@@ -113,7 +116,6 @@ public class TextUI {
             }
         }
 
-
     }
 
     private void addBook() throws SQLException {
@@ -178,7 +180,7 @@ public class TextUI {
                 io.println();
             }
             io.println();
-            io.println("Komento (x=palaa, m=merkitse luetuksi, u=uusi kommentti):");
+            io.println("Komento (x=palaa, m=merkitse luetuksi, u=uusi kommentti, a=avaa url selaimessa):");
             String input = io.nextLine();
             switch (input.toLowerCase()) {
                 case "x":
@@ -196,17 +198,37 @@ public class TextUI {
                 case "u":
                     addKommentti(l);
                     break;
+                case "a": {
+                    openURLinBrowser(l);
+                }
+                ;
                 default:
                     io.println("tuntematon komento");
             }
         }
     }
 
+//                    
     private void addKommentti(Lukuvinkki l) {
         io.println("kommentoijan nimi:");
         String kommentoija = io.nextLine();
         io.println("kommentti:");
         String kommentti = io.nextLine();
         kommenttiDAO.save(l.getID(), new Kommentti(kommentoija, kommentti));
+    }
+
+    public void openURLinBrowser(Lukuvinkki lukuvinkki) {
+        try {
+            Method method = lukuvinkki.getClass().getMethod("getUrl", (Class<?>[]) null);
+            io.println(method.toString());
+            String url = (String) method.invoke(lukuvinkki, (Object[]) null);
+            Runtime runtime = Runtime.getRuntime();
+            runtime.exec("xdg-open " + url);
+        } catch (IOException | NoSuchMethodException | SecurityException
+                | IllegalAccessException | IllegalArgumentException
+                | InvocationTargetException e) {
+            io.println("Avaaminen ei onnistunut");
+        }
+
     }
 }
