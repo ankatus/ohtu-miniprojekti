@@ -49,4 +49,12 @@ public class DbKirjaDAO implements KirjaDAO {
         return kirja_lukuvinkit;
     }
 
+    public void markAsLuettu(String id) {
+        int idNumber = Integer.parseInt(id.substring(1, id.length()));
+        ArrayList values = new ArrayList<>();
+        values.add(idNumber);
+        database.executeQueryUpdate("UPDATE kirja SET luettu=1 WHERE id=?", values);
+        database.closeConnection();
+    }
+
 }

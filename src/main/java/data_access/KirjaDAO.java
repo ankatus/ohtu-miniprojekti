@@ -10,5 +10,6 @@ public interface KirjaDAO {
     
     ArrayList<Lukuvinkki> getAll();
     void save(Kirja kirja);
+    void markAsLuettu(String id);
     
 }

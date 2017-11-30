@@ -60,6 +60,11 @@ public class Kirja implements Lukuvinkki {
     }
 
     @Override
+    public Type getType() {
+        return Type.KIRJA;
+    }
+
+    @Override
     public String toString() {
         int maxLength = 20;
         String columnRepresentation = TextTools.fit(kirjoittaja, 20) + " | ";

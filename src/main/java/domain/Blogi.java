@@ -74,6 +74,11 @@ public class Blogi implements Lukuvinkki{
     public String getID() {
         return "B"+this.id;
     }
-    
-    
+
+    @Override
+    public Type getType() {
+        return Type.BLOGI;
+    }
+
+
 }
