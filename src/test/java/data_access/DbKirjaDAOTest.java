@@ -47,7 +47,7 @@ public class DbKirjaDAOTest {
 
     @Test
     public void getAllTest() throws SQLException {
-        when(mockDb.executeQuerySelect(anyString())).thenReturn(testRs);
+        when(mockDb.executeQuerySelect(anyString(), anyList())).thenReturn(testRs);
 
         ArrayList<Lukuvinkki> list = kirjaDAO.getAll();
 
