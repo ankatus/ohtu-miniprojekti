@@ -2,8 +2,6 @@ package data_access;
 
 import domain.Blogi;
 import domain.Lukuvinkki;
-import tools.DBTools;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
