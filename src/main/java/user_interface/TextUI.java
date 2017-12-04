@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.HashMap;
 
 import data_access.KirjaDAO;
-import tools.DomainTools;
 import tools.TextTools;
 
 public class TextUI {
@@ -17,12 +16,14 @@ public class TextUI {
     private KirjaDAO kirjaDAO;
     private KommenttiDAO kommenttiDAO;
     private BlogiDAO blogiDAO;
+    private HashMap<Integer, String> lukuvinkkiIdIndex;
 
     public TextUI(IO io, KirjaDAO kirjaDao, BlogiDAO blogiDao, KommenttiDAO kommenttiDAO) {
         this.io = io;
         this.kirjaDAO = kirjaDao;
         this.kommenttiDAO = kommenttiDAO;
         this.blogiDAO = blogiDao;
+        lukuvinkkiIdIndex = new HashMap<>();
     }
 
     private void addRun() throws SQLException {
@@ -36,17 +37,14 @@ public class TextUI {
             switch (input) {
 
                 case "1":
-                    // Tänne kirjan lisääminen
                     addBook();
                     break addloop;
-
                 case "2":
                     addBlogi();
                     break addloop;
                 //Tähän väliin muut tyypit
                 case "x":
                     break addloop;
-
                 default:
                     io.println("Tuntematon komento.");
                     break;

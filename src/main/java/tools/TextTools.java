@@ -1,7 +1,5 @@
 package tools;
 
-import java.util.ArrayList;
-
 public class TextTools {
 
     public static String fit(String s, int length) {
