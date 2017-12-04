@@ -1,14 +1,9 @@
 package data_access;
 
 import domain.Kommentti;
-import domain.Lukuvinkki;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class DbKommenttiDAO implements KommenttiDAO {
 
@@ -20,45 +15,48 @@ public class DbKommenttiDAO implements KommenttiDAO {
 
     @Override
     public void save(String lukuvinkki_id, Kommentti kommentti) {
-        try {
-            Connection connection = database.connect();
-            connection.setAutoCommit(false);
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO Kommentti "
-                    + "(lukuvinkki, kommentoija, kommentti)"
-                    + " VALUES (?, ?, ?)");
-            stmt.setObject(1, lukuvinkki_id);
-            stmt.setObject(2, kommentti.getKommentoija());
-            stmt.setObject(3, kommentti.getKommentti());
-            stmt.executeUpdate();
-            stmt.close();
-            connection.commit();
-            connection.close();
+        ArrayList values = new ArrayList();
 
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+        values.add(lukuvinkki_id);
+        values.add(kommentti.getKommentoija());
+        values.add(kommentti.getKommentti());
 
+        database.executeQueryUpdate("INSERT INTO Kommentti "
+                + "(lukuvinkki, kommentoija, kommentti)"
+                + " VALUES (?, ?, ?)", values);
+        database.closeConnection();
     }
 
     @Override
-    public ArrayList<Kommentti> getAllForID(String lukuvinkki_id) throws SQLException {
+    public ArrayList<Kommentti> getAllForID(String lukuvinkki_id) {
+        ArrayList values = new ArrayList();
+        values.add(lukuvinkki_id);
 
-        Connection connection = database.connect();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * "
-                + "FROM Kommentti WHERE lukuvinkki=?");
-        stmt.setObject(1, lukuvinkki_id);
-        ResultSet rs = stmt.executeQuery();
+        ResultSet rS = database.executeQuerySelect("SELECT * "
+                + "FROM Kommentti WHERE lukuvinkki=?", values);
 
         ArrayList<Kommentti> kommentit = new ArrayList<>();
-        while (rs.next()) {
-            String kommentoija = rs.getString("kommentoija");
-            String teksti = rs.getString("kommentti");
-            Kommentti kommentti = new Kommentti(kommentoija, teksti);
-            kommentit.add(new Kommentti(kommentoija, teksti));
+
+        try {
+            while (rS.next()) {
+                String kommentoija = rS.getString("kommentoija");
+                String teksti = rS.getString("kommentti");
+
+                kommentit.add(new Kommentti(kommentoija, teksti));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
         }
-        rs.close();
-        stmt.close();
-        connection.close();
+
+        try {
+            if (rS != null) {
+                rS.close();
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+
+        database.closeConnection();
 
         return kommentit;
     }

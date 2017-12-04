@@ -44,12 +44,17 @@ public class Database {
         }
     }
 
-    public ResultSet executeQuerySelect(String query) {
+    public ResultSet executeQuerySelect(String query, List values) {
         try {
             connection = this.connect();
 
             stmt = connection.prepareStatement(query);
-
+            
+            int i = values.size();
+            for (int j = 0; j<i; j++) {
+                stmt.setObject(j+1, values.get(j));
+            }
+            
             rS = stmt.executeQuery();
 
             return rS;

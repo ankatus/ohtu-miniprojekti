@@ -32,13 +32,21 @@ public class DbKirjaDAO implements KirjaDAO {
     public ArrayList<Lukuvinkki> getAll() {
         ArrayList<Lukuvinkki> kirja_lukuvinkit = new ArrayList();
 
-        ResultSet rS = database.executeQuerySelect("SELECT * FROM Kirja");
+        ResultSet rS = database.executeQuerySelect("SELECT * FROM Kirja", new ArrayList());
 
         try {
             while (rS.next()) {
                 Lukuvinkki kirja = new Kirja(rS.getInt("id"), rS.getString("otsikko"), rS.getString("kirjoittaja"), rS.getString("isbn"), rS.getBoolean("luettu"));
                 
                 kirja_lukuvinkit.add(kirja);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        
+        try {
+            if (rS != null) {
+                rS.close();
             }
         } catch (SQLException ex) {
             System.out.println(ex);
