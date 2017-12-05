@@ -2,8 +2,6 @@ package data_access;
 
 import domain.Blogi;
 import domain.Lukuvinkki;
-import tools.DBTools;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,14 +32,21 @@ public class DbBlogiDAO implements BlogiDAO {
     public ArrayList<Lukuvinkki> getAll() {
         ArrayList<Lukuvinkki> blogi_lukuvinkit = new ArrayList();
 
-        ResultSet rS = database.executeQuerySelect("SELECT * FROM Blogi");
-
+        ResultSet rS = database.executeQuerySelect("SELECT * FROM Blogi", new ArrayList());
 
         try {
             while (rS.next()) {
                 Lukuvinkki blogi = new Blogi(rS.getInt("id"), rS.getString("otsikko"), rS.getString("kirjoittaja"), rS.getString("url"), rS.getBoolean("luettu"));
                 
                 blogi_lukuvinkit.add(blogi);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        
+        try {
+            if (rS != null) {
+                rS.close();
             }
         } catch (SQLException ex) {
             System.out.println(ex);
