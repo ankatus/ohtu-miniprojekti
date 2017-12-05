@@ -3,6 +3,7 @@ CREATE TABLE Kirja(otsikko, kirjoittaja, isbn, luettu);
 CREATE TABLE Kommentti(
 lukuvinkki TEXT, 
 kommentoija TEXT,
-kommentti TEXT
+kommentti TEXT,
+aika DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
