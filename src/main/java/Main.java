@@ -6,8 +6,9 @@ import user_interface.TerminalIO;
 import user_interface.TextUI;
 
 public class Main {
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        //System.setProperty("file.encoding", "UTF-8");
+
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+        //System.setProperty("file.encoding", "UTF-8");   
         Database database = new Database("lukuvinkkikirjasto.db");
         DbKirjaDAO kirjaDAO = new DbKirjaDAO(database);
         DbKommenttiDAO kommenttiDAO = new DbKommenttiDAO(database);
@@ -18,3 +19,4 @@ public class Main {
 		ui.run();
 	}
 }
+

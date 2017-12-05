@@ -11,7 +11,13 @@ import java.util.HashMap;
 
 import data_access.KirjaDAO;
 import tools.LukuvinkkiTools;
+
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import tools.TextTools;
+
+
 
 public class TextUI {
 
@@ -110,7 +116,6 @@ public class TextUI {
 //
 //
 //    }
-
     private void addBook() throws SQLException {
         io.println("Kirjan nimi: ");
         String otsikko = io.nextLine();
@@ -159,39 +164,39 @@ public class TextUI {
             io.println("Ei lukuvinkkiä tällä indeksillä");
         } else {
             viewLukuvinkki(lukuvinkkiId);
-        }
 
+        }
     }
 
     private void viewLukuvinkki(String id) throws SQLException {
-       while (true) {
-           //tarvitaan tietojen päivittämiseen, voidaan tehdä paremmin kun daosta saa yksittäisen vinkin tiedot.
-           ArrayList<Lukuvinkki> lukuvinkkiList = dao.getAllLukuvinkki();
-           Lukuvinkki current = LukuvinkkiTools.getLukuvinkkiById(id, lukuvinkkiList);
+        while (true) {
+            //tarvitaan tietojen päivittämiseen, voidaan tehdä paremmin kun daosta saa yksittäisen vinkin tiedot.
+            ArrayList<Lukuvinkki> lukuvinkkiList = dao.getAllLukuvinkki();
+            Lukuvinkki current = LukuvinkkiTools.getLukuvinkkiById(id, lukuvinkkiList);
 
-           io.println(current.toString());
-           io.println();
+            io.println(current.toString());
+            io.println();
 
-           io.println("Kommentit:");
-           io.println();
+            io.println("Kommentit:");
+            io.println();
 
-           printAllKommenttiForId(id);
+            printAllKommenttiForId(id);
 
-           io.println("Komento (\"\"=palaa, m=merkitse luetuksi, u=uusi kommentti):");
-           String input = io.nextLine();
-           switch (input.toLowerCase()) {
-               case "":
-                   return;
-               case "m":
-                   dao.markAsLuettu(id);
-                   break;
-               case "u":
-                   addKommentti(id);
-                   break;
-               default:
-                   io.println("Tuntematon komento");
-           }
-       }
+            io.println("Komento (\"\"=palaa, m=merkitse luetuksi, u=uusi kommentti):");
+            String input = io.nextLine();
+            switch (input.toLowerCase()) {
+                case "":
+                    return;
+                case "m":
+                    dao.markAsLuettu(id);
+                    break;
+                case "u":
+                    addKommentti(id);
+                    break;
+                default:
+                    io.println("Tuntematon komento");
+            }
+        }
     }
 
     private void addKommentti(String id) {
@@ -220,10 +225,25 @@ public class TextUI {
         return index;
     }
 
-    private void printAllKommenttiForId(String id) throws SQLException{
+    private void printAllKommenttiForId(String id) throws SQLException {
         for (Kommentti k : dao.getAllKommenttiForId(id)) {
             io.println(k.toString());
             io.println();
         }
+    }
+
+    public void openURLinBrowser(Lukuvinkki lukuvinkki) {
+        try {
+            Method method = lukuvinkki.getClass().getMethod("getUrl", (Class<?>[]) null);
+            io.println(method.toString());
+            String url = (String) method.invoke(lukuvinkki, (Object[]) null);
+            Runtime runtime = Runtime.getRuntime();
+            runtime.exec("xdg-open " + url);
+        } catch (IOException | NoSuchMethodException | SecurityException
+                | IllegalAccessException | IllegalArgumentException
+                | InvocationTargetException e) {
+            io.println("Avaaminen ei onnistunut");
+        }
+
     }
 }
