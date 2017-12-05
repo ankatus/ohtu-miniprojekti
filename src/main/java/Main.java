@@ -12,8 +12,9 @@ public class Main {
         DbKirjaDAO kirjaDAO = new DbKirjaDAO(database);
         DbKommenttiDAO kommenttiDAO = new DbKommenttiDAO(database);
         DbBlogiDAO blogiDAO = new DbBlogiDAO(database);
+        MasterDAO dao = new MasterDAO(kirjaDAO, blogiDAO, kommenttiDAO);
 
-        TextUI ui = new TextUI(new TerminalIO(), kirjaDAO, blogiDAO, kommenttiDAO);
+        TextUI ui = new TextUI(new TerminalIO(), dao);
 		ui.run();
 	}
 }
