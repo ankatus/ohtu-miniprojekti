@@ -182,7 +182,7 @@ public class TextUI {
 
             printAllKommenttiForId(id);
 
-            io.println("Komento (\"\"=palaa, m=merkitse luetuksi, u=uusi kommentti):");
+            io.println("Komento (\"\"=palaa, m=merkitse luetuksi, u=uusi kommentti, a=avaa url):");
             String input = io.nextLine();
             switch (input.toLowerCase()) {
                 case "":
@@ -192,6 +192,9 @@ public class TextUI {
                     break;
                 case "u":
                     addKommentti(id);
+                    break;
+                case "a":
+                    openURLinBrowser(current);
                     break;
                 default:
                     io.println("Tuntematon komento");
@@ -235,7 +238,6 @@ public class TextUI {
     public void openURLinBrowser(Lukuvinkki lukuvinkki) {
         try {
             Method method = lukuvinkki.getClass().getMethod("getUrl", (Class<?>[]) null);
-            io.println(method.toString());
             String url = (String) method.invoke(lukuvinkki, (Object[]) null);
             Runtime runtime = Runtime.getRuntime();
             runtime.exec("xdg-open " + url);
