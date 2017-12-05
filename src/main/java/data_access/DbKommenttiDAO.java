@@ -41,8 +41,9 @@ public class DbKommenttiDAO implements KommenttiDAO {
             while (rS.next()) {
                 String kommentoija = rS.getString("kommentoija");
                 String teksti = rS.getString("kommentti");
+                String aika = rS.getString("aika");
 
-                kommentit.add(new Kommentti(kommentoija, teksti));
+                kommentit.add(new Kommentti(kommentoija, teksti, aika));
             }
         } catch (SQLException ex) {
             System.out.println(ex);

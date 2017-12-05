@@ -4,6 +4,7 @@ CREATE TABLE Kommentti(
 lukuvinkki TEXT, 
 kommentoija TEXT,
 kommentti TEXT,
-aika DATETIME DEFAULT CURRENT_TIMESTAMP
+aika DATETIME DEFAULT (strftime('%H:%M %d.%m.%Y','now', 'localtime'))
 );
+
 
