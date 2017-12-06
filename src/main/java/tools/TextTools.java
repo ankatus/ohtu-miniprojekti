@@ -39,7 +39,7 @@ public class TextTools {
         String headersRow = fit("index", 10);
         for (String s : headers) {
             headersRow += fit(s, length);
-            headersRow += "   ";
+            headersRow += "   ";//lukuvinkin tulostuksessa olevan " | " kompensoimiseen
         }
         return headersRow;
     }
