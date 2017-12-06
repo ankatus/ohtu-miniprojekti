@@ -77,6 +77,14 @@ public class Kirja implements Lukuvinkki {
         }
         return columnRepresentation;
     }
+
+    @Override
+    public int getLuettu() {
+        if (this.luettu){
+            return 1;
+        }
+        return 0;
+    }
     
     
     

@@ -62,7 +62,7 @@ public class TextUI {
         loop:
         while (true) {
 
-            io.println("Komento (1=lisää, 2=listaa, \"\"=lopeta):");
+            io.println("Komento (1=lisää, 2=listaa kaikki, 3=listaa lukemattomat, 4=listaa luetut, \"\"=lopeta):");
             String input = io.nextLine();
 
             switch (input) {
@@ -73,6 +73,14 @@ public class TextUI {
 
                 case "2":
                     list();
+                    break;
+                    
+                case "3":
+                    listBoolean(0);
+                    break;
+                    
+                case "4":
+                    listBoolean(1);
                     break;
 
                 case "":
@@ -199,6 +207,35 @@ public class TextUI {
                 default:
                     io.println("Tuntematon komento");
             }
+        }
+    }
+    
+    private void listBoolean(int i) throws SQLException {
+        ArrayList<Lukuvinkki> lukuvinkkiList = dao.getAllLukuvinkkiBoolean(i);
+        HashMap<Type, ArrayList<IndexIdPair>> mapOfLists = LukuvinkkiTools.pairListsByType(lukuvinkkiList);
+        for (Type type : mapOfLists.keySet()) {
+            io.println(TextTools.createLabelForType(type));
+            io.println(TextTools.createHeadersForType(20, type));
+            printIndexIdPairList(mapOfLists.get(type), lukuvinkkiList);
+            io.println();
+        }
+        io.println("Haluatko tarkastella lukuvinkkiä?");
+        io.println("Anna kohteen indeksi tai palaa (\"\")");
+        String input = io.nextLine();
+        if (input.equals("")) {
+            return;
+        }
+        int wantedIndex = parseToIndex(input);
+        if (wantedIndex == -1) {
+            io.println("Tuntematon komento");
+        }
+
+        String lukuvinkkiId = LukuvinkkiTools.getLukuvinkkiIdByIndex(wantedIndex, mapOfLists);
+        if (lukuvinkkiId == null) {
+            io.println("Ei lukuvinkkiä tällä indeksillä");
+        } else {
+            viewLukuvinkki(lukuvinkkiId);
+
         }
     }
 
