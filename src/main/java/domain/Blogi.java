@@ -79,6 +79,14 @@ public class Blogi implements Lukuvinkki{
     public Type getType() {
         return Type.BLOGI;
     }
+    
+    @Override
+    public int getLuettu() {
+        if (this.luettu){
+            return 1;
+        }
+        return 0;
+    }
 
 
 }

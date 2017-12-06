@@ -22,4 +22,9 @@ public class StubBlogi implements Lukuvinkki {
         columnRepresentation += TextTools.fit("vielä jotain muuta", 20) + " | ";
         return columnRepresentation;
     }
+
+    @Override
+    public int getLuettu() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -17,4 +17,9 @@ public class StubKirja implements Lukuvinkki {
                 "Lorem ipsum dolor sit amet, jne jne jne.";
         return s;
     }
+
+    @Override
+    public int getLuettu() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
