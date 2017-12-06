@@ -4,10 +4,17 @@ public class Kommentti {
 
     public String kommentti;
     public String kommentoija;
+    public String aika;
 
-    public Kommentti(String kommentoija, String kommentti) {
+    public Kommentti(String kommentoija, String kommentti, String aika) {
         this.kommentoija = kommentoija;
         this.kommentti = kommentti;
+        this.aika = aika;
+    }
+    
+    public Kommentti(String kommentoija, String kommentti) {
+        this.kommentoija = kommentoija;
+        this.kommentti = kommentti;        
     }
 
     public String getKommentti() {
@@ -28,6 +35,6 @@ public class Kommentti {
     
     @Override
     public String toString() {
-        return kommentoija + ":\n" + kommentti;
+        return kommentoija + " (" + this.aika + "):\n" + kommentti;
     }
 }

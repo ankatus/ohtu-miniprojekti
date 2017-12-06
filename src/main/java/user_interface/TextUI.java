@@ -150,7 +150,7 @@ public class TextUI {
     private void list() throws SQLException {
         ArrayList<Lukuvinkki> lukuvinkkiList = dao.getAllLukuvinkki();
         HashMap<Type, ArrayList<IndexIdPair>> mapOfLists = LukuvinkkiTools.pairListsByType(lukuvinkkiList);
-        for (Type type : mapOfLists.keySet()) {
+        for (Type type : Type.values()) {
             io.println(TextTools.createLabelForType(type));
             io.println(TextTools.createHeadersForType(20, type));
             printIndexIdPairList(mapOfLists.get(type), lukuvinkkiList);
@@ -251,7 +251,7 @@ public class TextUI {
     private void printIndexIdPairList(ArrayList<IndexIdPair> pairList, ArrayList<Lukuvinkki> lukuvinkkiList) {
         for (IndexIdPair pair : pairList) {
             //jos muutat indeksin sarakkeen kokoa, muista muuttaa myös vakiota headerimetodissa!
-            io.println(TextTools.fit(pair.getIndex() + ".", 5) + LukuvinkkiTools.getLukuvinkkiById(pair.getId(), lukuvinkkiList));
+            io.println(TextTools.fit(pair.getIndex() + ".", 10) + LukuvinkkiTools.getLukuvinkkiById(pair.getId(), lukuvinkkiList));
         }
     }
 
