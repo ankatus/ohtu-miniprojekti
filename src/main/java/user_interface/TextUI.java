@@ -214,7 +214,7 @@ public class TextUI {
     private void printIndexIdPairList(ArrayList<IndexIdPair> pairList, ArrayList<Lukuvinkki> lukuvinkkiList) {
         for (IndexIdPair pair : pairList) {
             //jos muutat indeksin sarakkeen kokoa, muista muuttaa myös vakiota headerimetodissa!
-            io.println(TextTools.fit(pair.getIndex() + ".", 5) + LukuvinkkiTools.getLukuvinkkiById(pair.getId(), lukuvinkkiList));
+            io.println(TextTools.fit(pair.getIndex() + ".", 10) + LukuvinkkiTools.getLukuvinkkiById(pair.getId(), lukuvinkkiList));
         }
     }
 

@@ -36,7 +36,7 @@ public class TextTools {
     }
 
     private static String createHeaders(int length, String... headers) {
-        String headersRow = fit("index", 5);
+        String headersRow = fit("index", 10);
         for (String s : headers) {
             headersRow += fit(s, length);
             headersRow += "   ";
