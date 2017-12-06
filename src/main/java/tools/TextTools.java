@@ -36,10 +36,10 @@ public class TextTools {
     }
 
     private static String createHeaders(int length, String... headers) {
-        String headersRow = fit("id", 5);
+        String headersRow = fit("index", 10);
         for (String s : headers) {
             headersRow += fit(s, length);
-            headersRow += "   ";
+            headersRow += "   ";//lukuvinkin tulostuksessa olevan " | " kompensoimiseen
         }
         return headersRow;
     }

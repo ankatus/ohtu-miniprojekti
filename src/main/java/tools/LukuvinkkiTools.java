@@ -15,7 +15,7 @@ public class LukuvinkkiTools {
         int index = 1;
         for (Type type : Type.values()) {
             mapOfLists.put(type, pairListSingleType(lukuvinkkiList, type, index));
-            index += mapOfLists.get(type).size() + 1;//inkrementoidaan indeksiä niin tarpeeksi
+            index += mapOfLists.get(type).size();//inkrementoidaan indeksiä tarpeeksi
         }
         return mapOfLists;
     }
@@ -28,17 +28,6 @@ public class LukuvinkkiTools {
         }
         return null;
     }
-//
-//    public static Lukuvinkki getLukuvinkkiByIndex(int index, HashMap<Type, ArrayList<IndexIdPair>> map, ArrayList<Lukuvinkki> lukuvinkkiList) {
-//        for (ArrayList<IndexIdPair> list : map.values()) {
-//            for (IndexIdPair pair : list) {
-//                if (pair.getIndex() == index) {
-//                    return getLukuvinkkiById(pair.getId(), lukuvinkkiList);
-//                }
-//            }
-//        }
-//        return null;
-//    }
 
     public static String getLukuvinkkiIdByIndex(int index, HashMap<Type, ArrayList<IndexIdPair>> map) {
         for (ArrayList<IndexIdPair> list : map.values()) {
@@ -64,10 +53,12 @@ public class LukuvinkkiTools {
     }
 
     private static ArrayList<IndexIdPair> pairListSingleType(ArrayList<Lukuvinkki> lukuvinkkiList, Type type, int startIndex) {
+        int i = startIndex;
         ArrayList<IndexIdPair> pairList = new ArrayList<>();
         for (Lukuvinkki l : lukuvinkkiList) {
             if (l.getType() == type) {
-                pairList.add(new IndexIdPair(startIndex, l.getID()));
+                pairList.add(new IndexIdPair(i, l.getID()));
+                i++;
             }
         }
         return pairList;
