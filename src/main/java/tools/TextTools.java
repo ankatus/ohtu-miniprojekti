@@ -6,7 +6,7 @@ public class TextTools {
 
     public static String fit(String s, int length) {
         if (s.length() > length) {
-            s = s.substring(length - 1);
+            s = s.substring(0, length);
         } else {
             int difference = length - s.length();
             for (int i = 0; i < difference; i++) {
