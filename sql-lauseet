@@ -1,5 +1,3 @@
-CREATE TABLE Kirja(otsikko, kirjoittaja, isbn, luettu);
-
 CREATE TABLE Kommentti(
 lukuvinkki TEXT, 
 kommentoija TEXT,
@@ -7,4 +5,18 @@ kommentti TEXT,
 aika DATETIME DEFAULT (strftime('%H:%M %d.%m.%Y','now', 'localtime'))
 );
 
+CREATE TABLE Kirja (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+otsikko VARCHAR(100) NOT NULL,
+kirjoittaja VARCHAR(100),
+isbn VARCHAR(100),
+luettu BOOLEAN NOT NULL DEFAULT 0
+);
 
+CREATE TABLE Blogi (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+otsikko VARCHAR(100) NOT NULL,
+kirjoittaja VARCHAR(100),
+url VARCHAR(100),
+luettu BOOLEAN NOT NULL DEFAULT 0
+);
