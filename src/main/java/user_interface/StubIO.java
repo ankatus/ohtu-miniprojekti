@@ -15,6 +15,10 @@ public class StubIO implements IO {
         inputIndex = 0;
     }
 
+    public ArrayList<String> getOutputs () {
+        return outputs;
+    }
+    
     @Override
     public String nextLine() {
         String line = inputs[inputIndex];
