@@ -18,3 +18,6 @@ gradle-app.setting
 
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
+
+# Ignore outputs.txt which is used for evaluating output when doing tests
+outputs.txt
