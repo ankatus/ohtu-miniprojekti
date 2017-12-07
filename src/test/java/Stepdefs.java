@@ -96,7 +96,7 @@ public class Stepdefs {
         writer.close();
         */
         assertTrue(outputs.get(lastIndex - 8).
-                contains("kyllä"));
+                contains("Jackson, Shirley     | Onhan noita linnassa | 666                  | kyllä"));
     }
     
 }
