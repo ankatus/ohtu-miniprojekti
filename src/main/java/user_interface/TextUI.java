@@ -1,22 +1,19 @@
 package user_interface;
 
-import data_access.BlogiDAO;
 import data_access.MasterDAO;
 import domain.*;
-import data_access.KommenttiDAO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import data_access.KirjaDAO;
-import tools.LukuvinkkiTools;
+import filters.Filter;
+import filters.Luettu;
+import filters.NotLuettu;
+import tools.*;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import tools.TextTools;
-
 
 
 public class TextUI {
@@ -76,11 +73,11 @@ public class TextUI {
                     break;
                     
                 case "3":
-                    listBoolean(0);
+                    list(new NotLuettu());
                     break;
                     
                 case "4":
-                    listBoolean(1);
+                    list(new Luettu());
                     break;
 
                 case "":
@@ -95,35 +92,6 @@ public class TextUI {
         io.println("Kiitos ja näkemiin!");
     }
 
-//    //obsoliitti
-//    private void chooseLukuvinkki() throws SQLException {
-//        while (true) {
-//            HashMap<Integer, Lukuvinkki> indexMap = list();
-//            io.println();
-//            io.println("Haluatko tarkastella lukuvinkkiä?");
-//            io.println("Anna kohteen indeksi tai palaa (\"x\")");
-//            String input = io.nextLine();
-//
-//            if (input.toLowerCase().equals("x")) {
-//                return;
-//            }
-//            int wantedIndex;
-//            try {
-//                wantedIndex = Integer.parseInt(input);
-//            } catch (NumberFormatException e) {
-//                io.println("Tuntematon komento");
-//                continue;
-//            }
-//            if (indexMap.containsKey(wantedIndex)) {
-//                viewLukuvinkki(indexMap.get(wantedIndex));
-//            } else {
-//                io.println("Ei lukuvinkkiä tällä indeksillä");
-//                continue;
-//            }
-//        }
-//
-//
-//    }
     private void addBook() throws SQLException {
         io.println("Kirjan nimi: ");
         String otsikko = io.nextLine();
@@ -147,32 +115,31 @@ public class TextUI {
 
     }
 
-    private void list() throws SQLException {
-        ArrayList<Lukuvinkki> lukuvinkkiList = dao.getAllLukuvinkki();
-        HashMap<Type, ArrayList<IndexIdPair>> mapOfLists = LukuvinkkiTools.pairListsByType(lukuvinkkiList);
-        for (Type type : Type.values()) {
-            io.println(TextTools.createLabelForType(type));
-            io.println(TextTools.createHeadersForType(20, type));
-            printIndexIdPairList(mapOfLists.get(type), lukuvinkkiList);
+    private void list(Filter... filters) throws SQLException {
+        while (true) {
+            ArrayList<Lukuvinkki> lukuvinkkiList = dao.getAllLukuvinkki();
+            ArrayList<IndexIdPair> filteredList = LukuvinkkiTools.getFilteredIndexedList(lukuvinkkiList, filters);
+            //labelit ja headerit tähän
+            printIndexIdPairList(filteredList, lukuvinkkiList);
             io.println();
-        }
-        io.println("Haluatko tarkastella lukuvinkkiä?");
-        io.println("Anna kohteen indeksi tai palaa (\"\")");
-        String input = io.nextLine();
-        if (input.equals("")) {
-            return;
-        }
-        int wantedIndex = parseToIndex(input);
-        if (wantedIndex == -1) {
-            io.println("Tuntematon komento");
-        }
+            io.println("Haluatko tarkastella lukuvinkkiä?");
+            io.println("Anna kohteen indeksi tai palaa (\"\")");
+            String input = io.nextLine();
+            if (input.equals("")) {
+                return;
+            }
+            int wantedIndex = parseToIndex(input);
+            if (wantedIndex == -1) {
+                io.println("Tuntematon komento");
+            }
 
-        String lukuvinkkiId = LukuvinkkiTools.getLukuvinkkiIdByIndex(wantedIndex, mapOfLists);
-        if (lukuvinkkiId == null) {
-            io.println("Ei lukuvinkkiä tällä indeksillä");
-        } else {
-            viewLukuvinkki(lukuvinkkiId);
+            String lukuvinkkiId = LukuvinkkiTools.getLukuvinkkiIdByIndex(wantedIndex, filteredList);
+            if (lukuvinkkiId == null) {
+                io.println("Ei lukuvinkkiä tällä indeksillä");
+            } else {
+                viewLukuvinkki(lukuvinkkiId);
 
+            }
         }
     }
 
@@ -207,35 +174,6 @@ public class TextUI {
                 default:
                     io.println("Tuntematon komento");
             }
-        }
-    }
-    
-    private void listBoolean(int i) throws SQLException {
-        ArrayList<Lukuvinkki> lukuvinkkiList = dao.getAllLukuvinkkiBoolean(i);
-        HashMap<Type, ArrayList<IndexIdPair>> mapOfLists = LukuvinkkiTools.pairListsByType(lukuvinkkiList);
-        for (Type type : mapOfLists.keySet()) {
-            io.println(TextTools.createLabelForType(type));
-            io.println(TextTools.createHeadersForType(20, type));
-            printIndexIdPairList(mapOfLists.get(type), lukuvinkkiList);
-            io.println();
-        }
-        io.println("Haluatko tarkastella lukuvinkkiä?");
-        io.println("Anna kohteen indeksi tai palaa (\"\")");
-        String input = io.nextLine();
-        if (input.equals("")) {
-            return;
-        }
-        int wantedIndex = parseToIndex(input);
-        if (wantedIndex == -1) {
-            io.println("Tuntematon komento");
-        }
-
-        String lukuvinkkiId = LukuvinkkiTools.getLukuvinkkiIdByIndex(wantedIndex, mapOfLists);
-        if (lukuvinkkiId == null) {
-            io.println("Ei lukuvinkkiä tällä indeksillä");
-        } else {
-            viewLukuvinkki(lukuvinkkiId);
-
         }
     }
 
