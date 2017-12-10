@@ -18,3 +18,4 @@
 
 ## Asennus- ja käyttöohje (alustava)
 Lataa github repositoriosta löytyvä .jar tiedosto ja lukuvinkkikirjasto.db tietokanta. Siirrä molemmat tiedostot samaan kansioon ja käynnistä ohjelma suorittamalla komentorivillä komento: java -jar (jartiedostonnimi).jar . Nyt komentoriville tulee näkyviin mitä komentoja voit käyttää ja mitä ne tekevät.
+
