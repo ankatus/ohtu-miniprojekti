@@ -17,8 +17,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import tools.TextTools;
 
-
-
 public class TextUI {
 
     private IO io;
@@ -74,11 +72,11 @@ public class TextUI {
                 case "2":
                     list();
                     break;
-                    
+
                 case "3":
                     listBoolean(0);
                     break;
-                    
+
                 case "4":
                     listBoolean(1);
                     break;
@@ -127,8 +125,7 @@ public class TextUI {
     private void addBook() throws SQLException {
         io.println("Kirjan nimi: ");
         String otsikko = io.nextLine();
-        io.println("Tekijän nimi muodossa \"Sukunimi, Etunimi\": ");
-        String kirjoittaja = io.nextLine();
+        String kirjoittaja = addWriter();
         io.println("ISBN-tunnus: ");
         String isbn = io.nextLine();
         Kirja kirja = new Kirja(otsikko, kirjoittaja, isbn);
@@ -138,13 +135,18 @@ public class TextUI {
     private void addBlogi() throws SQLException {
         io.println("Blogin Otsikko: ");
         String otsikko = io.nextLine();
-        io.println("Tekijän nimi muodossa \"Sukunimi, Etunimi\": ");
-        String kirjoittaja = io.nextLine();
+        String kirjoittaja = addWriter();
         io.println("URL: ");
         String url = io.nextLine();
         Blogi blogi = new Blogi(otsikko, kirjoittaja, url);
         dao.saveLukuvinkki(blogi);
 
+    }
+
+    private String addWriter() throws SQLException {
+        io.println("Tekijän nimi muodossa \"Sukunimi, Etunimi\": ");
+        String kirjoittaja = io.nextLine();
+        return kirjoittaja;
     }
 
     private void list() throws SQLException {
@@ -209,7 +211,7 @@ public class TextUI {
             }
         }
     }
-    
+
     private void listBoolean(int i) throws SQLException {
         ArrayList<Lukuvinkki> lukuvinkkiList = dao.getAllLukuvinkkiBoolean(i);
         HashMap<Type, ArrayList<IndexIdPair>> mapOfLists = LukuvinkkiTools.pairListsByType(lukuvinkkiList);
@@ -278,9 +280,7 @@ public class TextUI {
             String url = (String) method.invoke(lukuvinkki, (Object[]) null);
             Runtime runtime = Runtime.getRuntime();
             runtime.exec("xdg-open " + url);
-        } catch (IOException | NoSuchMethodException | SecurityException
-                | IllegalAccessException | IllegalArgumentException
-                | InvocationTargetException e) {
+        } catch (IOException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             io.println("Avaaminen ei onnistunut");
         }
 
