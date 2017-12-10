@@ -53,19 +53,15 @@ public class LukuvinkkiToolsTest {
 
     @Test
     public void getLukuvinkkiIdByIndex() throws Exception {
-        HashMap<Type, ArrayList<IndexIdPair>> testMap = new HashMap<>();
-        ArrayList<IndexIdPair> testKirjaList = new ArrayList<>();
-        testKirjaList.add(new IndexIdPair(1, "K1"));
-        testKirjaList.add(new IndexIdPair(2, "K2"));
-        ArrayList<IndexIdPair> testBlogiList = new ArrayList<>();
-        testKirjaList.add(new IndexIdPair(3, "B1"));
-        testKirjaList.add(new IndexIdPair(4, "B2"));
-        testMap.put(Type.KIRJA, testKirjaList);
-        testMap.put(Type.BLOGI, testBlogiList);
-        assertEquals("K1", LukuvinkkiTools.getLukuvinkkiIdByIndex(1,testMap));
-        assertEquals("K2", LukuvinkkiTools.getLukuvinkkiIdByIndex(2,testMap));
-        assertEquals("B1", LukuvinkkiTools.getLukuvinkkiIdByIndex(3,testMap));
-        assertEquals("B2", LukuvinkkiTools.getLukuvinkkiIdByIndex(4,testMap));
+        ArrayList<IndexIdPair> testList = new ArrayList<>();
+        testList.add(new IndexIdPair(1, "K1"));
+        testList.add(new IndexIdPair(2, "K2"));
+        testList.add(new IndexIdPair(3, "B1"));
+        testList.add(new IndexIdPair(4, "B2"));
+        assertEquals("K1", LukuvinkkiTools.getLukuvinkkiIdByIndex(1,testList));
+        assertEquals("K2", LukuvinkkiTools.getLukuvinkkiIdByIndex(2,testList));
+        assertEquals("B1", LukuvinkkiTools.getLukuvinkkiIdByIndex(3,testList));
+        assertEquals("B2", LukuvinkkiTools.getLukuvinkkiIdByIndex(4,testList));
     }
 
     @Test
