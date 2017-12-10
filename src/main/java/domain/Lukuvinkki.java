@@ -6,5 +6,5 @@ public interface Lukuvinkki {
 	String getID();
 	Type getType();
 	String toString();
-        int getLuettu();
+	boolean getLuettu();
 }
