@@ -36,4 +36,11 @@ public class StubIO implements IO {
         println("");
     }
 
+    @Override
+    public String kommenttiInput() {
+        return "kommentti" + "\n" + "kommentti";
+    }
+
+   
+
 }

@@ -192,7 +192,7 @@ public class TextUI {
         io.println("kommentoijan nimi:");
         String kommentoija = io.nextLine();
         io.println("kommentti:");
-        String kommentti = io.nextLine();
+        String kommentti = io.kommenttiInput();        
         dao.saveKommentti(id, new Kommentti(kommentoija, kommentti));
     }
 
