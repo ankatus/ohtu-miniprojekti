@@ -1,5 +1,5 @@
 package domain;
 
 public enum Type {
-    KIRJA,BLOGI;
+    KIRJA,BLOGI,VIDEO;
 }
