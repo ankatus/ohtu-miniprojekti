@@ -3,12 +3,25 @@ package tools;
 import domain.IndexIdPair;
 import domain.Lukuvinkki;
 import domain.Type;
+import filters.Filter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class LukuvinkkiTools {
 
+
+    public static ArrayList<IndexIdPair> getFilteredIndexedList(ArrayList<Lukuvinkki> lukuvinkkiList, Filter... filters) {
+        ArrayList<IndexIdPair> filteredList = new ArrayList<>();
+        int index = 1;
+        for (Lukuvinkki l : lukuvinkkiList) {
+            if (runFilters(l, filters)) {
+                filteredList.add(new IndexIdPair(index, l.getID()));
+                index++;
+            }
+        }
+        return filteredList;
+    }
 
     public static HashMap<Type, ArrayList<IndexIdPair>> pairListsByType(ArrayList<Lukuvinkki> lukuvinkkiList) {
         HashMap<Type, ArrayList<IndexIdPair>> mapOfLists = new HashMap<>();
@@ -29,14 +42,12 @@ public class LukuvinkkiTools {
         return null;
     }
 
-    public static String getLukuvinkkiIdByIndex(int index, HashMap<Type, ArrayList<IndexIdPair>> map) {
-        for (ArrayList<IndexIdPair> list : map.values()) {
-            for (IndexIdPair pair : list) {
+    public static String getLukuvinkkiIdByIndex(int index, ArrayList<IndexIdPair> pairList) {
+            for (IndexIdPair pair : pairList) {
                 if (pair.getIndex() == index) {
                     return pair.getId();
                 }
             }
-        }
         return null;
     }
 
@@ -48,7 +59,7 @@ public class LukuvinkkiTools {
             case "B":
                 return Type.BLOGI;
             default:
-                throw new IllegalArgumentException();
+                return null;
         }
     }
 
@@ -62,6 +73,15 @@ public class LukuvinkkiTools {
             }
         }
         return pairList;
+    }
+
+    private static boolean runFilters(Lukuvinkki l, Filter... filters) {
+        for (Filter filter : filters) {
+            if (!filter.matches(l)) {
+                return false;
+            }
+        }
+        return true;
     }
 
 
