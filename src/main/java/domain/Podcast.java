@@ -9,7 +9,7 @@ public class Podcast implements Lukuvinkki {
     private String otsikko;
     private String tekija;
     private String url;
-    private boolean luettu;
+    private boolean kuunneltu;
     
     public Podcast(String otsikko, String tekija, String url) {
         this.otsikko = otsikko;
@@ -22,7 +22,7 @@ public class Podcast implements Lukuvinkki {
         this.otsikko = otsikko;
         this.tekija = tekija;
         this.url = url;
-        this.luettu = luettu;
+        this.kuunneltu = luettu;
     }
     
     public void setId(int id) {
@@ -41,8 +41,8 @@ public class Podcast implements Lukuvinkki {
         this.url = url;
     }
     
-    public void setLuettu(boolean luettu) {
-        this.luettu = luettu;
+    public void setKuunneltu(boolean kuunneltu) {
+        this.kuunneltu = kuunneltu;
     }
 
     @Override
@@ -64,7 +64,7 @@ public class Podcast implements Lukuvinkki {
 
     @Override
     public boolean getLuettu() {
-        return luettu;
+        return kuunneltu;
     }    
     
     @Override
@@ -78,7 +78,7 @@ public class Podcast implements Lukuvinkki {
         String columnRepresentation = TextTools.fit(tekija, 20) + " | ";
         columnRepresentation += TextTools.fit(otsikko, 20) + " | ";
         columnRepresentation += TextTools.fit(url, 20) + " | ";
-        if (luettu) {
+        if (kuunneltu) {
             columnRepresentation += TextTools.fit("kyllä", 20);
         } else {
             columnRepresentation += TextTools.fit("ei", 20);
