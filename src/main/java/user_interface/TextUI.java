@@ -29,7 +29,7 @@ public class TextUI {
         while (true) {
 
             io.println("Valitse lisättävä tyyppi");
-            io.println("Komento (1=kirja, 2=blogi, \"\"=palaa):");
+            io.println("Komento (1=kirja, 2=blogi, 3=video, \"\"=palaa):");
             String input = io.nextLine();
 
             switch (input) {
@@ -39,6 +39,9 @@ public class TextUI {
                     break addloop;
                 case "2":
                     addBlogi();
+                    break addloop;
+                case "3":
+                    addVideo();
                     break addloop;
                 //Tähän väliin muut tyypit
                 case "":
@@ -138,6 +141,16 @@ public class TextUI {
         Blogi blogi = new Blogi(otsikko, kirjoittaja, url);
         dao.saveLukuvinkki(blogi);
 
+    }
+    
+    private void addVideo() throws SQLException {
+        io.println("Video otsikko: ");
+        String otsikko = io.nextLine();
+        String tekija = addWriter();
+        io.println("URL: ");
+        String url = io.nextLine();
+        Video video = new Video(otsikko, tekija, url);
+        dao.saveLukuvinkki(video);
     }
 
     private String addWriter() throws SQLException {

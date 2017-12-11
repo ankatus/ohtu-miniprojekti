@@ -7,6 +7,7 @@ import data_access.Database;
 import data_access.DbBlogiDAO;
 import data_access.DbKirjaDAO;
 import data_access.DbKommenttiDAO;
+import data_access.DbVideoDAO;
 import data_access.MasterDAO;
 /*
 import java.io.File;
@@ -27,6 +28,7 @@ public class Stepdefs {
     DbKommenttiDAO kommenttiDAO;
     DbBlogiDAO blogiDAO;
     MasterDAO dao;
+    DbVideoDAO videoDAO;
     
     
     @Given("^system is asking input from user$")
@@ -36,7 +38,8 @@ public class Stepdefs {
         kirjaDAO = new DbKirjaDAO(database);
         kommenttiDAO = new DbKommenttiDAO(database);
         blogiDAO = new DbBlogiDAO(database);
-        dao = new MasterDAO(kirjaDAO, blogiDAO, kommenttiDAO);
+        videoDAO = new DbVideoDAO(database);
+        dao = new MasterDAO(kirjaDAO, blogiDAO, kommenttiDAO, videoDAO);
         inputLines[0] = "2"; // Tällä siirrytään listaukseen
     }
 
@@ -65,7 +68,7 @@ public class Stepdefs {
         kirjaDAO = new DbKirjaDAO(database);
         kommenttiDAO = new DbKommenttiDAO(database);
         blogiDAO = new DbBlogiDAO(database);
-        dao = new MasterDAO(kirjaDAO, blogiDAO, kommenttiDAO);
+        dao = new MasterDAO(kirjaDAO, blogiDAO, kommenttiDAO, videoDAO);
         inputLines = new String[100];
         inputLines[0] = "2";
         inputLines[1] = "1";

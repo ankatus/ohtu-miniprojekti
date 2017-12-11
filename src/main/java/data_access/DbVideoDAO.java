@@ -64,7 +64,7 @@ public class DbVideoDAO implements VideoDAO {
         ArrayList values = new ArrayList<>();
         values.add(idNumber);
         
-        database.executeQueryUpdate("UPDATE Video SET luettu=1 WHERE id=?", values);
+        database.executeQueryUpdate("UPDATE Video SET katsottu=1 WHERE id=?", values);
         database.closeConnection();
     }    
     

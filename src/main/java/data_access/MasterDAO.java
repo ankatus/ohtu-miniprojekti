@@ -11,17 +11,20 @@ public class MasterDAO {
     private KirjaDAO kirjaDAO;
     private BlogiDAO blogiDAO;
     private KommenttiDAO kommenttiDAO;
+    private VideoDAO videoDAO;
 
-    public MasterDAO(KirjaDAO kirjaDAO, BlogiDAO blogiDAO, KommenttiDAO kommenttiDAO) {
+    public MasterDAO(KirjaDAO kirjaDAO, BlogiDAO blogiDAO, KommenttiDAO kommenttiDAO, VideoDAO videoDAO) {
         this.kirjaDAO = kirjaDAO;
         this.blogiDAO = blogiDAO;
         this.kommenttiDAO = kommenttiDAO;
+        this.videoDAO = videoDAO;
     }
 
     public ArrayList<Lukuvinkki> getAllLukuvinkki() {
         ArrayList<Lukuvinkki> all = new ArrayList<>();
         all.addAll(kirjaDAO.getAll());
         all.addAll(blogiDAO.getAll());
+        all.addAll(videoDAO.getAll());
         return all;
     }
     
@@ -42,6 +45,8 @@ public class MasterDAO {
             kirjaDAO.save((Kirja) lukuvinkki);
         } else if (lukuvinkki.getType() == Type.BLOGI) {
             blogiDAO.save((Blogi) lukuvinkki);
+        } else if (lukuvinkki.getType() == Type.VIDEO) {
+            videoDAO.save((Video) lukuvinkki);
         } else {
             //muita tyyppejä odotellessa
         }
@@ -59,6 +64,9 @@ public class MasterDAO {
                 break;
             case BLOGI:
                 blogiDAO.markAsLuettu(id);
+                break;
+            case VIDEO:
+                videoDAO.markAsLuettu(id);
                 break;
             default:
                 throw new IllegalArgumentException();

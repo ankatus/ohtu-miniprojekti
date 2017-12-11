@@ -30,6 +30,8 @@ public class TextTools {
             return "Kirjat:";
         } else if (type == Type.BLOGI) {
             return "Blogit:";
+        } else if (type == Type.VIDEO) {
+            return "Videot:";
         } else {
             return null;//uusia tyyppejä odotellessa
         }
@@ -50,6 +52,8 @@ public class TextTools {
             headers = new String[]{"kirjoittaja", "otsikko", "ISBN", "luettu"};
         } else if (type == Type.BLOGI) {
             headers = new String[]{"kirjoittaja", "otsikko", "url", "luettu"};
+        } else if (type == Type.VIDEO) {
+            headers = new String[]{"tekija", "otsikko", "url", "luettu"};
         } else {
             headers = new String[]{};//uusia tyyppejä odotellessa
         }
