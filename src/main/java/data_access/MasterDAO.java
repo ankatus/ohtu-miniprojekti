@@ -12,6 +12,7 @@ public class MasterDAO {
     private BlogiDAO blogiDAO;
     private KommenttiDAO kommenttiDAO;
     private VideoDAO videoDAO;
+    private PodcastDAO podcastDAO;
 
     public MasterDAO(KirjaDAO kirjaDAO, BlogiDAO blogiDAO, KommenttiDAO kommenttiDAO, VideoDAO videoDAO) {
         this.kirjaDAO = kirjaDAO;
@@ -35,6 +36,8 @@ public class MasterDAO {
             blogiDAO.save((Blogi) lukuvinkki);
         } else if (lukuvinkki.getType() == Type.VIDEO) {
             videoDAO.save((Video) lukuvinkki);
+        } else if (lukuvinkki.getType() == Type.PODCAST) {
+            podcastDAO.save((Podcast) lukuvinkki);
         } else {
             //muita tyyppejä odotellessa
         }
