@@ -59,7 +59,7 @@ public class LukuvinkkiTools {
             case "B":
                 return Type.BLOGI;
             default:
-                throw new IllegalArgumentException();
+                return null;
         }
     }
 
