@@ -1,6 +1,7 @@
 package tools;
 
 import domain.*;
+import filters.Luettu;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -68,6 +69,19 @@ public class LukuvinkkiToolsTest {
     public void parseTypeFromId() throws Exception {
         assertEquals(Type.KIRJA, LukuvinkkiTools.parseTypeFromId("K1"));
         assertEquals(Type.BLOGI, LukuvinkkiTools.parseTypeFromId("B1"));
+        assertEquals(null, LukuvinkkiTools.parseTypeFromId("1"));
     }
 
+    @Test
+    public void getFilteredIndexedListLuettuTest() throws Exception {
+        ArrayList<Lukuvinkki> testList = new ArrayList<>();
+        testList.add(new Kirja(1,"a","a","a",true));
+        testList.add(new Kirja(2,"b","b","b",false));
+        testList.add(new Blogi(1,"c","c","c",true));
+        testList.add(new Blogi(2,"d","d","d",false));
+        ArrayList<IndexIdPair> filteredTestList = LukuvinkkiTools.getFilteredIndexedList(testList, new Luettu());
+        assertTrue(filteredTestList.get(0).getId().equals("K1"));
+        assertTrue(filteredTestList.get(1).getId().equals("B1"));
+        assertEquals(2, filteredTestList.size());
+    }
 }
