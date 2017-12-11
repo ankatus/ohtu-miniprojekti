@@ -69,7 +69,7 @@ public class Podcast implements Lukuvinkki {
     
     @Override
     public Type getType() {
-        return Type.VIDEO;
+        return Type.PODCAST;
     }
     
     @Override

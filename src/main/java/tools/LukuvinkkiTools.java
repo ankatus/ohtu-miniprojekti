@@ -60,6 +60,8 @@ public class LukuvinkkiTools {
                 return Type.BLOGI;
             case "V":
                 return Type.VIDEO;
+            case "P":    
+                return Type.PODCAST;
             default:
                 return null;
         }

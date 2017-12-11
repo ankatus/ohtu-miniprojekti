@@ -1,3 +1,4 @@
+
 import data_access.*;
 
 import java.sql.SQLException;
@@ -14,11 +15,10 @@ public class Main {
         DbKommenttiDAO kommenttiDAO = new DbKommenttiDAO(database);
         DbBlogiDAO blogiDAO = new DbBlogiDAO(database);
         DbVideoDAO videoDAO = new DbVideoDAO(database);
-        
-        MasterDAO dao = new MasterDAO(kirjaDAO, blogiDAO, kommenttiDAO, videoDAO);
+        DbPodcastDAO podcastDAO = new DbPodcastDAO(database);
+        MasterDAO dao = new MasterDAO(kirjaDAO, blogiDAO, kommenttiDAO, videoDAO, podcastDAO);
 
         TextUI ui = new TextUI(new TerminalIO(), dao);
-		ui.run();
-	}
+        ui.run();
+    }
 }
-
