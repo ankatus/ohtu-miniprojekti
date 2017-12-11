@@ -19,7 +19,7 @@ public class VideoTest {
         assertEquals("Testiotsikko", video.getOtsikko());
         assertEquals("Testaaja", video.getTekija());
         assertEquals("testi.fi", video.getUrl());
-        assertEquals(0, video.getLuettu());
+        assertEquals(false, video.getLuettu());
         assertEquals(Type.VIDEO, video.getType());
     }
 
@@ -35,7 +35,7 @@ public class VideoTest {
         assertEquals("Testiotsikko2", video.getOtsikko());
         assertEquals("Testaaja2", video.getTekija());
         assertEquals("testi2.fi", video.getUrl());
-        assertEquals(1, video.getLuettu());
+        assertEquals(true, video.getLuettu());
     }
 
     @Test
