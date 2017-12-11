@@ -68,6 +68,7 @@ public class Stepdefs {
         kirjaDAO = new DbKirjaDAO(database);
         kommenttiDAO = new DbKommenttiDAO(database);
         blogiDAO = new DbBlogiDAO(database);
+        videoDAO = new DbVideoDAO(database);
         dao = new MasterDAO(kirjaDAO, blogiDAO, kommenttiDAO, videoDAO);
         inputLines = new String[100];
         inputLines[0] = "2";

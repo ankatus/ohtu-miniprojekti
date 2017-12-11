@@ -24,6 +24,7 @@ public class MasterDAOTest {
         mockKirjaDao = mock(KirjaDAO.class);
         mockBlogiDao = mock(BlogiDAO.class);
         mockKommenttiDao = mock(KommenttiDAO.class);
+        mockVideoDao = mock(VideoDAO.class);
          
         masterDao = new MasterDAO(mockKirjaDao, mockBlogiDao, mockKommenttiDao, mockVideoDao);
     }
