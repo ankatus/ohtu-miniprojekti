@@ -81,11 +81,8 @@ public class Blogi implements Lukuvinkki{
     }
     
     @Override
-    public int getLuettu() {
-        if (this.luettu){
-            return 1;
-        }
-        return 0;
+    public boolean getLuettu() {
+        return luettu;
     }
 
 

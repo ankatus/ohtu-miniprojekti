@@ -6,15 +6,23 @@ import domain.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+<<<<<<< HEAD
 import filters.Filter;
 import filters.Luettu;
 import filters.NotLuettu;
 import tools.*;
+=======
+import tools.LukuvinkkiTools;
+>>>>>>> master
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+<<<<<<< HEAD
+
+=======
 import tools.TextTools;
+>>>>>>> master
 
 public class TextUI {
 
@@ -31,7 +39,7 @@ public class TextUI {
         while (true) {
 
             io.println("Valitse lisättävä tyyppi");
-            io.println("Komento (1=kirja, 2=blogi, 3=video, \"\"=palaa):");
+            io.println("Komento (1=kirja, 2=blogi, \"\"=palaa):");
             String input = io.nextLine();
 
             switch (input) {
@@ -41,9 +49,6 @@ public class TextUI {
                     break addloop;
                 case "2":
                     addBlogi();
-                    break addloop;
-                case "3":
-                    addVideo();
                     break addloop;
                 //Tähän väliin muut tyypit
                 case "":
@@ -74,11 +79,11 @@ public class TextUI {
                 case "2":
                     list();
                     break;
-                    
+
                 case "3":
                     list(new NotLuettu());
                     break;
-                    
+
                 case "4":
                     list(new Luettu());
                     break;
@@ -115,23 +120,29 @@ public class TextUI {
         dao.saveLukuvinkki(blogi);
 
     }
-    
-    private void addVideo() throws SQLException {
-        io.println("Video otsikko: ");
-        String otsikko = io.nextLine();
-        String tekija = addWriter();
-        io.println("URL: ");
-        String url = io.nextLine();
-        Video video = new Video(otsikko, tekija, url);
-        dao.saveLukuvinkki(video);
-    }
 
+<<<<<<< HEAD
     private void list(Filter... filters) throws SQLException {
         while (true) {
             ArrayList<Lukuvinkki> lukuvinkkiList = dao.getAllLukuvinkki();
             ArrayList<IndexIdPair> filteredList = LukuvinkkiTools.getFilteredIndexedList(lukuvinkkiList, filters);
             //labelit ja headerit tähän
             printIndexIdPairList(filteredList, lukuvinkkiList);
+=======
+    private String addWriter() throws SQLException {
+        io.println("Tekijän nimi muodossa \"Sukunimi, Etunimi\": ");
+        String kirjoittaja = io.nextLine();
+        return kirjoittaja;
+    }
+
+    private void list() throws SQLException {
+        ArrayList<Lukuvinkki> lukuvinkkiList = dao.getAllLukuvinkki();
+        HashMap<Type, ArrayList<IndexIdPair>> mapOfLists = LukuvinkkiTools.pairListsByType(lukuvinkkiList);
+        for (Type type : Type.values()) {
+            io.println(TextTools.createLabelForType(type));
+            io.println(TextTools.createHeadersForType(20, type));
+            printIndexIdPairList(mapOfLists.get(type), lukuvinkkiList);
+>>>>>>> master
             io.println();
             io.println("Haluatko tarkastella lukuvinkkiä?");
             io.println("Anna kohteen indeksi tai palaa (\"\")");
@@ -187,6 +198,46 @@ public class TextUI {
             }
         }
     }
+<<<<<<< HEAD
+=======
+
+    private void listBoolean(int i) throws SQLException {
+        ArrayList<Lukuvinkki> lukuvinkkiList = dao.getAllLukuvinkkiBoolean(i);
+
+        HashMap<Type, ArrayList<IndexIdPair>> vinkitTyypeittain
+                = LukuvinkkiTools.pairListsByType(lukuvinkkiList);
+
+        for (Type type : vinkitTyypeittain.keySet()) {
+            io.println(TextTools.createLabelForType(type));
+            io.println(TextTools.createHeadersForType(20, type));
+            printIndexIdPairList(vinkitTyypeittain.get(type), lukuvinkkiList);
+            io.println();
+        }
+        io.println("Haluatko tarkastella lukuvinkkiä?");
+        io.println("Anna kohteen indeksi tai palaa (\"\")");
+        String input = io.nextLine();
+
+        if (input.equals("")) {
+            return;
+        }
+
+        int wantedIndex = parseToIndex(input);
+
+        if (wantedIndex == -1) {
+            io.println("Tuntematon komento");
+        }
+
+        String lukuvinkkiId = LukuvinkkiTools.getLukuvinkkiIdByIndex(
+                wantedIndex, vinkitTyypeittain);
+
+        if (lukuvinkkiId == null) {
+            io.println("Ei lukuvinkkiä tällä indeksillä");
+        } else {
+            viewLukuvinkki(lukuvinkkiId);
+
+        }
+    }
+>>>>>>> master
 
     private void addKommentti(String id) {
         io.println("kommentoijan nimi:");
@@ -227,16 +278,9 @@ public class TextUI {
             String url = (String) method.invoke(lukuvinkki, (Object[]) null);
             Runtime runtime = Runtime.getRuntime();
             runtime.exec("xdg-open " + url);
-        } catch (IOException | NoSuchMethodException | SecurityException
-                | IllegalAccessException | IllegalArgumentException
-                | InvocationTargetException e) {
+        } catch (IOException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             io.println("Avaaminen ei onnistunut");
         }
 
-    }
-    private String addWriter() throws SQLException {
-        io.println("Tekijän nimi muodossa \"Sukunimi, Etunimi\": ");
-        String kirjoittaja = io.nextLine();
-        return kirjoittaja;
     }
 }

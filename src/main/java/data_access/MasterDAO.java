@@ -27,18 +27,6 @@ public class MasterDAO {
         all.addAll(videoDAO.getAll());
         return all;
     }
-    
-    public ArrayList<Lukuvinkki> getAllLukuvinkkiBoolean(int i){
-        ArrayList<Lukuvinkki> vinkit = new ArrayList<>();
-        ArrayList<Lukuvinkki> apu = getAllLukuvinkki();
-        for (Lukuvinkki l: apu){
-            if (l.getLuettu()==i){
-                vinkit.add(l);
-            }
-        }
-        return vinkit;
-    }
-    
 
     public void saveLukuvinkki(Lukuvinkki lukuvinkki) {
         if (lukuvinkki.getType() == Type.KIRJA) {

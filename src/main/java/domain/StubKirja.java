@@ -19,7 +19,7 @@ public class StubKirja implements Lukuvinkki {
     }
 
     @Override
-    public int getLuettu() {
+    public boolean getLuettu() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

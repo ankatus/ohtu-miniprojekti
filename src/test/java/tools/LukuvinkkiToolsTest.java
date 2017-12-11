@@ -1,6 +1,7 @@
 package tools;
 
 import domain.*;
+import filters.Luettu;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -53,25 +54,34 @@ public class LukuvinkkiToolsTest {
 
     @Test
     public void getLukuvinkkiIdByIndex() throws Exception {
-        HashMap<Type, ArrayList<IndexIdPair>> testMap = new HashMap<>();
-        ArrayList<IndexIdPair> testKirjaList = new ArrayList<>();
-        testKirjaList.add(new IndexIdPair(1, "K1"));
-        testKirjaList.add(new IndexIdPair(2, "K2"));
-        ArrayList<IndexIdPair> testBlogiList = new ArrayList<>();
-        testKirjaList.add(new IndexIdPair(3, "B1"));
-        testKirjaList.add(new IndexIdPair(4, "B2"));
-        testMap.put(Type.KIRJA, testKirjaList);
-        testMap.put(Type.BLOGI, testBlogiList);
-        assertEquals("K1", LukuvinkkiTools.getLukuvinkkiIdByIndex(1,testMap));
-        assertEquals("K2", LukuvinkkiTools.getLukuvinkkiIdByIndex(2,testMap));
-        assertEquals("B1", LukuvinkkiTools.getLukuvinkkiIdByIndex(3,testMap));
-        assertEquals("B2", LukuvinkkiTools.getLukuvinkkiIdByIndex(4,testMap));
+        ArrayList<IndexIdPair> testList = new ArrayList<>();
+        testList.add(new IndexIdPair(1, "K1"));
+        testList.add(new IndexIdPair(2, "K2"));
+        testList.add(new IndexIdPair(3, "B1"));
+        testList.add(new IndexIdPair(4, "B2"));
+        assertEquals("K1", LukuvinkkiTools.getLukuvinkkiIdByIndex(1,testList));
+        assertEquals("K2", LukuvinkkiTools.getLukuvinkkiIdByIndex(2,testList));
+        assertEquals("B1", LukuvinkkiTools.getLukuvinkkiIdByIndex(3,testList));
+        assertEquals("B2", LukuvinkkiTools.getLukuvinkkiIdByIndex(4,testList));
     }
 
     @Test
     public void parseTypeFromId() throws Exception {
         assertEquals(Type.KIRJA, LukuvinkkiTools.parseTypeFromId("K1"));
         assertEquals(Type.BLOGI, LukuvinkkiTools.parseTypeFromId("B1"));
+        assertEquals(null, LukuvinkkiTools.parseTypeFromId("1"));
     }
 
+    @Test
+    public void getFilteredIndexedListLuettuTest() throws Exception {
+        ArrayList<Lukuvinkki> testList = new ArrayList<>();
+        testList.add(new Kirja(1,"a","a","a",true));
+        testList.add(new Kirja(2,"b","b","b",false));
+        testList.add(new Blogi(1,"c","c","c",true));
+        testList.add(new Blogi(2,"d","d","d",false));
+        ArrayList<IndexIdPair> filteredTestList = LukuvinkkiTools.getFilteredIndexedList(testList, new Luettu());
+        assertTrue(filteredTestList.get(0).getId().equals("K1"));
+        assertTrue(filteredTestList.get(1).getId().equals("B1"));
+        assertEquals(2, filteredTestList.size());
+    }
 }
