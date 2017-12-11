@@ -103,4 +103,22 @@ public class Stepdefs {
                 contains("Jackson, Shirley     | Onhan noita linnassa | 666                  | kyllä"));
     }
     
+        @Given("^a Lukuvinkki is selected$")
+    public void a_Lukuvinkki_is_selected() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
+    }
+
+    @Given("^a comment is given with first line \"([^\"]*)\" and second line \"([^\"]*)\"$")
+    public void a_comment_is_given_with_first_line_and_second_line(String arg1, String arg2) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
+    }
+
+    @Then("^the comment is shown on on first line \"([^\"]*)\" and second line \"([^\"]*)\"$")
+    public void the_comment_is_shown_on_on_first_line_and_second_line(String arg1, String arg2) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
+    }
+
 }
