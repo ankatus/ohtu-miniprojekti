@@ -39,7 +39,7 @@ public class Stepdefs {
     @Given("^system is asking input from user$")
     public void system_is_asking_input_from_user() throws Throwable {
 
-        database = new Database("lukuvinkkikirjasto.db");
+        database = new Database("testitietokanta.db");
         kirjaDAO = new DbKirjaDAO(database);
         kommenttiDAO = new DbKommenttiDAO(database);
         blogiDAO = new DbBlogiDAO(database);
