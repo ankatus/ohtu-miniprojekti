@@ -161,10 +161,23 @@ public class Stepdefs {
 
     @Then("^the random title appears on the list$")
     public void the_random_title_appears_on_the_list() throws Throwable {
+        inputLines[6] = "";
+        inputLines[7] = "";
         io = new StubIO(inputLines);
         ui = new TextUI(io, dao);
         ui.run();
-        assertTrue(io.getOutputs().contains(randomTitle.substring(0, 10)));
+        assertTrue(outputsContains(io, randomTitle.substring(0, 19)));
+        
+        
+    }
+    
+    boolean outputsContains(StubIO io, String string) {
+       for (String line : io.getOutputs()) {
+           if (line.contains(string)) {
+               return true;
+           }           
+       }
+       return false;
     }
 
 }
