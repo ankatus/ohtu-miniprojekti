@@ -33,7 +33,7 @@ public class TextUI {
             io.println("Valitse lisättävä tyyppi");
             io.println("Komento (1=kirja, 2=blogi, 3=video, 4=podcast, \"\"=palaa):");
             String input = io.nextLine();
-
+            
             switch (input) {
 
                 case "1":
