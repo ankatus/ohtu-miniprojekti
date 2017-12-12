@@ -167,17 +167,18 @@ public class Stepdefs {
         ui = new TextUI(io, dao);
         ui.run();
         assertTrue(outputsContains(io, randomTitle.substring(0, 19)));
-        
-        
+
     }
-    
+
     boolean outputsContains(StubIO io, String string) {
-       for (String line : io.getOutputs()) {
-           if (line.contains(string)) {
-               return true;
-           }           
-       }
-       return false;
+        for (String line : io.getOutputs()) {
+            if (line.contains(string)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
+
+
