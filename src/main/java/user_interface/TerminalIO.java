@@ -2,7 +2,7 @@ package user_interface;
 
 import java.util.Scanner;
 
-public class TerminalIO implements IO{
+public class TerminalIO implements IO {
 
     private Scanner scanner;
 
@@ -24,4 +24,18 @@ public class TerminalIO implements IO{
     public void println() {
         println("");
     }
+
+    @Override
+    public String kommenttiInput() {
+        String kommentti = scanner.nextLine();
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            if (line.isEmpty()) {
+                break;
+            }
+            kommentti += "\n" + line;
+        }
+        return kommentti;
+    }
+
 }
