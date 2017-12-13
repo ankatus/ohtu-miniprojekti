@@ -1,3 +1,4 @@
+import org.junit.Before;
 import user_interface.*;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
@@ -14,14 +15,16 @@ import java.io.File;
 import java.io.FileWriter;
 */
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import static org.junit.Assert.assertTrue;
+
 
 
 public class Stepdefs {
     TextUI ui;
     StubIO io;
-    String[] inputLines = new String[100];
+    ArrayList<String> inputLines;
       
     Database database;
     DbKirjaDAO kirjaDAO;
@@ -29,7 +32,21 @@ public class Stepdefs {
     DbBlogiDAO blogiDAO;
     MasterDAO dao;
     DbVideoDAO videoDAO;
+
     
+
+
+    @cucumber.api.java.Before
+    public void setUp() throws ClassNotFoundException {
+        inputLines = new ArrayList<>();
+        database = new Database("testdb.db");
+        kirjaDAO = new DbKirjaDAO(database);
+        kommenttiDAO = new DbKommenttiDAO(database);
+        blogiDAO = new DbBlogiDAO(database);
+        videoDAO = new DbVideoDAO(database);
+        dao = new MasterDAO(kirjaDAO, blogiDAO, kommenttiDAO, videoDAO);
+    }
+
     
 //    @Given("^system is asking input from user$")
 //    public void system_is_asking_input_from_user() throws Throwable {
@@ -102,23 +119,45 @@ public class Stepdefs {
 //        assertTrue(outputs.get(lastIndex - 8).
 //                contains("Jackson, Shirley     | Onhan noita linnassa | 666                  | kyllä"));
 //    }
-//
-//        @Given("^a Lukuvinkki is selected$")
-//    public void a_Lukuvinkki_is_selected() throws Throwable {
-//        // Write code here that turns the phrase above into concrete actions
-//        throw new PendingException();
-//    }
-//
-//    @Given("^a comment is given with first line \"([^\"]*)\" and second line \"([^\"]*)\"$")
-//    public void a_comment_is_given_with_first_line_and_second_line(String arg1, String arg2) throws Throwable {
-//        // Write code here that turns the phrase above into concrete actions
-//        throw new PendingException();
-//    }
-//
-//    @Then("^the comment is shown on on first line \"([^\"]*)\" and second line \"([^\"]*)\"$")
-//    public void the_comment_is_shown_on_on_first_line_and_second_line(String arg1, String arg2) throws Throwable {
-//        // Write code here that turns the phrase above into concrete actions
-//        throw new PendingException();
-//    }
+
+
+
+    @Given("^list view is entered$")
+    public void list_view_is_entered() {
+        inputLines.add("2");
+    }
+
+    @Given("^a Lukuvinkki is selected$")
+    public void a_Lukuvinkki_is_selected() throws Throwable {
+        inputLines.add("1");
+    }
+
+    @Given("^a comment is given with first line \"([^\"]*)\" and second line \"([^\"]*)\"$")
+    public void a_comment_is_given_with_first_line_and_second_line(String arg1, String arg2) throws Throwable {
+        inputLines.add("u");
+        inputLines.add("jokunimi");
+        inputLines.add(arg1);
+        inputLines.add(arg2);
+        inputLines.add("");
+    }
+
+    @Then("^the comment is shown on first line \"([^\"]*)\" and second line \"([^\"]*)\"$")
+    public void the_comment_is_shown_on_on_first_line_and_second_line(String arg1, String arg2) throws Throwable {
+        inputLines.add("");
+        inputLines.add("");
+        inputLines.add("");
+        inputLines.add("");//jotta ohjelma sulkeutuu...
+        io = new StubIO(inputLines.toArray(new String[]{}));
+        TextUI ui = new TextUI(io, dao);
+        ui.run();
+        for (int i = 0; i < io.getOutputs().size(); i++) {
+            if (io.getOutputs().get(i).contains(arg1) && io.getOutputs().get(i).contains(arg2)) {
+                assertTrue(true);
+                return;
+            }
+        }
+        assertTrue(false);
+    }
+
 
 }

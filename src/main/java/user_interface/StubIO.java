@@ -38,7 +38,9 @@ public class StubIO implements IO {
 
     @Override
     public String kommenttiInput() {
-        return "kommentti" + "\n" + "kommentti";
+        String kommentti = inputs[inputIndex] + "\n" + inputs[inputIndex + 1];
+        inputIndex += 2;
+        return kommentti;
     }
 
    
