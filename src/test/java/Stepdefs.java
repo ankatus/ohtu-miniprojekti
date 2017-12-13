@@ -1,5 +1,7 @@
 
+import domain.Kirja;
 import org.junit.Before;
+import tools.TextTools;
 import user_interface.*;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -10,6 +12,7 @@ import data_access.*;
 import java.io.File;
 import java.io.FileWriter;
  */
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -204,13 +207,7 @@ public class Stepdefs {
 
     @Then("^the comment is shown on first line \"([^\"]*)\" and second line \"([^\"]*)\"$")
     public void the_comment_is_shown_on_on_first_line_and_second_line(String arg1, String arg2) throws Throwable {
-        inputLines.add("");
-        inputLines.add("");
-        inputLines.add("");
-        inputLines.add("");//jotta ohjelma sulkeutuu...
-        io = new StubIO(inputLines.toArray(new String[]{}));
-        ui = new TextUI(io, dao);
-        ui.run();
+        runTestUI();
         for (int i = 0; i < io.getOutputs().size(); i++) {
             if (io.getOutputs().get(i).contains(arg1) && io.getOutputs().get(i).contains(arg2)) {
                 assertTrue(true);
@@ -227,11 +224,7 @@ public class Stepdefs {
 
     @Then("^\"([^\"]*)\" is available in the menu$")
     public void lukuvinkki_is_available_in_the_menu(String lukuvinkki_name) throws Throwable {
-        inputLines.add("");
-        inputLines.add("");
-        io = new StubIO(inputLines.toArray(new String[]{}));
-        ui = new TextUI(io, dao);
-        ui.run();
+        runTestUI();
         int i = getListIndex(io.getOutputs(), "Valitse lisättävä tyyppi");
 
         assertTrue(io.getOutputs().get(i + 1).contains("=" + lukuvinkki_name));
@@ -269,25 +262,32 @@ public class Stepdefs {
 
     @Then("^the random title appears on the list$")
     public void the_random_title_appears_on_the_list() throws Throwable {
-        inputLines.add("");
-        inputLines.add("");
-        io = new StubIO(inputLines.toArray(new String[]{}));
-        ui = new TextUI(io, dao);
-        ui.run();
+        runTestUI();
         assertTrue(outputsContains(io, randomTitle.substring(0, 19)));
     }
 
     @Then("^the created lukuvinkki with author \"([^\"]*)\", title \"([^\"]*)\" appers on the list$")
     public void the_created_lukuvinkki_with_author_title_appers_on_the_list(String author, String title) throws Throwable {
-        inputLines.add("");
-        inputLines.add("");
-        io = new StubIO(inputLines.toArray(new String[]{}));
-        ui = new TextUI(io, dao);
-        ui.run();
+        runTestUI();
 
         int i = getListIndex(io.getOutputs(), title);
         assertTrue(io.getOutputs().get(i).contains(title));
         assertTrue(io.getOutputs().get(i).contains(author));
+    }
+
+    @Given("^a lukuvinkki is added")
+    public void add_lukuvinkki() {
+        inputLines.add("1");
+        inputLines.add("1");
+        inputLines.add("testi");
+        inputLines.add("testinen");
+        inputLines.add("1234");
+    }
+
+    @Given("^correct data can be seen$")
+    public void correct_data_in_list() throws SQLException {
+        runTestUI();
+        assertTrue(outputsContains(io, new Kirja("testi", "testinen", "1234").toString()));
     }
 
     boolean outputsContains(StubIO io, String string) {
@@ -306,6 +306,14 @@ public class Stepdefs {
             }
         }
         return -1;
+    }
+
+    void runTestUI() throws SQLException {
+        inputLines.add("");
+        inputLines.add("");
+        io = new StubIO(inputLines.toArray(new String[]{}));
+        ui = new TextUI(io, dao);
+        ui.run();
     }
 
 }
