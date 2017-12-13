@@ -174,7 +174,7 @@ public class TextUI {
             ArrayList<Lukuvinkki> lukuvinkkiList = dao.getAllLukuvinkki();
             Lukuvinkki current = LukuvinkkiTools.getLukuvinkkiById(id, lukuvinkkiList);
 
-            io.println(current.toString());
+            io.println(current.view());
             io.println();
 
             io.println("Kommentit:");

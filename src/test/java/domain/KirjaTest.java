@@ -34,6 +34,17 @@ public class KirjaTest {
     }
 
     @Test
+    public void view() {
+        assertEquals(
+                "Otsikko:            testi\n" +
+                        "Kirjoittaja:        testaaja\n" +
+                        "isbn:               12345678\n" +
+                        "luettu:             ei",
+                kirja.view()
+        );
+    }
+
+    @Test
     public void kirjaToString(){
         assertEquals("kirja                | testaaja             | testi                | ei                  ", kirja.toString());
     }

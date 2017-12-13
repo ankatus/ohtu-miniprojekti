@@ -65,6 +65,21 @@ public class Kirja implements Lukuvinkki {
     }
 
     @Override
+    public String view() {
+        String rowRepresentation = TextTools.fit("Otsikko:", 20) + otsikko + "\n";
+        rowRepresentation += TextTools.fit("Kirjoittaja:", 20)+ kirjoittaja + "\n";
+        rowRepresentation += TextTools.fit("isbn:", 20) + isbn + "\n";
+        String kyllaEi;
+        if (luettu) {
+            kyllaEi = "kyllä";
+        } else {
+            kyllaEi = "ei";
+        }
+        rowRepresentation += TextTools.fit("luettu:", 20) + kyllaEi;
+        return rowRepresentation;
+    }
+
+    @Override
     public String toString() {
         String columnRepresentation = TextTools.fit("kirja", 20) + " | ";
         columnRepresentation += TextTools.fit(kirjoittaja, 20) + " | ";
