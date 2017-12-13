@@ -58,6 +58,8 @@ public class TextTools {
             headers = new String[]{"kirjoittaja", "otsikko", "url", "luettu"};
         } else if (type == Type.VIDEO) {
             headers = new String[]{"tekija", "otsikko", "url", "luettu"};
+        } else if (type == Type.TAG) {
+            headers = new String[]{"Tagi"};
         } else {
             headers = new String[]{};//uusia tyyppejä odotellessa
         }

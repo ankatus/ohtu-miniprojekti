@@ -65,7 +65,7 @@ public class TextUI {
         loop:
         while (true) {
 
-            io.println("Komento (1=lisää, 2=listaa kaikki, 3=listaa lukemattomat, 4=listaa luetut, \"\"=lopeta):");
+            io.println("Komento (1=lisää, 2=listaa kaikki, 3=listaa lukemattomat, 4=listaa luetut, 5=Tagit, \"\"=lopeta):");
             String input = io.nextLine();
 
             switch (input) {
@@ -84,6 +84,10 @@ public class TextUI {
                     
                 case "4":
                     list(new Luettu());
+                    break;
+                    
+                case "5":
+                    tag();
                     break;
 
                 case "":
@@ -181,8 +185,13 @@ public class TextUI {
             io.println();
 
             printAllKommenttiForId(id);
+            
+            io.println("Tagit:");
+            io.println();
+            
+            printAllTagForId(id);
 
-            io.println("Komento (\"\"=palaa, m=merkitse luetuksi, u=uusi kommentti, a=avaa url):");
+            io.println("Komento (\"\"=palaa, m=merkitse luetuksi, u=uusi kommentti, t=uusi tagi, a=avaa url):");
             String input = io.nextLine();
             switch (input.toLowerCase()) {
                 case "":
@@ -195,6 +204,9 @@ public class TextUI {
                     break;
                 case "a":
                     openURLinBrowser(current);
+                    break;
+                case "t":
+                    addTag(id);
                     break;
                 default:
                     io.println("Tuntematon komento");
@@ -234,6 +246,17 @@ public class TextUI {
             io.println();
         }
     }
+    
+    private void printAllTagForId(String id) throws SQLException {
+        String tagit = "";
+        for (Tag t : dao.getAllTagForId(id)) {
+            tagit += "'";
+            tagit +=t.getTag();
+            tagit += "' ";
+        }
+        io.println(tagit);
+        io.println();
+    }
 
     public void openURLinBrowser(Lukuvinkki lukuvinkki) {
         try {
@@ -252,5 +275,46 @@ public class TextUI {
         io.println("Tekijän nimi muodossa \"Sukunimi, Etunimi\": ");
         String kirjoittaja = io.nextLine();
         return kirjoittaja;
+    }
+    
+    public void tag(){
+        ArrayList<Tag> tagit = dao.getAllTagit();
+        
+        io.println(TextTools.createHeadersForType(20, Type.TAG));
+        for (Tag t : tagit){
+            io.println(TextTools.fit(t.getId()+"", 10)+TextTools.fit(t.getTag(), 20));
+        }
+        io.println("Komento (1=uusi tagi, \"\"=palaa):");
+        String input = io.nextLine();
+            if (input.equals("")) {
+                return;
+            }else if (input.equals("1")){
+                addTagToList();
+            }
+    }
+    
+    private void addTagToList(){
+        io.println("Anna tagin nimi:");
+        String tag = io.nextLine().toLowerCase();
+        if (dao.saveTag(tag)){
+            io.println("Tagi tallennettu.");
+        }else{
+            io.println("Tagi on jo olemassa!");
+        }
+    }
+    
+    private void addTag(String lukuvinkki_id){
+        ArrayList<Tag> tagit = dao.getAllTagit();io.println(TextTools.createHeadersForType(20, Type.TAG));
+        for (Tag t : tagit){
+            io.println(TextTools.fit(t.getId()+"", 10)+TextTools.fit(t.getTag(), 20));
+        }
+        io.println("Valite lisättävä tagi listasta, \"\"=palaa):");
+        String tag = io.nextLine();
+        int t = parseToIndex(tag);
+        if (dao.tagToVinkki(lukuvinkki_id, t)){
+            io.println("Tagi lisätty");
+        }else{
+            io.println("Tagin lisäys epäonnistui");
+        }
     }
 }
