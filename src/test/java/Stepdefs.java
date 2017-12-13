@@ -31,6 +31,7 @@ public class Stepdefs {
     DbVideoDAO videoDAO;
     DbPodcastDAO podcastDAO;
     String randomTitle;
+    TagDAO tagDAO;
     
         @cucumber.api.java.Before
     public void setUp() throws ClassNotFoundException {
@@ -41,7 +42,8 @@ public class Stepdefs {
         blogiDAO = new DbBlogiDAO(database);
         videoDAO = new DbVideoDAO(database);
         podcastDAO = new DbPodcastDAO(database);
-        dao = new MasterDAO(kirjaDAO, blogiDAO, kommenttiDAO, videoDAO, podcastDAO);       
+        tagDAO = new DbTagDAO(database);
+        dao = new MasterDAO(kirjaDAO, blogiDAO, kommenttiDAO, videoDAO, podcastDAO, tagDAO);       
     }
 
     @Given("^system is asking input from user$")
@@ -53,7 +55,7 @@ public class Stepdefs {
         blogiDAO = new DbBlogiDAO(database);
         videoDAO = new DbVideoDAO(database);
         podcastDAO = new DbPodcastDAO(database);
-        dao = new MasterDAO(kirjaDAO, blogiDAO, kommenttiDAO, videoDAO, podcastDAO);
+        dao = new MasterDAO(kirjaDAO, blogiDAO, kommenttiDAO, videoDAO, podcastDAO, tagDAO);
         inputLines.add("2"); // Tällä siirrytään listaukseen
     }
 

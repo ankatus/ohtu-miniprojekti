@@ -19,6 +19,7 @@ public class MasterDAOTest {
     private VideoDAO mockVideoDao;
     private PodcastDAO mockPodcastDao;
     private KommenttiDAO mockKommenttiDao;
+    private TagDAO mockTagDao;
     
     @Before
     public void setUp() {
@@ -27,8 +28,9 @@ public class MasterDAOTest {
         mockKommenttiDao = mock(KommenttiDAO.class);
         mockVideoDao = mock(VideoDAO.class);
         mockPodcastDao = mock(PodcastDAO.class);
+        mockTagDao = mock(TagDAO.class);
          
-        masterDao = new MasterDAO(mockKirjaDao, mockBlogiDao, mockKommenttiDao, mockVideoDao, mockPodcastDao);
+        masterDao = new MasterDAO(mockKirjaDao, mockBlogiDao, mockKommenttiDao, mockVideoDao, mockPodcastDao, mockTagDao);
     }
     
     @Test
