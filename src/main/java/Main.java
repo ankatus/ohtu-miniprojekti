@@ -16,7 +16,8 @@ public class Main {
         DbBlogiDAO blogiDAO = new DbBlogiDAO(database);
         DbVideoDAO videoDAO = new DbVideoDAO(database);
         DbPodcastDAO podcastDAO = new DbPodcastDAO(database);
-        MasterDAO dao = new MasterDAO(kirjaDAO, blogiDAO, kommenttiDAO, videoDAO, podcastDAO);
+        DbTagDAO tagDAO = new DbTagDAO(database);
+        MasterDAO dao = new MasterDAO(kirjaDAO, blogiDAO, kommenttiDAO, videoDAO, podcastDAO, tagDAO);
 
         TextUI ui = new TextUI(new TerminalIO(), dao);
         ui.run();

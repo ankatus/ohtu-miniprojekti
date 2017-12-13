@@ -13,14 +13,16 @@ public class MasterDAO {
     private KommenttiDAO kommenttiDAO;
     private VideoDAO videoDAO;
     private PodcastDAO podcastDAO;
+    private TagDAO tagDAO;
 
     public MasterDAO(KirjaDAO kirjaDAO, BlogiDAO blogiDAO, 
-            KommenttiDAO kommenttiDAO, VideoDAO videoDAO, PodcastDAO podcastDAO) {
+            KommenttiDAO kommenttiDAO, VideoDAO videoDAO, PodcastDAO podcastDAO, TagDAO tagDAO) {
         this.kirjaDAO = kirjaDAO;
         this.blogiDAO = blogiDAO;
         this.kommenttiDAO = kommenttiDAO;
         this.videoDAO = videoDAO;
         this.podcastDAO = podcastDAO;
+        this.tagDAO = tagDAO;
     }
 
     public ArrayList<Lukuvinkki> getAllLukuvinkki() {
@@ -71,6 +73,36 @@ public class MasterDAO {
     public ArrayList<Kommentti> getAllKommenttiForId(String lukuvinkki_id) throws SQLException {
         return kommenttiDAO.getAllForID(lukuvinkki_id);
     }
-
-
+    
+    public ArrayList<Tag> getAllTagit(){
+        return tagDAO.getAll();
+    }
+    
+    public boolean saveTag(String tag){
+       ArrayList<Tag> tagit = getAllTagit();
+       for (Tag t : tagit){
+           if (t.getTag().equals(tag)){
+               return false;
+           }
+       }
+       tagDAO.saveTag(tag);
+       return true;
+    }
+    
+    public boolean tagToVinkki(String lukuvinkki_id, int tag){
+        ArrayList<Tag> tagit = getAllTagForId(lukuvinkki_id);
+        for (Tag t : tagit){
+           if (t.getId()==tag){
+               return false;
+           }
+        }
+        tagDAO.save(lukuvinkki_id, tag);
+        return true;
+    }
+    
+    
+    
+    public ArrayList<Tag> getAllTagForId(String lukuvinkki_id){
+        return tagDAO.getAllForId(lukuvinkki_id);
+    }
 }

@@ -87,7 +87,6 @@ public class LukuvinkkiTools {
         }
         return true;
     }
-
-
-
-}
+    
+        
+    }
