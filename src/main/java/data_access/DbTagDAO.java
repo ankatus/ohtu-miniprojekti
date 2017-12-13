@@ -36,11 +36,11 @@ public class DbTagDAO implements TagDAO{
     }
 
     @Override
-    public void save(String lukuvinkki_id, int tag) {
+    public void save(String lukuvinkkiId, int tagId) {
         ArrayList values = new ArrayList();
 
-        values.add(lukuvinkki_id);
-        values.add(tag);
+        values.add(lukuvinkkiId);
+        values.add(tagId);
 
         database.executeQueryUpdate("INSERT INTO Taglink "
                 + "(lukuvinkki, tagid)"
@@ -89,7 +89,7 @@ public class DbTagDAO implements TagDAO{
         try {
             while (rS.next()) {
                 String tag = rS.getString("tag");
-                int tagid = Integer.parseInt(rS.getString("id"));
+                int tagid = rS.getInt("id");
 
                 tagit.add(new Tag(tagid, tag));
             }
