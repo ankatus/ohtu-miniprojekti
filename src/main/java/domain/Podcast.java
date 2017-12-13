@@ -47,7 +47,7 @@ public class Podcast implements Lukuvinkki {
 
     @Override
     public String getID() {
-        return "V" + this.id;
+        return "P" + this.id;
     }
     
     public String getOtsikko() {
