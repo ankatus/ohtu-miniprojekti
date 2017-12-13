@@ -18,7 +18,7 @@ public class Database {
         this.databaseAddress = databaseAddress;
 
         if (!checkIfDatabaseExists(databaseAddress)) {
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println("Tietokanta " + databaseAddress + " luotu!");
             createDatabase(databaseAddress);
         }
     }
