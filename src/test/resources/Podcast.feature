@@ -2,7 +2,7 @@ Feature: User can save a podcast
 
 Scenario: creating a new podcast is available in the menu
 When create new lukuvinkki is selected
-Then podcast is available in the menu
+Then "podcast" is available in the menu
 
 Scenario: podcast information can be saved
 Given create new lukuvinkki is selected

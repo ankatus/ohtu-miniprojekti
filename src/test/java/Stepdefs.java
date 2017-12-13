@@ -1,3 +1,4 @@
+
 import org.junit.Before;
 import user_interface.*;
 import cucumber.api.java.en.Given;
@@ -13,15 +14,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
 
 public class Stepdefs {
 
     TextUI ui;
     StubIO io;
     ArrayList<String> inputLines;
-      
 
     Database database;
     DbKirjaDAO kirjaDAO;
@@ -31,8 +31,8 @@ public class Stepdefs {
     DbVideoDAO videoDAO;
     DbPodcastDAO podcastDAO;
     String randomTitle;
-    
-        @cucumber.api.java.Before
+
+    @cucumber.api.java.Before
     public void setUp() throws ClassNotFoundException {
         inputLines = new ArrayList<>();
         database = new Database("testitietokanta.db");
@@ -41,7 +41,7 @@ public class Stepdefs {
         blogiDAO = new DbBlogiDAO(database);
         videoDAO = new DbVideoDAO(database);
         podcastDAO = new DbPodcastDAO(database);
-        dao = new MasterDAO(kirjaDAO, blogiDAO, kommenttiDAO, videoDAO, podcastDAO);       
+        dao = new MasterDAO(kirjaDAO, blogiDAO, kommenttiDAO, videoDAO, podcastDAO);
     }
 
     @Given("^system is asking input from user$")
@@ -80,9 +80,6 @@ public class Stepdefs {
         database = new Database("lukuvinkkikirjasto.db");
     }
 
-
-
-
     @When("^marked as read$")
     public void marked_as_read() throws Throwable {
         inputLines.add("m");
@@ -112,7 +109,6 @@ public class Stepdefs {
 
     }
 
-    
 //    @Given("^system is asking input from user$")
 //    public void system_is_asking_input_from_user() throws Throwable {
 //
@@ -184,10 +180,7 @@ public class Stepdefs {
 //        assertTrue(outputs.get(lastIndex - 8).
 //                contains("Jackson, Shirley     | Onhan noita linnassa | 666                  | kyllä"));
 //    }
-
-
-
-    @Given("^list view is entered$")
+    @Given("^list view is selected$")
     public void list_view_is_selected() {
         inputLines.add("2");
 
@@ -225,20 +218,21 @@ public class Stepdefs {
         assertTrue(false);
     }
 
-
     @When("^create new lukuvinkki is selected$")
     public void create_new_lukuvinkki_is_selected() throws Throwable {
         inputLines.add("1");
     }
 
-    @Then("^podcast is available in the menu$")
-    public void podcast_is_available_in_the_menu() throws Throwable {
+    @Then("^\"([^\"]*)\" is available in the menu$")
+    public void lukuvinkki_is_available_in_the_menu(String lukuvinkki_name) throws Throwable {
         inputLines.add("");
         inputLines.add("");
         io = new StubIO(inputLines.toArray(new String[]{}));
         ui = new TextUI(io, dao);
         ui.run();
-        assertTrue(io.getOutputs().contains("Komento (1=kirja, 2=blogi, 3=video, 4=podcast, \"\"=palaa):"));
+        int i = getListIndex(io.getOutputs(), "Valitse lisättävä tyyppi");
+
+        assertTrue(io.getOutputs().get(i + 1).contains("=" + lukuvinkki_name));
     }
 
     @Given("^creating a new podcast is selected$")
@@ -246,10 +240,22 @@ public class Stepdefs {
         inputLines.add("4");
     }
 
+    @Given("^creating a new video is selected$")
+    public void creating_a_new_video_is_selected() throws Throwable {
+        inputLines.add("3");
+    }
+
     @Given("^author \"([^\"]*)\" a random title and URL \"([^\"]*)\" are entered$")
     public void author_a_random_title_and_URL_are_entered(String author, String url) throws Throwable {
         randomTitle = UUID.randomUUID().toString();
         inputLines.add(randomTitle);
+        inputLines.add(author);
+        inputLines.add(url);
+    }
+
+    @Given("^author \"([^\"]*)\", title \"([^\"]*)\" and URL \"([^\"]*)\" are entered$")
+    public void author_a_random_title_and_URL_are_entered(String author, String title, String url) throws Throwable {
+        inputLines.add(title);
         inputLines.add(author);
         inputLines.add(url);
     }
@@ -263,11 +269,23 @@ public class Stepdefs {
     public void the_random_title_appears_on_the_list() throws Throwable {
         inputLines.add("");
         inputLines.add("");
-        io = new StubIO(inputLines.toArray(new String[] {}));
+        io = new StubIO(inputLines.toArray(new String[]{}));
         ui = new TextUI(io, dao);
         ui.run();
         assertTrue(outputsContains(io, randomTitle.substring(0, 19)));
+    }
 
+    @Then("^the created lukuvinkki with author \"([^\"]*)\", title \"([^\"]*)\" appers on the list$")
+    public void the_created_lukuvinkki_with_author_title_appers_on_the_list(String author, String title) throws Throwable {
+        inputLines.add("");
+        inputLines.add("");
+        io = new StubIO(inputLines.toArray(new String[]{}));
+        ui = new TextUI(io, dao);
+        ui.run();
+
+        int i = getListIndex(io.getOutputs(), title);
+        assertTrue(io.getOutputs().get(i).contains(title));
+        assertTrue(io.getOutputs().get(i).contains(author));
     }
 
     boolean outputsContains(StubIO io, String string) {
@@ -279,7 +297,13 @@ public class Stepdefs {
         return false;
     }
 
+    int getListIndex(ArrayList<String> list, String string) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).contains(string)) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
 }
-
-
