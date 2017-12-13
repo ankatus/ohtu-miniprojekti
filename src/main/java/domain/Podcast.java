@@ -75,15 +75,16 @@ public class Podcast implements Lukuvinkki {
     @Override
     public String toString() {
         int maxLength = 20;
-        String columnRepresentation = TextTools.fit(tekija, 20) + " | ";
-        columnRepresentation += TextTools.fit(otsikko, 20) + " | ";
-        columnRepresentation += TextTools.fit(url, 20) + " | ";
+        String columnRepresentation = TextTools.fit("podcast", maxLength) + " | ";
+        columnRepresentation += TextTools.fit(tekija, maxLength) + " | ";
+        columnRepresentation += TextTools.fit(otsikko, maxLength) + " | ";        
         if (kuunneltu) {
-            columnRepresentation += TextTools.fit("kyllä", 20);
+            columnRepresentation += TextTools.fit("kyllä", maxLength);
         } else {
-            columnRepresentation += TextTools.fit("ei", 20);
+            columnRepresentation += TextTools.fit("ei", maxLength);
         }
         return columnRepresentation;
     }
+    
     
 }
