@@ -53,7 +53,19 @@ public class Blogi implements Lukuvinkki{
         this.id = id;
     }
     
-    
+    public String view() {
+        String rowRepresentation = TextTools.fit("Otsikko:", 20) + otsikko + "\n";
+        rowRepresentation += TextTools.fit("Kirjoittaja:", 20) + kirjoittaja + "\n";
+        rowRepresentation += TextTools.fit("url:", 20) + url + "\n";
+        String kyllaEi;
+        if (luettu) {
+            kyllaEi = "kyllä";
+        } else {
+            kyllaEi = "ei";
+        }
+        rowRepresentation += TextTools.fit("luettu:", 20) + kyllaEi;
+        return rowRepresentation;
+    }
 
     @Override
     public String toString() {

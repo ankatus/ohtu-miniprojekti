@@ -39,6 +39,17 @@ public class VideoTest {
     }
 
     @Test
+    public void view() {
+        assertEquals(
+                "Otsikko:            Testiotsikko\n" +
+                        "Tekijä:             Testaaja\n" +
+                        "url:                testi.fi\n" +
+                        "katsottu:           ei",
+                video.view()
+        );
+    }
+
+    @Test
     public void toStringTest() {
         assertEquals("video                | Testaaja             | Testiotsikko         | ei                  ", video.toString());
         video.setLuettu(true);

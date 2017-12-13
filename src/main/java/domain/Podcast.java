@@ -71,6 +71,21 @@ public class Podcast implements Lukuvinkki {
     public Type getType() {
         return Type.PODCAST;
     }
+
+    @Override
+    public String view() {
+        String rowRepresentation = TextTools.fit("Otsikko:", 20) + otsikko + "\n";
+        rowRepresentation += TextTools.fit("Tekijä:", 20) + tekija + "\n";
+        rowRepresentation += TextTools.fit("url:", 20) + url + "\n";
+        String kyllaEi;
+        if (kuunneltu) {
+            kyllaEi = "kyllä";
+        } else {
+            kyllaEi = "ei";
+        }
+        rowRepresentation += TextTools.fit("Kuunneltu:", 20) + kyllaEi;
+        return rowRepresentation;
+    }
     
     @Override
     public String toString() {

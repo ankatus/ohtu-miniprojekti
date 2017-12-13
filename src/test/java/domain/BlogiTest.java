@@ -32,6 +32,17 @@ public class BlogiTest {
     }
 
     @Test
+    public void view() {
+        assertEquals(
+                "Otsikko:            testi\n" +
+                        "Kirjoittaja:        testaaja\n" +
+                        "url:                testi.fi\n" +
+                        "luettu:             ei",
+                        blogi.view()
+        );
+    }
+
+    @Test
     public void blogiToString(){
         assertEquals("blogi                | testaaja             | testi                | ei                  ", blogi.toString());
     }
