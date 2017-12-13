@@ -31,9 +31,9 @@ public class TextUI {
         while (true) {
 
             io.println("Valitse lisättävä tyyppi");
-            io.println("Komento (1=kirja, 2=blogi, 3=video, \"\"=palaa):");
+            io.println("Komento (1=kirja, 2=blogi, 3=video, 4=podcast, \"\"=palaa):");
             String input = io.nextLine();
-
+            
             switch (input) {
 
                 case "1":
@@ -44,6 +44,9 @@ public class TextUI {
                     break addloop;
                 case "3":
                     addVideo();
+                    break addloop;
+                case "4":
+                    addPodcast();
                     break addloop;
                 //Tähän väliin muut tyypit
                 case "":
@@ -117,13 +120,23 @@ public class TextUI {
     }
     
     private void addVideo() throws SQLException {
-        io.println("Video otsikko: ");
+        io.println("Videon otsikko: ");
         String otsikko = io.nextLine();
         String tekija = addWriter();
         io.println("URL: ");
         String url = io.nextLine();
         Video video = new Video(otsikko, tekija, url);
         dao.saveLukuvinkki(video);
+    }
+    
+    private void addPodcast() throws SQLException {
+        io.println("Podcastin nimi: ");
+        String otsikko = io.nextLine();
+        String tekija = addWriter();
+        io.println("URL: ");
+        String url = io.nextLine();
+        Podcast podcast = new Podcast(otsikko, tekija, url);
+        dao.saveLukuvinkki(podcast);
     }
 
     private void list(Filter... filters) throws SQLException {

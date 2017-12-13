@@ -12,12 +12,15 @@ public class MasterDAO {
     private BlogiDAO blogiDAO;
     private KommenttiDAO kommenttiDAO;
     private VideoDAO videoDAO;
+    private PodcastDAO podcastDAO;
 
-    public MasterDAO(KirjaDAO kirjaDAO, BlogiDAO blogiDAO, KommenttiDAO kommenttiDAO, VideoDAO videoDAO) {
+    public MasterDAO(KirjaDAO kirjaDAO, BlogiDAO blogiDAO, 
+            KommenttiDAO kommenttiDAO, VideoDAO videoDAO, PodcastDAO podcastDAO) {
         this.kirjaDAO = kirjaDAO;
         this.blogiDAO = blogiDAO;
         this.kommenttiDAO = kommenttiDAO;
         this.videoDAO = videoDAO;
+        this.podcastDAO = podcastDAO;
     }
 
     public ArrayList<Lukuvinkki> getAllLukuvinkki() {
@@ -25,6 +28,7 @@ public class MasterDAO {
         all.addAll(kirjaDAO.getAll());
         all.addAll(blogiDAO.getAll());
         all.addAll(videoDAO.getAll());
+        all.addAll(podcastDAO.getAll());
         return all;
     }
 
@@ -35,6 +39,8 @@ public class MasterDAO {
             blogiDAO.save((Blogi) lukuvinkki);
         } else if (lukuvinkki.getType() == Type.VIDEO) {
             videoDAO.save((Video) lukuvinkki);
+        } else if (lukuvinkki.getType() == Type.PODCAST) {
+            podcastDAO.save((Podcast) lukuvinkki);
         } else {
             //muita tyyppejä odotellessa
         }
