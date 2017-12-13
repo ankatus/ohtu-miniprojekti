@@ -40,9 +40,9 @@ public class VideoTest {
 
     @Test
     public void toStringTest() {
-        assertEquals("Testaaja             | Testiotsikko         | testi.fi             | ei                  ", video.toString());
+        assertEquals("video                | Testaaja             | Testiotsikko         | ei                  ", video.toString());
         video.setLuettu(true);
-        assertEquals("Testaaja             | Testiotsikko         | testi.fi             | kyllä               ", video.toString());
+        assertEquals("video                | Testaaja             | Testiotsikko         | kyllä               ", video.toString());
     }
 
 }

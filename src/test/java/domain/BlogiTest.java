@@ -33,7 +33,7 @@ public class BlogiTest {
 
     @Test
     public void blogiToString(){
-        assertEquals("testaaja             | testi                | testi.fi             | ei                  ", blogi.toString());
+        assertEquals("blogi                | testaaja             | testi                | ei                  ", blogi.toString());
     }
     
     @Test
@@ -54,7 +54,7 @@ public class BlogiTest {
         blogi.setOtsikko("teste");
         blogi.setKirjoittaja("testaaje");
         blogi.setUrl("testi.fe");
-        assertEquals("testaaje             | teste                | testi.fe             | ei                  ", blogi.toString());
+        assertEquals("blogi                | testaaje             | teste                | ei                  ", blogi.toString());
         assertEquals("B2", blogi.getID());
     }
     

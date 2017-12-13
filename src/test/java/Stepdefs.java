@@ -33,6 +33,9 @@ public class Stepdefs {
     MasterDAO dao;
     DbVideoDAO videoDAO;
 
+    
+
+
     @cucumber.api.java.Before
     public void setUp() throws ClassNotFoundException {
         inputLines = new ArrayList<>();
@@ -43,6 +46,7 @@ public class Stepdefs {
         videoDAO = new DbVideoDAO(database);
         dao = new MasterDAO(kirjaDAO, blogiDAO, kommenttiDAO, videoDAO);
     }
+
     
 //    @Given("^system is asking input from user$")
 //    public void system_is_asking_input_from_user() throws Throwable {
@@ -117,6 +121,7 @@ public class Stepdefs {
 //    }
 
 
+
     @Given("^list view is entered$")
     public void list_view_is_entered() {
         inputLines.add("2");
@@ -153,5 +158,6 @@ public class Stepdefs {
         }
         assertTrue(false);
     }
+
 
 }

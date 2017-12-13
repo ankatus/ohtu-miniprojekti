@@ -37,6 +37,10 @@ public class TextTools {
         }
     }
 
+    public static String createDefaultHeaders() {
+        return createHeaders(20, "tyyppi", "kirjoittaja", "otsikko", "luettu");
+    }
+
     private static String createHeaders(int length, String... headers) {
         String headersRow = fit("index", 10);
         for (String s : headers) {

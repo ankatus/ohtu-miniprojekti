@@ -131,6 +131,7 @@ public class TextUI {
             ArrayList<Lukuvinkki> lukuvinkkiList = dao.getAllLukuvinkki();
             ArrayList<IndexIdPair> filteredList = LukuvinkkiTools.getFilteredIndexedList(lukuvinkkiList, filters);
             //labelit ja headerit tähän
+            System.out.println(TextTools.createDefaultHeaders());
             printIndexIdPairList(filteredList, lukuvinkkiList);
             io.println();
             io.println("Haluatko tarkastella lukuvinkkiä?");

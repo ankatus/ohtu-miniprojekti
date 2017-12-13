@@ -35,7 +35,7 @@ public class KirjaTest {
 
     @Test
     public void kirjaToString(){
-        assertEquals("testaaja             | testi                | 12345678             | ei                  ", kirja.toString());
+        assertEquals("kirja                | testaaja             | testi                | ei                  ", kirja.toString());
     }
     
     @Test
@@ -56,7 +56,7 @@ public class KirjaTest {
         kirja.setOtsikko("teste");
         kirja.setKirjoittaja("testaaje");
         kirja.setIsbn("12345677");
-        assertEquals("testaaje             | teste                | 12345677             | ei                  ", kirja.toString());
+        assertEquals("kirja                | testaaje             | teste                | ei                  ", kirja.toString());
         assertEquals("K2", kirja.getID());
     }
 }
