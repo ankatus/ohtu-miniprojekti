@@ -33,7 +33,7 @@ public class StubIO implements IO {
 
     @Override
     public void println() {
-        println("");
+        outputs.add("");
     }
 
     @Override
