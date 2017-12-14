@@ -64,11 +64,7 @@ public class Stepdefs {
 
     @When("^empty string is entered$")
     public void empty_string_is_entered() throws Throwable {
-        inputLines.add("1"); // Sitten palataan
-        inputLines.add(""); // ja poistutaan ohjelmasta
-        io = new StubIO(inputLines.toArray(new String[]{}));
-        ui = new TextUI(io, dao);
-        ui.run();
+        runTestUI();
     }
 
     @Then("^system will navigate back$")
@@ -88,11 +84,7 @@ public class Stepdefs {
     @When("^marked as read$")
     public void marked_as_read() throws Throwable {
         inputLines.add("m");
-        inputLines.add("");
-        inputLines.add("");
-        io = new StubIO(inputLines.toArray(new String[]{}));
-        ui = new TextUI(io, dao);
-        ui.run();
+        runTestUI();
     }
 
     @Then("^user can see it is marked as read$")
@@ -290,6 +282,24 @@ public class Stepdefs {
         assertTrue(outputsContains(io, new Kirja("testi", "testinen", "1234").toString()));
     }
 
+    @Given("^\"tagit\" is selected$")
+    public void tagit_is_selected() {
+        inputLines.add("5");
+    }
+
+    @Given("^a new tag is added$")
+    public void new_tag_added() {
+        inputLines.add("1");
+        inputLines.add("tagi");
+    }
+
+    @Then("^that tag can be seen in the list$")
+    public void that_tag_can_be_seen_in_the_list() throws SQLException {
+        runTestUI();
+
+        assertTrue(outputsContains(io, "tagi"));
+    }
+
     boolean outputsContains(StubIO io, String string) {
         for (String line : io.getOutputs()) {
             if (line.contains(string)) {
@@ -309,6 +319,7 @@ public class Stepdefs {
     }
 
     void runTestUI() throws SQLException {
+        inputLines.add("");
         inputLines.add("");
         inputLines.add("");
         io = new StubIO(inputLines.toArray(new String[]{}));
