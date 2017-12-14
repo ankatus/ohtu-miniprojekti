@@ -6,7 +6,7 @@
 
 [![codecov](https://codecov.io/gh/ankatus/ohtu-miniprojekti/branch/master/graph/badge.svg)](https://codecov.io/gh/ankatus/ohtu-miniprojekti)
 
-## Definition of Done (alustava luonnos)
+## Definition of Done
 - Testikattavuus vähintään 80 %
 - Uusilla ominaisuuksilla Cucmber-testit
 - Ohjelma käynnistyy  
@@ -16,6 +16,6 @@
 - Asiakas hyväksyy  
 
 
-## Asennus- ja käyttöohje (alustava)
-Lataa github repositoriosta löytyvä .jar tiedosto ja lukuvinkkikirjasto.db tietokanta. Siirrä molemmat tiedostot samaan kansioon ja käynnistä ohjelma suorittamalla komentorivillä komento: java -jar (jartiedostonnimi).jar . Nyt komentoriville tulee näkyviin mitä komentoja voit käyttää ja mitä ne tekevät.
+## Asennus- ja käyttöohje
+Lataa github repositoriosta löytyvä .jar tiedosto. Siirrä .jar tiedosto haluamaasi kansioon ja käynnistä ohjelma suorittamalla komentorivillä komento: java -jar (jartiedostonnimi).jar . Nyt komentoriville tulee näkyviin mitä komentoja voit käyttää ja mitä ne tekevät. Kun käynnistät ohjelman ensimmäisen kerran ohjelma luo lukuvinkkikirjasto.db tietokannan lukuvinkeille. Tietokanta luodaan kansioon, jossa .jar tiedosto sijaitsee.
 
