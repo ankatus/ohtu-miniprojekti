@@ -1,8 +1,5 @@
 package user_interface;
 
-import data_access.*;
-import domain.StubBlogi;
-import domain.StubKirja;
 import org.junit.Before;
 import org.junit.Test;
 
