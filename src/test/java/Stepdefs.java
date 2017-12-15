@@ -1,7 +1,5 @@
 
 import domain.Kirja;
-import org.junit.Before;
-import tools.TextTools;
 import user_interface.*;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -14,10 +12,7 @@ import java.io.FileWriter;
  */
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.UUID;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class Stepdefs {
